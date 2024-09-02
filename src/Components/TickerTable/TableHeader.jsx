@@ -9,12 +9,6 @@ export default function TableHeader({ sort, header, sorters }) {
     }, [header])
     return (
         <div className='border-b border-slate-500 select-none w-full bg-[#ECECEC] h-[15%] flex items-center justify-start text-[1rem] shadow font-Sansation-Bold border-t'>
-            <div className='relative w-[3%] h-full flex justify-center items-center text-center border-l border-slate-500 text-base'>
-                no.
-            </div>
-            <div className='relative w-[7%] h-full flex justify-center items-center text-center border-x border-slate-500 text-base'>
-                Check
-            </div>
             <div className='relative w-[13.9%] h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
                 onClick={() => {
                     sort("ticker", "String")
@@ -33,7 +27,62 @@ export default function TableHeader({ sort, header, sorters }) {
                     className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
                 />
             </div>
-            {
+            <div className='relative w-[13.9%] h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
+                onClick={() => {
+                    sort("float", "Number")
+                }}>
+                Float
+                <img src={(sorters.float === 0) ? SORT : (sorters.float === 1 ? SORT_UP : SORT_DOWN)}
+                    className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
+                />
+            </div>
+            <div className='relative w-[13.9%] h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
+                onClick={() => {
+                    sort("volume_today", "Number")
+                }}>
+                Vol
+                <img src={(sorters.volume_today === 0) ? SORT : (sorters.volume_today === 1 ? SORT_UP : SORT_DOWN)}
+                    className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
+                />
+            </div>
+            <div className='relative w-[13.9%] h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
+                onClick={() => {
+                    sort("relative_volume", "Number")
+                }}>
+                Rel Vol
+                <img src={(sorters.relative_volume === 0) ? SORT : (sorters.relative_volume === 1 ? SORT_UP : SORT_DOWN)}
+                    className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
+                />
+            </div>
+            <div className='relative w-[13.9%] h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
+                onClick={() => {
+                    sort("change_from_the_Close", "Number")
+                }}>
+                &Delta; Close
+                <img src={(sorters.change_from_the_Close === 0) ? SORT : (sorters.change_from_the_Close === 1 ? SORT_UP : SORT_DOWN)}
+                    className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
+                />
+            </div>
+            <div className='relative w-[13.9%] h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
+                onClick={() => {
+                    sort("change_from_the_Open", "Number")
+                }}>
+                &Delta; Open
+                <img src={(sorters.change_from_the_Open === 0) ? SORT : (sorters.change_from_the_Open === 1 ? SORT_UP : SORT_DOWN)}
+                    className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
+                />
+            </div>
+            <div className='relative w-[13.9%] h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
+                onClick={() => {
+                    sort("today_range", "Number")
+                }}>
+                Today Range %
+                <img src={(sorters.today_range === 0) ? SORT : (sorters.today_range === 1 ? SORT_UP : SORT_DOWN)}
+                    className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
+                />
+            </div>
+
+            {/* {
                 header.filter((h) => {
                     return (
                         h.name === 'sector' ||
@@ -45,8 +94,8 @@ export default function TableHeader({ sort, header, sorters }) {
                         h.name === 'gap_go_time'
                     )
                 }).map((h, index) => {
-                    if(h.name == "Ticker") return
-                    if(h.name == "Price") return
+                    if (h.name == "Ticker") return
+                    if (h.name == "Price") return
                     return (
                         <div className='relative w-[13.9%] h-full flex justify-center items-center text-center border-r border-slate-500 text-sm'
                             onClick={() => {
@@ -59,7 +108,7 @@ export default function TableHeader({ sort, header, sorters }) {
                         </div>
                     )
                 })
-            }
+            } */}
         </div>
     )
 }

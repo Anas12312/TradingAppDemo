@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import TableRow from './TableRow'
-import CustomContextMenu from './CustomContextMenu';
 import config from '../../../config.json'
 export default function TableBody({ searchedRecords, records, header, setSelectedTicker, setRecords, setSearchedRecords }) {
     const [clicked, setClicked] = useState(false);

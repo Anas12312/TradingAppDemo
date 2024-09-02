@@ -2,16 +2,16 @@ import React, { useEffect, useState } from 'react'
 import TableHeader from './TableHeader'
 import TableBody from './TableBody'
 import config from '../../../config.json'
-export default function TickerTable({ setSelectedTicker }) {
+export default function TickerTable({ setSelectedTicker, data }) {
     const Sorted = {
         NO: 0,
         ASC: 1,
         DEC: -1
     }
-    const [records, setRecords] = useState([])
+    const [records, setRecords] = useState(data.scan.records)
     const [sorted, setSorted] = useState(false)
-    const [searchedRecords, setSearchedRecords] = useState([])
-    const [headers, setHeaders] = useState([])
+    const [searchedRecords, setSearchedRecords] = useState(data.scan.records)
+    const [headers, setHeaders] = useState(data.scan.headers)
     const [sorters, setSorters] = useState([])
     const [reload, setReload] = useState(false)
     const [search, setSearch] = useState('')
@@ -62,20 +62,13 @@ export default function TickerTable({ setSelectedTicker }) {
         setSorted(!sorted)
 
     }
-    async function fetchRecords() {
-        const results = await fetch(config.API_URL + '/tickers')
-        const response = await results.json()
-        setHeaders(response.headers)
-        setRecords(response.records)
-        setSearchedRecords(response.records)
+
+    useEffect(() => {
         const sorters = {}
-        response.headers.forEach((h) => {
+        data.scan.headers.forEach((h) => {
             sorters[h.name] = Sorted.NO
         })
         setSorters(sorters)
-    }
-    useEffect(() => {
-        fetchRecords()
     }, [])
 
     useEffect(() => {
@@ -110,8 +103,6 @@ export default function TickerTable({ setSelectedTicker }) {
                     <TableHeader sort={sort} header={headers} sorters={sorters} />
                     <TableBody searchedRecords={searchedRecords} header={headers} setSelectedTicker={setSelectedTicker} records={records} setRecords={setRecords} setSearchedRecords={setSearchedRecords} />
                 </div>
-
-
 
             </div>
         </div>
