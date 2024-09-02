@@ -3,7 +3,7 @@ import { FaPlus, FaCog, FaArrowsAlt, FaTimes } from 'react-icons/fa';
 
 const Header = ({ text }) => {
   return (
-    <div className="flex justify-between items-center p-2 bg-gray-800 text-white rounded-t drag-handle h-[10%]">
+    <div className="flex justify-between items-center p-2 bg-gray-800 text-white rounded-t drag-handle h-[2.5`rem]">
       {/* Left side text */}
       <div className="font-semibold text-lg">
         {text}

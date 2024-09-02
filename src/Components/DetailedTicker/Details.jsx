@@ -5,9 +5,8 @@ import TableBody from './TableBody'
 export default function Details({ selectedTicker }) {
     return (
         <div className='w-full h-[90%] border-l border-t'>
-            {selectedTicker.Ticker ? (
+            {selectedTicker.ticker ? (
                 <div className='flex flex-col h-full text-xl p-3'>
-                    <div className='font-bold'>Ticker: {selectedTicker.Ticker}</div>
                     <div className='w-full border-collapse h-[100%] overflow-y-scroll scrollbar-none'>
                         <TableBody ticker={selectedTicker} />
                     </div>

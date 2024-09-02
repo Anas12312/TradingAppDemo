@@ -83,7 +83,7 @@ export default function TickerTable({ setSelectedTicker }) {
         if (search === "") {
             setSearchedRecords(records)
         } else {
-            setSearchedRecords(records.filter(x => x.Ticker?.toLowerCase().includes(search.toLowerCase().trim())))
+            setSearchedRecords(records.filter(x => x.ticker?.toLowerCase().includes(search.toLowerCase().trim())))
         }
         return () => {
             // console.log(searchedRecords);
