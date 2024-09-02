@@ -3,13 +3,15 @@ import config from '../../config.json'
 
 const LogIn = ({ setIsLoggedIn }) => {
 
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('')
 
     const [loginDisabled, setLoginDisabled] = useState(false);
 
     const onSubmitLogin = async (e) => {
+
+        e.preventDefault()
 
         setError('')
 
@@ -23,25 +25,29 @@ const LogIn = ({ setIsLoggedIn }) => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    email,
+                    username,
                     password
                 })
             })
 
-            if (!response.ok) throw response.status;
-            setIsLoggedIn(false)
+            if (response.status != 200) throw response.status;
+
+            if (response.status == 200) {
+                console.log('asdasd');
+                setIsLoggedIn(true)
+            }
         }
 
         catch (e) {
             console.log(e);
             setLoginDisabled(false);
-            if(e == 401) {
-                setError(e+' Wrong email or password')
+            if (e == 401) {
+                setError(e + ' Wrong username or password')
             }
-            if(e == 400) {
-                setError(e+ ' Invalid email or password')
+            if (e == 400) {
+                setError(e + ' Invalid username or password')
             }
-            if(e == 404) {
+            if (e == 404) {
                 setError(e + ' Server Error')
             }
         }
@@ -67,8 +73,8 @@ const LogIn = ({ setIsLoggedIn }) => {
 
                         <form className="space-y-4 md:space-y-6" action="#" onSubmit={onSubmitLogin}>
                             <div>
-                                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 ">Email</label>
-                                <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-[#378CE7] focus:border-[#378CE7] block w-full p-2.5 " placeholder="name@company.com" required={true} />
+                                <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900 ">username</label>
+                                <input value={username} onChange={(e) => setUsername(e.target.value)} type="username" name="username" id="username" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-[#378CE7] focus:border-[#378CE7] block w-full p-2.5 " placeholder="name@company.com" required={true} />
                             </div>
                             <div>
                                 <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900">Password</label>
