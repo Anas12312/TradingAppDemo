@@ -12,7 +12,7 @@ export default function PriceChart({ ticker }) {
         setSelectedChart(charts[e.target.id])
     }
     return (
-        ticker.heik_1day ? (
+        ticker?.heik_1day ? (
             <div className='flex flex-col justify-start items-center h-[90%] w-full border-t p-2'>
                 <div className='flex w-[50%] justify-between'>
                     <label className='flex justify-center items-center'><input d onChange={selectChart} type="radio" name="chart" id="0" /><div className='pl-2'>heik_1min</div></label>

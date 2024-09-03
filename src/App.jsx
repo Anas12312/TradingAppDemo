@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import Main from "./Tabs/Main"
 import Second from './Tabs/Second'
 import config from '../config.json'
+import Third from "./Tabs/Third"
 
 const TABS = [
   'Scan',
@@ -62,6 +63,10 @@ function App() {
 
       {
         tab === TABS[1] && data && <Second data={data} />
+      }
+
+{
+        tab === TABS[2] && data && <Third data={data} />
       }
     </>
   )

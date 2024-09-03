@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import TickerTable from '../Components/SignalTable/TickerTable'
+import TickerTable from '../Components/SignalLogsTable/TickerTable'
 import PriceChart from '../Components/PriceChart/PriceChart'
 import Details from '../Components/DetailedTicker/Details'
 import Testing from '../Components/Testing'
@@ -8,7 +8,7 @@ import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 import Header from '../Components/Header'
 
-function Second({ data }) {
+function Third({ data }) {
   const [selectedTicker, setSelectedTicker] = useState('')
   const [selectedTickerData, setSelectedTickerData] = useState({})
   useEffect(() => {
@@ -32,4 +32,4 @@ function Second({ data }) {
   )
 }
 
-export default Second
+export default Third
