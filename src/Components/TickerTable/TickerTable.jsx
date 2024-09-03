@@ -15,6 +15,7 @@ export default function TickerTable({ setSelectedTicker, data }) {
     const [sorters, setSorters] = useState([])
     const [reload, setReload] = useState(false)
     const [search, setSearch] = useState('')
+    const [newRecords, setnewRecords] = useState(false)
     async function refresh() {
         setReload(!reload)
     }
@@ -58,8 +59,24 @@ export default function TickerTable({ setSelectedTicker, data }) {
                     return 0;
                 }))
             }
+        } else if (type == "Date") {
+            console.log(field);
+            if (tempSorter[field] === Sorted.ASC) {
+                setRecords(records.sort((a, b) => {
+                    const dateA = new Date(a[field]);
+                    const dateB = new Date(b[field]);
+
+                    return dateA - dateB;  // Ascending order
+                }));
+            } else if (tempSorter[field] === Sorted.DEC) {
+                setRecords(records.sort((a, b) => {
+                    const dateA = new Date(a[field]);
+                    const dateB = new Date(b[field]);
+
+                    return dateB - dateA;  // Descending order
+                }));
+            }
         }
-        setSorted(!sorted)
 
     }
 
@@ -69,7 +86,6 @@ export default function TickerTable({ setSelectedTicker, data }) {
             sorters[h.name] = Sorted.NO
         })
         setSorters(sorters)
-
         setRecords(data.scan.records)
         setHeaders(data.scan.headers)
         setSearchedRecords(data.scan.records)
@@ -77,20 +93,22 @@ export default function TickerTable({ setSelectedTicker, data }) {
     }, [])
 
     useEffect(() => {
-        const sorters = {}
-        data.scan.headers.forEach((h) => {
-            sorters[h.name] = Sorted.NO
-        })
-        setSorters(sorters)
-
         setRecords(data.scan.records)
         setHeaders(data.scan.headers)
         setSearchedRecords(data.scan.records)
-
+        setnewRecords(true)
     }, [data])
 
     useEffect(() => {
-        console.log("anas")
+        const sortedField = Object.keys(sorters).filter((s) => sorters[s])[0]
+        console.log(sortedField)
+        const header = headers.filter(h => h.name === sortedField)[0]
+        console.log(header)
+        setnewRecords(false)
+        sortedField && sort(sortedField, header.type)
+    }, [newRecords])
+
+    useEffect(() => {
         if (search === "") {
             setSearchedRecords(records)
         } else {

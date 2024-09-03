@@ -88,37 +88,37 @@ export default function TableHeader({ sort, header, sorters }) {
                 <div className='w-full h-full border-t border-slate-500 flex'>
                     <div className='relative w-full h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
                         onClick={() => {
-                            sort("today_range", "Number")
+                            sort("halt_resume_time", "Date")
                         }}>
                         H
-                        <img src={(sorters.today_range === 0) ? SORT : (sorters.today_range === 1 ? SORT_UP : SORT_DOWN)}
+                        <img src={(sorters.halt_resume_time === 0) ? SORT : (sorters.halt_resume_time === 1 ? SORT_UP : SORT_DOWN)}
                             className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
                         />
                     </div>
                     <div className='relative w-full h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
                         onClick={() => {
-                            sort("today_range", "Number")
+                            sort("momo_time", "Date")
                         }}>
                         M
-                        <img src={(sorters.today_range === 0) ? SORT : (sorters.today_range === 1 ? SORT_UP : SORT_DOWN)}
+                        <img src={(sorters.momo_time === 0) ? SORT : (sorters.momo_time === 1 ? SORT_UP : SORT_DOWN)}
                             className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
                         />
                     </div>
                     <div className='relative w-full h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
                         onClick={() => {
-                            sort("today_range", "Number")
+                            sort("turbo_time", "Date")
                         }}>
                         T
-                        <img src={(sorters.today_range === 0) ? SORT : (sorters.today_range === 1 ? SORT_UP : SORT_DOWN)}
+                        <img src={(sorters.turbo_time === 0) ? SORT : (sorters.turbo_time === 1 ? SORT_UP : SORT_DOWN)}
                             className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
                         />
                     </div>
                     <div className='relative w-full h-full flex justify-center items-center text-center  text-base'
                         onClick={() => {
-                            sort("today_range", "Number")
+                            sort("gap_go_time", "Date")
                         }}>
                         G
-                        <img src={(sorters.today_range === 0) ? SORT : (sorters.today_range === 1 ? SORT_UP : SORT_DOWN)}
+                        <img src={(sorters.gap_go_time === 0) ? SORT : (sorters.gap_go_time === 1 ? SORT_UP : SORT_DOWN)}
                             className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
                         />
                     </div>
