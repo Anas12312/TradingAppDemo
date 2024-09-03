@@ -8,8 +8,8 @@ export default function TableHeader({ sort, header, sorters }) {
         // console.log(header)
     }, [header])
     return (
-        <div className='border-b border-slate-500 select-none w-full bg-[#ECECEC] h-[15%] flex items-center justify-start text-[1rem] shadow font-Sansation-Bold border-t'>
-            <div className='relative w-[13.9%] h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
+        <div className='border-b border-slate-500 select-none w-full bg-[#ECECEC] h-[20%] flex items-center justify-start text-[1rem] shadow font-Sansation-Bold border-t'>
+            <div className='relative w-[10%] h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
                 onClick={() => {
                     sort("ticker", "String")
                 }}>
@@ -18,7 +18,7 @@ export default function TableHeader({ sort, header, sorters }) {
                     className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
                 />
             </div>
-            <div className='relative w-[13.9%] h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
+            <div className='relative w-[10%] h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
                 onClick={() => {
                     sort("price", "Number")
                 }}>
@@ -27,7 +27,7 @@ export default function TableHeader({ sort, header, sorters }) {
                     className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
                 />
             </div>
-            <div className='relative w-[13.9%] h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
+            <div className='relative w-[10%] h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
                 onClick={() => {
                     sort("float", "Number")
                 }}>
@@ -36,7 +36,7 @@ export default function TableHeader({ sort, header, sorters }) {
                     className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
                 />
             </div>
-            <div className='relative w-[13.9%] h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
+            <div className='relative w-[10%] h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
                 onClick={() => {
                     sort("volume_today", "Number")
                 }}>
@@ -45,7 +45,7 @@ export default function TableHeader({ sort, header, sorters }) {
                     className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
                 />
             </div>
-            <div className='relative w-[13.9%] h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
+            <div className='relative w-[10%] h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
                 onClick={() => {
                     sort("relative_volume", "Number")
                 }}>
@@ -54,7 +54,7 @@ export default function TableHeader({ sort, header, sorters }) {
                     className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
                 />
             </div>
-            <div className='relative w-[13.9%] h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
+            <div className='relative w-[10%] h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
                 onClick={() => {
                     sort("change_from_the_Close", "Number")
                 }}>
@@ -63,7 +63,7 @@ export default function TableHeader({ sort, header, sorters }) {
                     className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
                 />
             </div>
-            <div className='relative w-[13.9%] h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
+            <div className='relative w-[10%] h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
                 onClick={() => {
                     sort("change_from_the_Open", "Number")
                 }}>
@@ -72,7 +72,7 @@ export default function TableHeader({ sort, header, sorters }) {
                     className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
                 />
             </div>
-            <div className='relative w-[13.9%] h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
+            <div className='relative w-[10%] h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
                 onClick={() => {
                     sort("today_range", "Number")
                 }}>
@@ -80,6 +80,49 @@ export default function TableHeader({ sort, header, sorters }) {
                 <img src={(sorters.today_range === 0) ? SORT : (sorters.today_range === 1 ? SORT_UP : SORT_DOWN)}
                     className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
                 />
+            </div>
+            <div className='relative w-[20%] h-full flex flex-col items-center '>
+                <div className='h-full'>
+                    Scanner Types
+                </div>
+                <div className='w-full h-full border-t border-slate-500 flex'>
+                    <div className='relative w-full h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
+                        onClick={() => {
+                            sort("today_range", "Number")
+                        }}>
+                        H
+                        <img src={(sorters.today_range === 0) ? SORT : (sorters.today_range === 1 ? SORT_UP : SORT_DOWN)}
+                            className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
+                        />
+                    </div>
+                    <div className='relative w-full h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
+                        onClick={() => {
+                            sort("today_range", "Number")
+                        }}>
+                        M
+                        <img src={(sorters.today_range === 0) ? SORT : (sorters.today_range === 1 ? SORT_UP : SORT_DOWN)}
+                            className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
+                        />
+                    </div>
+                    <div className='relative w-full h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
+                        onClick={() => {
+                            sort("today_range", "Number")
+                        }}>
+                        T
+                        <img src={(sorters.today_range === 0) ? SORT : (sorters.today_range === 1 ? SORT_UP : SORT_DOWN)}
+                            className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
+                        />
+                    </div>
+                    <div className='relative w-full h-full flex justify-center items-center text-center  text-base'
+                        onClick={() => {
+                            sort("today_range", "Number")
+                        }}>
+                        G
+                        <img src={(sorters.today_range === 0) ? SORT : (sorters.today_range === 1 ? SORT_UP : SORT_DOWN)}
+                            className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
+                        />
+                    </div>
+                </div>
             </div>
 
             {/* {
@@ -97,7 +140,7 @@ export default function TableHeader({ sort, header, sorters }) {
                     if (h.name == "Ticker") return
                     if (h.name == "Price") return
                     return (
-                        <div className='relative w-[13.9%] h-full flex justify-center items-center text-center border-r border-slate-500 text-sm'
+                        <div className='relative w-[10%] h-full flex justify-center items-center text-center border-r border-slate-500 text-sm'
                             onClick={() => {
                                 sort(h.name, h.type)
                             }}>

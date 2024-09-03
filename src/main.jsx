@@ -11,10 +11,10 @@ const Main = () => {
   return (
     <>
       {
-        isLoggedIn ? 
-        <App /> :
-        <LogIn setIsLoggedIn={setIsLoggedIn}/>
-      }      
+        isLoggedIn ?
+          <App /> :
+          <LogIn setIsLoggedIn={setIsLoggedIn} />
+      }
     </>
   );
 }
@@ -23,7 +23,5 @@ export default Main;
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <Main />
-  </React.StrictMode>,
+  <Main />,
 )
