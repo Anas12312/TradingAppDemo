@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import TickerTable from '../Components/TickerTable/TickerTable'
+import TickerTable from '../Components/SignalTable/TickerTable'
 import PriceChart from '../Components/PriceChart/PriceChart'
 import Details from '../Components/DetailedTicker/Details'
 import Testing from '../Components/Testing'
@@ -15,14 +15,16 @@ function Second({ data }) {
   }, [selectedTicker])
   const layout = [
     { i: "a", x: 1, y: 0, w: 8, h: 10 },
-    { i: "b", x: 1, y: 0, w: 8, h: 10 },
+    { i: "b", x: 1, y: 0, w: 4, h: 10 },
+    { i: "c", x: 5, y: 0, w: 4, h: 10 }
   ];
   return (
     <div>
       <GridLayout className="layout" layout={layout} cols={12} rowHeight={30} width={2400} draggableHandle='.drag-handle' >
         <div key="a" className="grid-item border-2 border-slate-500 rounded-t"><Header text={"Tickers Table"} /><TickerTable data={data} setSelectedTicker={setSelectedTicker} /></div>
         <div key="b" className="grid-item border-2 border-slate-500 rounded-t"><Header text={"Price Chart " + (selectedTicker.ticker ? selectedTicker.ticker : "")} /><PriceChart ticker={selectedTicker} /></div>
-      </GridLayout>
+        <div key="c" className="grid-item border-2 border-slate-500 rounded-t"><Header text={"Details " + (selectedTicker.ticker ? selectedTicker.ticker : "")}/><Details selectedTicker={selectedTicker} /></div>
+        </GridLayout>
     </div>
   )
 }

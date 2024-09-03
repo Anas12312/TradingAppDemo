@@ -8,10 +8,10 @@ export default function TickerTable({ setSelectedTicker, data }) {
         ASC: 1,
         DEC: -1
     }
-    const [records, setRecords] = useState(data.scan.records)
+    const [records, setRecords] = useState(data.signal.records)
     const [sorted, setSorted] = useState(false)
-    const [searchedRecords, setSearchedRecords] = useState(data.scan.records)
-    const [headers, setHeaders] = useState(data.scan.headers)
+    const [searchedRecords, setSearchedRecords] = useState(data.signal.records)
+    const [headers, setHeaders] = useState(data.signal.headers)
     const [sorters, setSorters] = useState([])
     const [reload, setReload] = useState(false)
     const [search, setSearch] = useState('')
@@ -65,7 +65,7 @@ export default function TickerTable({ setSelectedTicker, data }) {
 
     useEffect(() => {
         const sorters = {}
-        data.scan.headers.forEach((h) => {
+        data.signal.headers.forEach((h) => {
             sorters[h.name] = Sorted.NO
         })
         setSorters(sorters)
