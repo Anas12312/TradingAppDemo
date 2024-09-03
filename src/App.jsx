@@ -4,11 +4,11 @@ import Second from './Tabs/Second'
 import config from '../config.json'
 
 const TABS = [
-  'Main',
-  1,
-  2,
-  3,
-  5
+  'Scan',
+  'Active Signals',
+  'Signals Logs',
+  'In Trade',
+  'Alarms'
 ]
 
 function App() {
@@ -52,7 +52,7 @@ function App() {
       }
 
       {
-        tab === TABS[1] && <Second />
+        tab === TABS[1] && data && <Second data={data} />
       }
     </>
   )
