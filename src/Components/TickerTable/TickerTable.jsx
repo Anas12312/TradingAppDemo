@@ -69,7 +69,25 @@ export default function TickerTable({ setSelectedTicker, data }) {
             sorters[h.name] = Sorted.NO
         })
         setSorters(sorters)
+
+        setRecords(data.scan.records)
+        setHeaders(data.scan.headers)
+        setSearchedRecords(data.scan.records)
+
     }, [])
+
+    useEffect(() => {
+        const sorters = {}
+        data.scan.headers.forEach((h) => {
+            sorters[h.name] = Sorted.NO
+        })
+        setSorters(sorters)
+
+        setRecords(data.scan.records)
+        setHeaders(data.scan.headers)
+        setSearchedRecords(data.scan.records)
+
+    }, [data])
 
     useEffect(() => {
         console.log("anas")

@@ -11,6 +11,10 @@ const TABS = [
   5
 ]
 
+function delay(time) {
+  return new Promise(resolve => setTimeout(resolve, time));
+}
+
 function App() {
 
   const [tab, setTab] = useState(TABS[0])
@@ -29,9 +33,14 @@ function App() {
     //   sorters[h.name] = Sorted.NO
     // })
     // setSorters(sorters)
+
+    await delay(5000)
+    await fetchRecords()
   }
   useEffect(() => {
+
     fetchRecords()
+
   }, [])
 
   return (

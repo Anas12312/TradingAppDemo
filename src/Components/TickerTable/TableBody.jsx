@@ -15,9 +15,29 @@ export default function TableBody({ searchedRecords, records, header, setSelecte
             window.removeEventListener("click", handleClick);
         };
     }, []);
-    async function deleteTicker(ticker) {
-        await fetch(config.API_URL + '/tickers/' + ticker, {
-            method: "DELETE"
+    async function dismissTicker(ticker) {
+        await fetch(config.API_URL + '/tickers/dismiss/' + ticker, {
+            method: "POST"
+        })
+        const newRecords = records.filter(r => r.ticker !== ticker)
+        const newSearchedRecords = searchedRecords.filter(r => r.ticker !== ticker)
+        console.log(newRecords)
+        setRecords(newRecords)
+        setSearchedRecords(newSearchedRecords)
+    }
+    async function activateTicker(ticker) {
+        await fetch(config.API_URL + '/tickers/activate/' + ticker, {
+            method: "POST"
+        })
+        const newRecords = records.filter(r => r.ticker !== ticker)
+        const newSearchedRecords = searchedRecords.filter(r => r.ticker !== ticker)
+        console.log(newRecords)
+        setRecords(newRecords)
+        setSearchedRecords(newSearchedRecords)
+    }
+    async function deactivateTicker(ticker) {
+        await fetch(config.API_URL + '/tickers/deactivate/' + ticker, {
+            method: "POST"
         })
         const newRecords = records.filter(r => r.ticker !== ticker)
         const newSearchedRecords = searchedRecords.filter(r => r.ticker !== ticker)
@@ -26,7 +46,7 @@ export default function TableBody({ searchedRecords, records, header, setSelecte
         setSearchedRecords(newSearchedRecords)
     }
     return (
-        <div className='w-full h-[85%] relative'>
+        <div className='w-full h-[80%] relative'>
 
             <div className='border-2 border-slate-500 border-t-0 h-full [&>*:nth-child(even)]:bg-white [&>*:nth-child(odd)]:bg-[#D9D9D9]
                         [&>*:nth-child(even)]:border-slate-200 [&>*:nth-child(odd)]:border-slate-300
@@ -39,14 +59,20 @@ export default function TableBody({ searchedRecords, records, header, setSelecte
                 })}
             </div>
             {clicked && (
-                <div style={{top: points.y-150, left: points.x-210}} className='absolute bg border border-black bg-white w-32 py-1'>
+                <div style={{top: points.y-150, left: points.x-210}} className='absolute bg border border-black bg-white w-40 py-1'>
                     <ul className='flex flex-col'>
                         <li className='hover:bg-slate-200 w-full px-2 cursor-pointer' onClick={() => {
-                            deleteTicker(contextRow.ticker)
-                        }}>Delete</li>
+                            dismissTicker(contextRow.ticker)
+                        }}>Dismiss</li>
                         <li className='hover:bg-slate-200 w-full px-2 cursor-pointer' onClick={() => {
                             setSelectedTicker(contextRow)
                         }}>View Details</li>
+                        <li className='hover:bg-slate-200 w-full px-2 cursor-pointer' onClick={() => {
+                            activateTicker(contextRow)
+                        }}>Activate Alerts</li>
+                        <li className='hover:bg-slate-200 w-full px-2 cursor-pointer' onClick={() => {
+                            deactivateTicker(contextRow)
+                        }}>Deactivate Alerts</li>
                     </ul>
                 </div>
             )}
