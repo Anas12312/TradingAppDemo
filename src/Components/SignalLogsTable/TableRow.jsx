@@ -91,7 +91,7 @@ export default function TableRow({ setContextRow, setClicked, setPoints, record,
                 {record.signal_time}
             </td>
             <td className='w-[12.75%] h-full flex justify-center items-center text-center truncate border-r border-black'>
-                {record.stop_loss?.toFixed(2)}
+                {record.stop_loss.toFixed(2)}
             </td>
             <td className='w-[12.78%] h-full flex justify-center items-center text-center truncate border-r border-black'>
                 {formatNumber(record.volume_today || 5)}
