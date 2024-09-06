@@ -81,6 +81,13 @@ export default function TableBody({ ticker }) {
                 </div>
                 <TableRow property={'Count'} value={ticker.turbo_count} />
                 <TableRow property={'Time'} value={extractTime(ticker.turbo_time)} />
+                
+                <div className='w-full h-10 bg-slate-500 flex justify-center items-center text-white font-semibold '>
+                    S
+                </div>
+                <TableRow property={'Sentiment Score'} value={JSON.parse(ticker.s1).sentimentScore} />
+                <TableRow property={'Relevance'} value={JSON.parse(ticker.s1).relevance} />
+                <TableRow property={'Time'} value={JSON.parse(ticker.s1).time} />
 
             </div>
 
