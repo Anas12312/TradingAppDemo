@@ -108,17 +108,22 @@ export default function TableRow({ setContextRow, setClicked, setPoints, record,
             <td className='w-[10%] h-full flex justify-center items-center text-center truncate border-r border-black'>
                 {Math.round(record.today_range)}
             </td>
+
+            <td className={'w-[5%] h-full flex justify-center items-center text-center truncate border-r border-black border-b ' + (!record.s3 ? '' : (record.s2 === 1 ? ' bg-red-600':'') + (record.s2 === -1 ? ' bg-green-600':''))}>
+                {record.s3}
+            </td>
+
             <td className='w-[20%] h-full flex justify-center items-center text-center truncate border-r border-black'>
-                <td className={'w-[25%] h-full flex justify-center items-center text-center truncate border-r border-black ' + ((record.halt_resume_count === 0 && H <= 2 && H > 0 ) ? ' bg-green-600' : '' ) + ((record.halt_resume_count !== 0 && record.halt_resume_count % 2 === 0 ) ? ' bg-red-600' : '' )  + (( record.halt_resume_count % 2 !== 0 ) ? ' bg-green-600' : '' ) }>
+                <td className={'w-[25%] h-full flex justify-center items-center text-center truncate border-r border-black ' + ((record.halt_resume_count === 0 && H <= 2 && H > 0) ? ' bg-green-600' : '') + ((record.halt_resume_count !== 0 && record.halt_resume_count % 2 === 0) ? ' bg-red-600' : '') + ((record.halt_resume_count % 2 !== 0) ? ' bg-green-600' : '')}>
                     {H !== -1 ? H + ' min' : '--'}
                 </td>
-                <td className={'w-[25%] h-full flex justify-center items-center text-center truncate border-r border-black ' + ((M <= 2 && M !== -1) ? ' bg-green-600' : '' )  }>
+                <td className={'w-[25%] h-full flex justify-center items-center text-center truncate border-r border-black ' + ((M <= 2 && M !== -1) ? ' bg-green-600' : '')}>
                     {M !== -1 ? M + ' min' : '--'}
                 </td>
-                <td className={'w-[25%] h-full flex justify-center items-center text-center truncate border-r border-black ' + ((T <= 2 && T !== -1) ? ' bg-green-600' : '' )  }>
+                <td className={'w-[25%] h-full flex justify-center items-center text-center truncate border-r border-black ' + ((T <= 2 && T !== -1) ? ' bg-green-600' : '')}>
                     {T !== -1 ? T + ' min' : '--'}
                 </td>
-                <td className={'w-[25%] h-full flex justify-center items-center text-center truncate ' + ((G <= 2 && G !== -1) ? ' bg-green-600' : '' )  }>
+                <td className={'w-[25%] h-full flex justify-center items-center text-center truncate ' + ((G <= 2 && G !== -1) ? ' bg-green-600' : '')}>
                     {G !== -1 ? G + ' min' : '--'}
                 </td>
             </td>

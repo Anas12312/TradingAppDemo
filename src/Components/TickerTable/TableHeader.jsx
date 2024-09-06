@@ -81,6 +81,11 @@ export default function TableHeader({ sort, header, sorters }) {
                     className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
                 />
             </div>
+
+            <div className='relative w-[5%] h-full flex justify-center items-center text-center border-r border-slate-500 text-base'>
+                S
+            </div>
+
             <div className='relative w-[20%] h-full flex flex-col items-center '>
                 <div className='h-full'>
                     Scanner Types

@@ -1,15 +1,26 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import HtmlViewer from './HTMLViewer'
 
 export default function PriceChart({ ticker }) {
-    const charts = [
+
+    const [charts, setCharts] = useState([
         ticker?.heik_1min,
         ticker?.heik_1day,
         ticker?.candel_1min,
-    ]
-    const [selectedChart, setSelectedChart] = useState(charts[0])
+    ])
+    // const [selectedChart, setSelectedChart] = useState(charts[0])
+    const [chartIndex, setChartIndex] = useState(0)
+
+    useEffect(() => {
+        setCharts([
+            ticker?.heik_1min,
+            ticker?.heik_1day,
+            ticker?.candel_1min,
+        ])
+    }, [ticker])
+
     function selectChart(e) {
-        setSelectedChart(charts[e.target.id])
+        setChartIndex(e.target.id)
     }
     return (
         ticker?.heik_1day ? (
@@ -20,7 +31,7 @@ export default function PriceChart({ ticker }) {
                     <label className='flex justify-center items-center'><input onChange={selectChart} type="radio" name="chart" id="2" /><div className='pl-2'>candel_1min</div></label>
                 </div>
                 {/* <HtmlViewer filePath={selectedChart} /> */}
-                <iframe src={selectedChart}  className='h-[90%] w-full' frameborder="0"></iframe>
+                <iframe src={charts[chartIndex]}  className='h-[90%] w-full' frameborder="0"></iframe>
                 {/* <img className='h-[90%]' src={selectedChart} alt="" /> */}
             </div>
         ) : (
