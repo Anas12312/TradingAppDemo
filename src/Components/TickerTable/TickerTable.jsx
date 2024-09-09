@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import TableHeader from './TableHeader'
 import TableBody from './TableBody'
+import { FaPlus, FaCog, FaArrowsAlt, FaTimes } from 'react-icons/fa';
 import config from '../../../config.json'
 export default function TickerTable({ setSelectedTicker, data }) {
     const Sorted = {
@@ -120,27 +121,37 @@ export default function TickerTable({ setSelectedTicker, data }) {
     }, [search, sorted])
 
     return (
-        <div className='bg-white flex justify-center items-start w-full h-[90%]'>
-            <div className='flex-col justify-center items-center w-full h-full'>
-
-                {/* Search & Info */}
-                <div className='w-full h-[10%] flex justify-between items-center space-x-2'>
-                    <div className='text-xl font-bold'></div>
-                    <div className='w-[20%] pt-0.5 rounded pl-4 items-center border border-slate-500'>
-                        <input className='focus:outline-0 text-left font-Sansation-Light text-base w-full' value={search}
+        <>
+            <div className="flex justify-between items-center p-2 bg-blue-700 text-white rounded-t  h-[2.5rem]">
+                {/* Left side text */}
+                <div className=' flex w-full space-x-10'>
+                    <div className="font-semibold text-lg select-none">
+                        Tickers Table
+                    </div>
+                    {/* Search & Info */}
+                    <div className='w-[19.3%] flex justify-start items-center'>
+                        <input className='focus:outline-0 text-left font-semibold text-black font-Sansation-Light text-base w-full pt-0.5 pl-2 items-center border-white rounded ' value={search}
                             onChange={(e) => { setSearch(e.target.value) }}
-                            placeholder='Search'
+                            placeholder='Search Ticker'
                         />
                     </div>
                 </div>
-
-                {/* Table Header */}
-                <div className='w-full border-collapse h-[90%]'>
-                    <TableHeader sort={sort} header={headers} sorters={sorters} />
-                    <TableBody searchedRecords={searchedRecords} header={headers} setSelectedTicker={setSelectedTicker} records={records} setRecords={setRecords} setSearchedRecords={setSearchedRecords} />
+                {/* Right side icons */}
+                <div className="flex space-x-3 drag-handle">
+                    <FaArrowsAlt className="cursor-move hover:text-gray-400" />
                 </div>
-
             </div>
-        </div>
+            <div className='bg-white flex justify-center items-start w-full h-full'>
+                <div className='flex-col justify-center items-center w-full h-full'>
+
+                    {/* Table Header */}
+                    <div className='w-full border-collapse h-[90%]'>
+                        <TableHeader sort={sort} header={headers} sorters={sorters} />
+                        <TableBody searchedRecords={searchedRecords} header={headers} setSelectedTicker={setSelectedTicker} records={records} setRecords={setRecords} setSearchedRecords={setSearchedRecords} />
+                    </div>
+
+                </div>
+            </div>
+        </>
     )
 }

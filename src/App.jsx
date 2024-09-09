@@ -45,13 +45,13 @@ function App() {
   }, [])
 
   return (
-    <>
-      <div className="flex justify-center space-x-3 items-center w-full my-4 ">
+    <div className="">
+      <div className="flex justify-center items-center w-full my-4 ">
         {
           TABS.map(x => (
             <button
               onClick={() => setTab(TABS[TABS.indexOf(x)])}
-              className={"px-4 py-3 border-2 border-blue-700 rounded font-semibold text-xl " + (tab === x ? 'bg-blue-700 text-white' : '')}>
+              className={"px-4 py-3 border-r-0 border-l-0 border-2 hover:bg-blue-500 hover:text-white border-blue-700 font-semibold text-xl last:border-r-2 first:border-l-2 first:rounded-l-full last:rounded-r-full transition-all " + (tab === x ? 'bg-blue-700 hover:bg-blue-700 text-white' : '')}>
               {x}
             </button>
           ))
@@ -65,10 +65,10 @@ function App() {
         tab === TABS[1] && data && <Second data={data} />
       }
 
-{
+      {
         tab === TABS[2] && data && <Third data={data} />
       }
-    </>
+    </div>
   )
 }
 

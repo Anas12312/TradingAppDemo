@@ -8,8 +8,8 @@ export default function TableHeader({ sort, header, sorters }) {
         // console.log(header)
     }, [header])
     return (
-        <div className='border-b border-slate-500 select-none w-full bg-[#ECECEC] h-[15%] flex items-center justify-start text-[1rem] shadow font-Sansation-Bold border-t'>
-            <div className='relative w-[13.9%] h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
+        <div className='border-l border-r border-black select-none w-full bg-blue-700 font-semibold text-white h-[20%] flex items-center justify-start textshadow font-Sansation-Bold'>
+            <div className='relative w-[13.9%] h-full flex justify-center items-center text-center border-r border-t border-blue-200 text-base'
                 onClick={() => {
                     sort("ticker", "String")
                 }}>
@@ -18,7 +18,7 @@ export default function TableHeader({ sort, header, sorters }) {
                     className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
                 />
             </div>
-            <div className='relative w-[13.9%] h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
+            <div className='relative w-[13.9%] h-full flex justify-center items-center text-center border-r border-t border-blue-200 text-base'
                 onClick={() => {
                     sort("signal_time", "Date")
                 }}>
@@ -27,7 +27,7 @@ export default function TableHeader({ sort, header, sorters }) {
                     className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
                 />
             </div>
-            <div className='relative w-[13.9%] h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
+            <div className='relative w-[13.9%] h-full flex justify-center items-center text-center border-r border-t border-blue-200 text-base'
                 onClick={() => {
                     sort("stop_loss", "Number")
                 }}>
@@ -36,7 +36,7 @@ export default function TableHeader({ sort, header, sorters }) {
                     className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
                 />
             </div>
-            <div className='relative w-[13.9%] h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
+            <div className='relative w-[13.9%] h-full flex justify-center items-center text-center border-r border-t border-blue-200 text-base'
                 onClick={() => {
                     sort("volume_today", "Number")
                 }}>
@@ -45,12 +45,12 @@ export default function TableHeader({ sort, header, sorters }) {
                     className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
                 />
             </div>
-            <div className='relative w-[39.9%] h-full flex flex-col items-center border-r border-slate-500'>
+            <div className='relative w-[39.9%] h-full flex flex-col items-center border-r border-t border-blue-200'>
                 <div className='h-full'>
                     Scanner Types
                 </div>
-                <div className='w-full h-full border-t border-slate-500 flex'>
-                    <div className='relative w-full h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
+                <div className='w-full h-full border-t  border-blue-200 flex'>
+                    <div className='relative w-full h-full flex justify-center items-center text-center border-r  border-blue-200 text-base'
                         onClick={() => {
                             sort("Halt_Diff", "Number")
                         }}>
@@ -59,7 +59,7 @@ export default function TableHeader({ sort, header, sorters }) {
                             className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
                         />
                     </div>
-                    <div className='relative w-full h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
+                    <div className='relative w-full h-full flex justify-center items-center text-center border-r  border-blue-200 text-base'
                         onClick={() => {
                             sort("MOMO_diff", "Number")
                         }}>
@@ -68,7 +68,7 @@ export default function TableHeader({ sort, header, sorters }) {
                             className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
                         />
                     </div>
-                    <div className='relative w-full h-full flex justify-center items-center text-center border-r border-slate-500 text-base'
+                    <div className='relative w-full h-full flex justify-center items-center text-center border-r border-blue-200 text-base'
                         onClick={() => {
                             sort("Turbo_diff", "Number")
                         }}>
@@ -88,7 +88,7 @@ export default function TableHeader({ sort, header, sorters }) {
                     </div>
                 </div>
             </div>
-            <div className='relative w-[13.9%] h-full flex justify-center items-center text-center border-r border-slate-500 text-base'>
+            <div className='relative w-[13.9%] h-full flex justify-center items-center text-center border-r border-t border-blue-200 text-base'>
                 Type
             </div>
 
