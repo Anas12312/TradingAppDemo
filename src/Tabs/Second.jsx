@@ -7,6 +7,7 @@ import GridLayout from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 import Header from '../Components/Header'
+import Header2 from '../Components/Header2'
 
 function Second({ data }) {
   const [selectedTicker, setSelectedTicker] = useState('')
@@ -24,9 +25,9 @@ function Second({ data }) {
   return (
     <div>
       <GridLayout className="layout" layout={layout} cols={12} rowHeight={30} width={2400} draggableHandle='.drag-handle' >
-        <div key="a" className="grid-item border-2 border-slate-500 rounded-t"><Header text={"Tickers Table"} /><TickerTable data={data} setSelectedTicker={setSelectedTicker} /></div>
-        <div key="b" className="grid-item border-2 border-slate-500 rounded-t"><Header text={"Price Chart " + (selectedTickerData ? selectedTickerData.ticker : "")} /><PriceChart ticker={selectedTickerData} /></div>
-        <div key="c" className="grid-item border-2 border-slate-500 rounded-t"><Header text={"Details " + (selectedTickerData ? selectedTickerData.ticker : "")}/><Details selectedTicker={selectedTickerData} /></div>
+        <div key="a" className="grid-item shadow"><TickerTable data={data} setSelectedTicker={setSelectedTicker} /></div>
+        <div key="b" className="grid-item shadow "><Header text={"Price Chart " + (selectedTickerData ? selectedTickerData.ticker : "")} /><PriceChart ticker={selectedTickerData} /></div>
+        <div key="c" className="grid-item shadow "><Header2 text={"Details " + (selectedTickerData ? selectedTickerData.ticker : "")}/><Details selectedTicker={selectedTickerData} /></div>
         </GridLayout>
     </div>
   )

@@ -1,9 +1,9 @@
 import React from 'react';
 import { FaPlus, FaCog, FaArrowsAlt, FaTimes } from 'react-icons/fa';
 
-const Header = ({ text }) => {
+const Header2 = ({ text }) => {
   return (
-    <div className="flex justify-between items-center p-2 bg-[#ffb82a] text-yellow-900 rounded-t">
+    <div className="flex justify-between items-center p-2 bg-[#5a45aa] text-white rounded-t">
       {/* Left side text */}
       <div className="font-semibold text-lg">
         {text}
@@ -16,4 +16,4 @@ const Header = ({ text }) => {
   );
 };
 
-export default Header;
+export default Header2;
