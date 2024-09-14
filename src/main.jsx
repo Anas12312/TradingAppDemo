@@ -6,7 +6,7 @@ import LogIn from './Components/LogIn.jsx'
 
 
 const Main = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   return (
     <>

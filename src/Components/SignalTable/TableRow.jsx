@@ -90,6 +90,7 @@ export default function TableRow({ setContextRow, setClicked, setPoints, record,
             <td className='w-[12.675%] h-full flex justify-center items-center text-center truncate border-r border-blue-700'>
                 {record.signal_time}
             </td>
+
             <td className='w-[12.75%] h-full flex justify-center items-center text-center truncate border-r border-blue-700'>
                 {record.stop_loss.toFixed(2)}
             </td>
