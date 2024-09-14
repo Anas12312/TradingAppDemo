@@ -83,7 +83,7 @@ export default function TableHeader({ sort, header, sorters }) {
             </div>
 
             <div className='relative w-[5%] h-full flex justify-center items-center text-center border-r border-t border-blue-200 text-base'>
-                S
+                News
             </div>
 
             <div className='relative w-[20%] h-full flex flex-col items-center border-t border-blue-200 '>

@@ -44,7 +44,12 @@ export default function TableBody({ ticker }) {
                     <div
                         onClick={() => setSelected('s')}
                         className={'text-center w-full bg-[#8873da] text-white hover:bg-[#ad98ff] transition-all select-none cursor-pointer ' + (selected === 's' && ' underline font-semibold')}>
-                        S
+                        News
+                    </div>
+                    <div
+                        onClick={() => setSelected('ai')}
+                        className={'text-center w-full bg-[#8873da] text-white hover:bg-[#ad98ff] transition-all select-none cursor-pointer ' + (selected === 's' && ' underline font-semibold')}>
+                        AI ML
                     </div>
                 </div>
 
@@ -111,7 +116,7 @@ export default function TableBody({ ticker }) {
                                         SF Bullish
                                     </div>
                                     <div className='w-full h-full text-base flex justify-start border-r items-center text-start truncate pl-5 '>
-                                        {'0'}
+                                        {ticker.bullish_general_Signal_high}
                                     </div>
                                 </div>
 
@@ -120,7 +125,7 @@ export default function TableBody({ ticker }) {
                                         SF Bearish
                                     </div>
                                     <div className='w-full h-full text-base flex justify-start border-r items-center text-start truncate pl-5 '>
-                                        {'0'}
+                                        {ticker.bearish_general_Signal_high}
                                     </div>
                                 </div>
                             </div>
