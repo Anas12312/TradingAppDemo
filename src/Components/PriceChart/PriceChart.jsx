@@ -4,18 +4,25 @@ import HtmlViewer from './HTMLViewer'
 export default function PriceChart({ ticker }) {
 
     const [charts, setCharts] = useState([
-        ticker?.heik_1min,
-        ticker?.heik_1day,
-        ticker?.candel_1min,
+        ticker?.heik_url,
+        ticker?.heik_url,
+        ticker?.heik_url,
+        // ticker?.heik_1min,
+        // ticker?.heik_1day,
+
+        // ticker?.heik_1day,
     ])
     // const [selectedChart, setSelectedChart] = useState(charts[0])
     const [chartIndex, setChartIndex] = useState(0)
 
     useEffect(() => {
         setCharts([
-            ticker?.heik_1min,
-            ticker?.heik_1day,
-            ticker?.candel_1min,
+            ticker?.heik_url,
+            ticker?.heik_url,
+            ticker?.heik_url,
+            // ticker?.heik_1min,
+            //     ticker?.heik_1day,
+            //     ticker?.candel_1min,
         ])
     }, [ticker])
 
@@ -23,7 +30,7 @@ export default function PriceChart({ ticker }) {
         setChartIndex(e.target.id)
     }
     return (
-        ticker?.heik_1day ? (
+        ticker?.heik_url ? (
             <div className='flex flex-col justify-start items-center h-[90%] w-full bg-[#ffd480] border border-t-0 '>
                 <div className='flex w-[50%] justify-between'>
                     <label className='flex justify-center items-center'><input onChange={selectChart} checked={chartIndex == 0} type="radio" name="chart" id="0" /><div className='pl-2'>heik_1min</div></label>
@@ -31,7 +38,7 @@ export default function PriceChart({ ticker }) {
                     <label className='flex justify-center items-center'><input onChange={selectChart} type="radio" name="chart" id="2" /><div className='pl-2'>candel_1min</div></label>
                 </div>
                 {/* <HtmlViewer filePath={selectedChart} /> */}
-                <iframe src={charts[chartIndex]}  className='h-full w-full' frameborder="0"></iframe>
+                <iframe src={charts[chartIndex]} className='h-full w-full' frameborder="0"></iframe>
                 {/* <img className='h-[90%]' src={selectedChart} alt="" /> */}
             </div>
         ) : (

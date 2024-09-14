@@ -52,11 +52,11 @@ function App() {
             <button
               onClick={() => setTab(TABS[TABS.indexOf(x)])}
               className={"px-4 py-3 border-r-0 border-l-0 border-2 hover:bg-blue-500 hover:text-white border-blue-700 font-semibold text-xl last:border-r-2 first:border-l-2 first:rounded-l-full last:rounded-r-full transition-all " + (tab === x ? 'bg-blue-700 hover:bg-blue-700 text-white' : '')}>
-                {x == "Scan" && (x+": "+ data.scan.records.length)}
-                {x == "Active Signals" && (x+": "+ data.signal.records.length)}
-                {x == "Signals Logs" && x+": "+ data.signalLogs.records.length}
-                {x == "In Trade" && x}
-                {x == "Alarms" && x}
+                {x == "Scan" && <Tab name={x} number={data?.scan.records.length} />}
+                {x == "Active Signals" && <Tab name={x} number={data?.signal.records.length} />}
+                {x == "Signals Logs" && <Tab name={x} number={data?.signalLogs.records.length} />}
+                {x == "In Trade" && <Tab name={x} />}
+                {x == "Alarms" && <Tab color="text-red-500" name={x} />}
             </button>
           ))
         }
@@ -75,5 +75,12 @@ function App() {
     </div>
   )
 }
-
+const Tab = ({name, number=0, color="text-green-600 "}) => {
+  return (
+    <div className="flex flex-col ">
+      <div>{name}</div>
+      <div className={color + " "}>({number})</div>
+    </div>
+  )
+}
 export default App
