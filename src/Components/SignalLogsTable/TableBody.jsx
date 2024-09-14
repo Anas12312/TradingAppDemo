@@ -23,9 +23,8 @@ export default function TableBody({ searchedRecords, records, header, setSelecte
     return (
         <div className='w-full h-[80%] relative'>
 
-            <div className='border-2 border-slate-500 border-t-0 h-full [&>*:nth-child(even)]:bg-white [&>*:nth-child(odd)]:bg-[#D9D9D9]
-                        [&>*:nth-child(even)]:border-slate-200 [&>*:nth-child(odd)]:border-slate-300
-                            border-x border-b overflow-y-scroll scrollbar-none'>
+            <div className='h-full [&>*:nth-child(even)]:bg-white [&>*:nth-child(odd)]:bg-blue-100 border-blue-700
+                            border-x border-b overflow-y-scroll scrollbar-none font-semibold'>
 
                 {searchedRecords?.map((record, i) => {
                     return (

@@ -82,43 +82,48 @@ export default function TableRow({ setContextRow, setClicked, setPoints, record,
             });
             // console.log("Right Click", e.pageX, e.pageY);
         }}
-            className="w-full flex h-[3rem] relative cursor-pointer" onClick={(e) => { setSelectedTicker(record); console.log(e.target) }}>
+            className="w-full flex h-[3rem] relative cursor-pointer font-semibold text-sm " onClick={(e) => { setSelectedTicker(record); console.log(e.target) }}>
 
-            <td className='w-[10%] h-full flex justify-center items-center text-center truncate border-r border-black'>
+            <td className='w-[10%] h-full flex justify-center items-center text-center truncate border-r border-l border-blue-700'>
                 {record.ticker}
             </td>
-            <td className='w-[10%] h-full flex justify-center items-center text-center truncate border-r border-black'>
+            <td className='w-[10%] h-full flex justify-center items-center text-center truncate border-r border-blue-700'>
                 {record.price < 1 ? record.price?.toFixed(4) : record.price.toFixed(2)}
             </td>
-            <td className='w-[10%] h-full flex justify-center items-center text-center truncate border-r border-black'>
+            <td className='w-[10%] h-full flex justify-center items-center text-center truncate border-r border-blue-700'>
                 {record.float}
             </td>
-            <td className='w-[10%] h-full flex justify-center items-center text-center truncate border-r border-black'>
+            <td className='w-[10%] h-full flex justify-center items-center text-center truncate border-r border-blue-700'>
                 {formatNumber(record.volume_today)}
             </td>
-            <td className='w-[10%] h-full flex justify-center items-center text-center truncate border-r border-black'>
+            <td className='w-[10%] h-full flex justify-center items-center text-center truncate border-r border-blue-700'>
                 {record.relative_volume.toFixed(2)}
             </td>
-            <td className='w-[10%] h-full flex justify-center items-center text-center truncate border-r border-black'>
+            <td className='w-[10%] h-full flex justify-center items-center text-center truncate border-r border-blue-700'>
                 {record.change_from_the_Close}
             </td>
-            <td className='w-[10%] h-full flex justify-center items-center text-center truncate border-r border-black'>
+            <td className='w-[10%] h-full flex justify-center items-center text-center truncate border-r border-blue-700'>
                 {record.change_from_the_Open}
             </td>
-            <td className='w-[10%] h-full flex justify-center items-center text-center truncate border-r border-black'>
+            <td className='w-[10%] h-full flex justify-center items-center text-center truncate border-r border-blue-700'>
                 {Math.round(record.today_range)}
             </td>
-            <td className='w-[20%] h-full flex justify-center items-center text-center truncate border-r border-black'>
-                <td className={'w-[25%] h-full flex justify-center items-center text-center truncate border-r border-black ' + ((record.halt_resume_count === 0 && H <= 2 && H > 0 ) ? ' bg-green-600' : '' ) + ((record.halt_resume_count !== 0 && record.halt_resume_count % 2 === 0 ) ? ' bg-red-600' : '' )  + (( record.halt_resume_count % 2 !== 0 ) ? ' bg-green-600' : '' ) }>
+
+            <td className={'w-[5%] h-full flex justify-center items-center text-center truncate border-r border-blue-700 border-b ' + (!record.s3 ? '' : (record.s2 === 1 ? ' bg-red-500':'') + (record.s2 === -1 ? ' bg-green-400':''))}>
+                {record.s3}
+            </td>
+
+            <td className='w-[20%] flex justify-center items-center text-center truncate border-r border-blue-700'>
+                <td className={'w-[25%] h-full flex justify-center items-center text-center truncate border-r border-blue-700 ' + ((record.halt_resume_count === 0 && H <= 2 && H > 0) ? ' bg-green-400' : '') + ((record.halt_resume_count !== 0 && record.halt_resume_count % 2 === 0) ? ' bg-red-500' : '') + ((record.halt_resume_count % 2 !== 0) ? ' bg-green-400' : '')}>
                     {H !== -1 ? H + ' min' : '--'}
                 </td>
-                <td className={'w-[25%] h-full flex justify-center items-center text-center truncate border-r border-black ' + ((M <= 2 && M !== -1) ? ' bg-green-600' : '' )  }>
+                <td className={'w-[25%] h-full flex justify-center items-center text-center truncate border-r border-blue-700 ' + ((M <= 2 && M !== -1) ? ' bg-green-400' : '')}>
                     {M !== -1 ? M + ' min' : '--'}
                 </td>
-                <td className={'w-[25%] h-full flex justify-center items-center text-center truncate border-r border-black ' + ((T <= 2 && T !== -1) ? ' bg-green-600' : '' )  }>
+                <td className={'w-[25%] h-full flex justify-center items-center text-center truncate border-r border-blue-700 ' + ((T <= 2 && T !== -1) ? ' bg-green-400' : '')}>
                     {T !== -1 ? T + ' min' : '--'}
                 </td>
-                <td className={'w-[25%] h-full flex justify-center items-center text-center truncate ' + ((G <= 2 && G !== -1) ? ' bg-green-600' : '' )  }>
+                <td className={'w-[25%] h-full flex justify-center items-center text-center truncate ' + ((G <= 2 && G !== -1) ? ' bg-green-400' : '')}>
                     {G !== -1 ? G + ' min' : '--'}
                 </td>
             </td>
@@ -139,7 +144,7 @@ export default function TableRow({ setContextRow, setClicked, setPoints, record,
                     if (h.name == "Ticker") return
                     if (h.name == "Price") return
                     return (
-                        <td className='w-[10%] h-full flex justify-center items-center text-center truncate border-r border-black'>
+                        <td className='w-[10%] h-full flex justify-center items-center text-center truncate border-r border-blue-700'>
                             {record[h.name]}
                         </td>
                     )
