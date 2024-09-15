@@ -4,25 +4,26 @@ import HtmlViewer from './HTMLViewer'
 export default function PriceChart({ ticker }) {
 
     const [charts, setCharts] = useState([
-        // ticker?.heik_url,
-        // ticker?.heik_url,
-        // ticker?.heik_url,
-        ticker?.heik_1min,
-        ticker?.heik_1day,
+        ticker?.heik_url,
+        ticker?.heik_url,
+        ticker?.heik_url,
+        // ticker?.heik_1min,
+        // ticker?.heik_1day,
 
-        ticker?.heik_1day,
+        // ticker?.heik_1day,
     ])
     // const [selectedChart, setSelectedChart] = useState(charts[0])
     const [chartIndex, setChartIndex] = useState(0)
 
     useEffect(() => {
+        console.log(ticker)
         setCharts([
-            // ticker?.heik_url,
-            // ticker?.heik_url,
-            // ticker?.heik_url,
-            ticker?.heik_1min,
-                ticker?.heik_1day,
-                ticker?.candel_1min,
+            ticker?.heik_url,
+            ticker?.heik_url,
+            ticker?.heik_url,
+            // ticker?.heik_1min,
+            //     ticker?.heik_1day,
+            //     ticker?.candel_1min,
         ])
     }, [ticker])
 
