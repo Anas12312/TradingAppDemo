@@ -3,16 +3,16 @@ import TableHeader from './TableHeader'
 import TableBody from './TableBody'
 import { FaPlus, FaCog, FaArrowsAlt, FaTimes } from 'react-icons/fa';
 import config from '../../../config.json'
-export default function TickerTable({ setSelectedTicker, data, selectedTicker, setIdle, timer }) {
+export default function TickerTable({ setSelectedTicker, data }) {
     const Sorted = {
         NO: 0,
         ASC: 1,
         DEC: -1
     }
-    const [records, setRecords] = useState(data.scan.records)
+    const [records, setRecords] = useState(data.inactive.records)
     const [sorted, setSorted] = useState(false)
-    const [searchedRecords, setSearchedRecords] = useState(data.scan.records)
-    const [headers, setHeaders] = useState(data.scan.headers)
+    const [searchedRecords, setSearchedRecords] = useState(data.inactive.records)
+    const [headers, setHeaders] = useState(data.inactive.headers)
     const [sorters, setSorters] = useState([])
     const [reload, setReload] = useState(false)
     const [search, setSearch] = useState('')
@@ -83,20 +83,20 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
 
     useEffect(() => {
         const sorters = {}
-        data.scan.headers.forEach((h) => {
+        data.inactive.headers.forEach((h) => {
             sorters[h.name] = Sorted.NO
         })
         setSorters(sorters)
-        setRecords(data.scan.records)
-        setHeaders(data.scan.headers)
-        setSearchedRecords(data.scan.records)
+        setRecords(data.inactive.records)
+        setHeaders(data.inactive.headers)
+        setSearchedRecords(data.inactive.records)
 
     }, [])
 
     useEffect(() => {
-        setRecords(data.scan.records)
-        setHeaders(data.scan.headers)
-        setSearchedRecords(data.scan.records)
+        setRecords(data.inactive.records)
+        setHeaders(data.inactive.headers)
+        setSearchedRecords(data.inactive.records)
         setnewRecords(true)
     }, [data])
 
@@ -145,7 +145,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                     {/* Table Header */}
                     <div className='w-full border-collapse h-[90%]'>
                         <TableHeader sort={sort} header={headers} sorters={sorters} />
-                        <TableBody timer={timer} setIdle={setIdle} searchedRecords={searchedRecords} header={headers} setSelectedTicker={setSelectedTicker} selectedTicker={selectedTicker} records={records} setRecords={setRecords} setSearchedRecords={setSearchedRecords} />
+                        <TableBody searchedRecords={searchedRecords} header={headers} setSelectedTicker={setSelectedTicker} records={records} setRecords={setRecords} setSearchedRecords={setSearchedRecords} />
                     </div>
 
                 </div>

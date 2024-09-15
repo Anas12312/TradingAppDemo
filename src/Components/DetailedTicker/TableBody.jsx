@@ -11,9 +11,24 @@ export default function TableBody({ ticker }) {
 
     const [selected, setSelected] = useState('stoke')
 
-    useEffect(() => {
-        console.log(ticker);
-    },[ticker])
+    function prepareDate(dateTime) {
+        const standard = new Date(dateTime)
+        return standard.getMonth() + "/" + standard.getDay() + " " + standard.getHours() + ":" + standard.getMinutes()
+    }
+    function getNewsCount() {
+        try {
+            if (ticker.news_title) {
+                return JSON.parse(ticker.Previous_news).length + 1
+            }
+            return 0
+        } catch (e) {
+            return 0
+        }
+    }
+    function getPrevNews() {
+        const news = JSON.parse(ticker.Previous_news)
+        return news.map(n => n.M)
+    }
 
     return (
         <div className='w-full h-full bg-white'>
@@ -46,9 +61,9 @@ export default function TableBody({ ticker }) {
                     </div>
 
                     <div
-                        onClick={() => setSelected('s')}
+                        onClick={() => setSelected('news')}
                         className={'text-center w-full bg-[#8873da] text-white hover:bg-[#ad98ff] transition-all select-none cursor-pointer ' + (selected === 's' && ' underline font-semibold')}>
-                        News
+                        News ({getNewsCount()})
                     </div>
                     <div
                         onClick={() => setSelected('ai')}
@@ -215,12 +230,59 @@ export default function TableBody({ ticker }) {
                 }
 
                 {
-                    selected === 's' && (
-                        <div className='w-full h-[90%] flex flex-col'>
-                            <TableRow property={'Sentiment Score'} value={JSON.parse(ticker.s1).sentimentScore} />
-                            <TableRow property={'Relevance'} value={JSON.parse(ticker.s1).relevance} />
-                            <TableRow property={'Time'} value={JSON.parse(ticker.s1).time} />
-                        </div>
+                    selected === 'news' && (
+                        <>
+                            {ticker.news_title ? (
+                                <div className='p-5 pt-2 w-full h-[90%] flex flex-col'>
+                                    <div className='mb-2'>Recent</div>
+                                    <table>
+                                        <thead>
+                                            <th className='border border-black px-2 text-base text-start w-[12%]'>Time</th>
+                                            <th className='border border-black px-2 text-base text-start'>Title</th>
+                                            <th className='border border-black px-2 text-base text-start'>Score</th>
+                                            <th className='border border-black px-2 text-base text-start'>Label</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td className='border border-black px-2 text-base'>{prepareDate(ticker.news_time)}</td>
+                                                <td className='border border-black px-2 text-base'>{ticker.news_title}</td>
+                                                <td className='border border-black px-2 text-base'>{ticker.sentiment_score.toFixed(3)}</td>
+                                                <td className='border border-black px-2 text-base'>{ticker.sentiment_label}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    {
+                                        (getNewsCount() - 1) > 0 && (
+                                            <>
+                                                <div className='mt-5 mb-2'>Previous News</div>
+                                                <table>
+                                                    <thead>
+                                                        <th className='border border-black px-2 text-base text-start w-[12%]'>Time</th>
+                                                        <th className='border border-black px-2 text-base text-start'>Label</th>
+                                                        <th className='border border-black px-2 text-base text-start'>Score</th>
+                                                    </thead>
+                                                    <tbody>
+                                                        {
+                                                            getPrevNews().map((n) => {
+                                                                return (
+                                                                    <tr>
+                                                                        <td className='border border-black px-2 text-base'>{prepareDate(n.time_published.S)}</td>
+                                                                        <td className='border border-black px-2 text-base'>{n.ticker_sentiment_label.S}</td>
+                                                                        <td className='border border-black px-2 text-base'>{parseFloat(n.ticker_sentiment_score.S).toFixed(3)}</td>
+                                                                    </tr>
+                                                                )
+                                                            })
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </>
+                                        )
+                                    }
+                                </div>
+                            ) : (
+                                <div>No News</div>
+                            )}
+                        </>
                     )
                 }
 

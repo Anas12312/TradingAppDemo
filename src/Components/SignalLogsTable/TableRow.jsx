@@ -99,17 +99,17 @@ export default function TableRow({ setContextRow, setClicked, setPoints, record,
             </td>
 
             <td className='w-[36.45%] h-full flex justify-center items-center text-center truncate border-r border-blue-700'>
-                <td className={'w-[25%] h-full flex justify-center items-center text-center truncate border-r border-blue-700 ' + ((record.Halt_Count === 0 && H <= 2 && H > 0) ? ' bg-green-400' : '') + ((record.Halt_Count !== 0 && record.Halt_Count % 2 === 0) ? ' bg-red-500' : '') + ((record.Halt_Count % 2 !== 0) ? ' bg-green-400' : '')}>
-                    {H !== null ? H + ' min' : '--'}
+                <td className={'w-[25%] h-full flex justify-center items-center text-center truncate border-r border-blue-700 ' + ((record.Halt_Count === 0 && H <= 2 && H > 0 ) ? ' bg-green-400' : '' ) + ((record.Halt_Count !== 0 && record.Halt_Count % 2 === 0 ) ? ' bg-red-500' : '' )  + (( record.Halt_Count % 2 !== 0 ) ? ' bg-green-400' : '' ) }>
+                    {H !== null ? H : '--'}
                 </td>
-                <td className={'w-[25%] h-full flex justify-center items-center text-center truncate border-r border-blue-700 ' + ((M <= 2 && M !== null) ? ' bg-green-400' : '')}>
-                    {M !== null ? M + ' min' : '--'}
+                <td className={'w-[25%] h-full flex justify-center items-center text-center truncate border-r border-blue-700 ' + ((M <= 2 && M !== null) ? ' bg-green-400' : '' )  }>
+                    {M !== null ? M : '--'}
                 </td>
-                <td className={'w-[25%] h-full flex justify-center items-center text-center truncate border-r border-blue-700 ' + ((T <= 2 && T !== null) ? ' bg-green-400' : '')}>
-                    {T !== null ? T + ' min' : '--'}
+                <td className={'w-[25%] h-full flex justify-center items-center text-center truncate border-r border-blue-700 ' + ((T <= 2 && T !== null) ? ' bg-green-400' : '' )  }>
+                    {T !== null ? T : '--'}
                 </td>
-                <td className={'w-[25%] h-full flex justify-center items-center text-center truncate ' + ((G <= 2 && G !== null) ? ' bg-green-400' : '')}>
-                    {G !== null ? G + ' min' : '--'}
+                <td className={'w-[25%] h-full flex justify-center items-center text-center truncate ' + ((G <= 2 && G !== null) ? ' bg-green-400' : '' )  }>
+                    {G !== null ? G : '--'}
                 </td>
             </td>
             <td className='w-[12.675%] h-full flex justify-start items-center text-center truncate '>
