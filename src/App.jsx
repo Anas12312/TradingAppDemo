@@ -3,11 +3,13 @@ import Main from "./Tabs/Main"
 import Second from './Tabs/Second'
 import config from '../config.json'
 import Third from "./Tabs/Third"
+import InActive from "./Tabs/InActive"
 
 const TABS = [
   'Scan',
   'Active Signals',
   'Signals Logs',
+  'In Active',
   'In Trade',
   'Alarms'
 ]
@@ -55,6 +57,7 @@ function App() {
                 {x == "Scan" && <Tab name={x} number={data?.scan.records.length} />}
                 {x == "Active Signals" && <Tab name={x} number={data?.signal.records.length} />}
                 {x == "Signals Logs" && <Tab name={x} number={data?.signalLogs.records.length} />}
+                {x == "In Active" && <Tab name={x} number={data?.inactive.records.length} />}
                 {x == "In Trade" && <Tab name={x} />}
                 {x == "Alarms" && <Tab color="text-red-500" name={x} />}
             </button>
@@ -71,6 +74,10 @@ function App() {
 
       {
         tab === TABS[2] && data && <Third data={data} />
+      }
+
+      {
+        tab === TABS[3] && data && <InActive data={data} />
       }
     </div>
   )

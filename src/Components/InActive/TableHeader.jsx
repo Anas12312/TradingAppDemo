@@ -88,7 +88,7 @@ export default function TableHeader({ sort, header, sorters }) {
 
             <div className='relative w-[20%] h-full flex flex-col items-center border-t border-blue-200 '>
                 <div className='h-full flex items-center'>
-                    Scanner Types (in Minutes)
+                    Scanner Types
                 </div>
                 <div className='w-full h-full border-blue-200 flex'>
                     <div className='relative w-full h-full flex justify-center items-center text-center border-r border-t border-blue-200 text-base'
