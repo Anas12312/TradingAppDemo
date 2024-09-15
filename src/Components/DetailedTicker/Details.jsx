@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import TableHeader from './TableHeader'
 import TableBody from './TableBody'
 
 export default function Details({ selectedTicker }) {
+    useEffect(() => {
+        console.log(selectedTicker)
+    }, [selectedTicker])
     return (
         <div className='w-full h-[90%]  bg-[#8873da]'>
             {selectedTicker?.ticker ? (

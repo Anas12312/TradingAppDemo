@@ -101,10 +101,11 @@ export default function TableRow({ setContextRow, setClicked, setPoints, record,
                 {record.relative_volume.toFixed(2)}
             </td>
             <td className='w-[10%] h-full flex justify-center items-center text-center truncate border-r border-blue-700'>
-                {parseFloat(record.change_from_the_Close) ? parseFloat(record.change_from_the_Close).toFixed(2) : parseFloat(record.change_from_the_Close.slice(1)).toFixed(2)}
+                {/* {parseFloat(record.change_from_the_Close) ? parseFloat(record.change_from_the_Close).toFixed(2) : parseFloat(record.change_from_the_Close.slice(1)).toFixed(2)} */}
+                {parseFloat(record.change_from_the_Close) ? parseFloat(record.change_from_the_Close).toFixed(2) : record.change_from_the_Close}
             </td>
             <td className='w-[10%] h-full flex justify-center items-center text-center truncate border-r border-blue-700'>
-                {parseFloat(record.change_from_the_Open) ? parseFloat(record.change_from_the_Open).toFixed(2) : parseFloat(record.change_from_the_Open.slice(1)).toFixed(2)}
+                {parseFloat(record.change_from_the_Open) ? parseFloat(record.change_from_the_Open).toFixed(2) : record.change_from_the_Open}
             </td>
             <td className='w-[10%] h-full flex justify-center items-center text-center truncate border-r border-blue-700'>
                 {Math.round(record.today_range)}

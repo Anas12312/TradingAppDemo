@@ -10,7 +10,9 @@ function extractTime(dateTimeString) {
 export default function TableBody({ ticker }) {
 
     const [selected, setSelected] = useState('stoke')
-
+    useEffect(() => {
+        console.log(ticker)
+    }, [ticker])
     function prepareDate(dateTime) {
         const standard = new Date(dateTime)
         return standard.getMonth() + "/" + standard.getDay() + " " + standard.getHours() + ":" + standard.getMinutes()
@@ -18,7 +20,7 @@ export default function TableBody({ ticker }) {
     function getNewsCount() {
         try {
             if (ticker.news_title) {
-                return JSON.parse(ticker.Previous_news).length + 1
+                return ticker.Previous_news.length + 1
             }
             return 0
         } catch (e) {
@@ -26,8 +28,9 @@ export default function TableBody({ ticker }) {
         }
     }
     function getPrevNews() {
-        const news = JSON.parse(ticker.Previous_news)
-        return news.map(n => n.M)
+        console.log(ticker.Previous_news)
+        const news = ticker.Previous_news
+        return news.map(n => n)
     }
 
     return (
@@ -246,7 +249,7 @@ export default function TableBody({ ticker }) {
                                             <tr>
                                                 <td className='border border-black px-2 text-base'>{prepareDate(ticker.news_time)}</td>
                                                 <td className='border border-black px-2 text-base'>{ticker.news_title}</td>
-                                                <td className='border border-black px-2 text-base'>{ticker.sentiment_score.toFixed(3)}</td>
+                                                <td className='border border-black px-2 text-base'>{ticker.sentiment_score}</td>
                                                 <td className='border border-black px-2 text-base'>{ticker.sentiment_label}</td>
                                             </tr>
                                         </tbody>
@@ -266,9 +269,9 @@ export default function TableBody({ ticker }) {
                                                             getPrevNews().map((n) => {
                                                                 return (
                                                                     <tr>
-                                                                        <td className='border border-black px-2 text-base'>{prepareDate(n.time_published.S)}</td>
-                                                                        <td className='border border-black px-2 text-base'>{n.ticker_sentiment_label.S}</td>
-                                                                        <td className='border border-black px-2 text-base'>{parseFloat(n.ticker_sentiment_score.S).toFixed(3)}</td>
+                                                                        <td className='border border-black px-2 text-base'>{prepareDate(n.time_published)}</td>
+                                                                        <td className='border border-black px-2 text-base'>{n.ticker_sentiment_label}</td>
+                                                                        <td className='border border-black px-2 text-base'>{parseFloat(n.ticker_sentiment_score).toFixed(3)}</td>
                                                                     </tr>
                                                                 )
                                                             })
