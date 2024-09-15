@@ -63,8 +63,10 @@ function Main({ data, idle, setIdle, timer, selectedTicker, setSelectedTicker })
       console.log(e.key);
       if (e.key === 'ArrowUp') {
         setSelectedIndex(prev => prev - 1)
+        setIdle(false)
       } else if (e.key === 'ArrowDown') {
         setSelectedIndex(prev => prev + 1)
+        setIdle(false)
       }
     })
 
