@@ -1,15 +1,19 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import TableRow from './TableRow'
 
 function extractTime(dateTimeString) {
     const timePattern = /\d{1,2}:\d{2}$/;
-    const match = dateTimeString.match(timePattern);
+    const match = dateTimeString?.match(timePattern);
     return match ? match[0] : '';
 }
 
 export default function TableBody({ ticker }) {
 
     const [selected, setSelected] = useState('stoke')
+
+    useEffect(() => {
+        console.log(ticker);
+    },[ticker])
 
     return (
         <div className='w-full h-full bg-white'>

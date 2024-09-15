@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import config from '../../../config.json'
-export default function TableRow({ setContextRow, setClicked, setPoints, record, i, header, setSelectedTicker, setRecords, setSearchedRecords, records, searchedRecords }) {
+export default function TableRow({ setContextRow, setClicked, setPoints, record, i, selectedTicker, header, setSelectedTicker, setRecords, setSearchedRecords, records, searchedRecords, setIdle, timer }) {
 
     const [H, setH] = useState(getTimeDifferenceInMinutes(record.halt_resume_time))
     const [M, setM] = useState(getTimeDifferenceInMinutes(record.momo_time))
@@ -74,6 +74,7 @@ export default function TableRow({ setContextRow, setClicked, setPoints, record,
     return (
         <tr onContextMenu={(e) => {
             e.preventDefault();
+            e.stopPropagation();
             setClicked(true);
             setContextRow(record)
             setPoints({
@@ -82,7 +83,7 @@ export default function TableRow({ setContextRow, setClicked, setPoints, record,
             });
             // console.log("Right Click", e.pageX, e.pageY);
         }}
-            className="w-full flex h-[3rem] relative cursor-pointer" onClick={(e) => { setSelectedTicker(record.ticker); console.log(e.target) }}>
+            className={"w-full flex h-[3rem] relative cursor-pointer font-semibold text-sm border-b border-black " + ((selectedTicker?.ticker === record.ticker) ? ' bg-white' : 'bg-blue-200 ')} onClick={(e) => { window.clearTimeout(timer); e.stopPropagation(); setIdle(false); setSelectedTicker(record); console.log(e.target) }}>
 
             <td className='w-[12.675%] h-full flex justify-center items-center text-center truncate border-r border-blue-700'>
                 {record.ticker}
@@ -96,18 +97,18 @@ export default function TableRow({ setContextRow, setClicked, setPoints, record,
             <td className='w-[12.78%] h-full flex justify-center items-center text-center truncate border-r border-blue-700'>
                 {formatNumber(record.volume_today || 5)}
             </td>
-        
+
             <td className='w-[36.45%] h-full flex justify-center items-center text-center truncate border-r border-blue-700'>
-                <td className={'w-[25%] h-full flex justify-center items-center text-center truncate border-r border-blue-700 ' + ((record.Halt_Count === 0 && H <= 2 && H > 0 ) ? ' bg-green-400' : '' ) + ((record.Halt_Count !== 0 && record.Halt_Count % 2 === 0 ) ? ' bg-red-500' : '' )  + (( record.Halt_Count % 2 !== 0 ) ? ' bg-green-400' : '' ) }>
+                <td className={'w-[25%] h-full flex justify-center items-center text-center truncate border-r border-blue-700 ' + ((record.Halt_Count === 0 && H <= 2 && H > 0) ? ' bg-green-400' : '') + ((record.Halt_Count !== 0 && record.Halt_Count % 2 === 0) ? ' bg-red-500' : '') + ((record.Halt_Count % 2 !== 0) ? ' bg-green-400' : '')}>
                     {H !== null ? H + ' min' : '--'}
                 </td>
-                <td className={'w-[25%] h-full flex justify-center items-center text-center truncate border-r border-blue-700 ' + ((M <= 2 && M !== null) ? ' bg-green-400' : '' )  }>
+                <td className={'w-[25%] h-full flex justify-center items-center text-center truncate border-r border-blue-700 ' + ((M <= 2 && M !== null) ? ' bg-green-400' : '')}>
                     {M !== null ? M + ' min' : '--'}
                 </td>
-                <td className={'w-[25%] h-full flex justify-center items-center text-center truncate border-r border-blue-700 ' + ((T <= 2 && T !== null) ? ' bg-green-400' : '' )  }>
+                <td className={'w-[25%] h-full flex justify-center items-center text-center truncate border-r border-blue-700 ' + ((T <= 2 && T !== null) ? ' bg-green-400' : '')}>
                     {T !== null ? T + ' min' : '--'}
                 </td>
-                <td className={'w-[25%] h-full flex justify-center items-center text-center truncate ' + ((G <= 2 && G !== null) ? ' bg-green-400' : '' )  }>
+                <td className={'w-[25%] h-full flex justify-center items-center text-center truncate ' + ((G <= 2 && G !== null) ? ' bg-green-400' : '')}>
                     {G !== null ? G + ' min' : '--'}
                 </td>
             </td>
