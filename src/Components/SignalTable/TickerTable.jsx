@@ -4,7 +4,7 @@ import TableBody from './TableBody'
 import config from '../../../config.json'
 import { FaPlus, FaCog, FaArrowsAlt, FaTimes } from 'react-icons/fa';
 
-export default function TickerTable({ setSelectedTicker, data }) {
+export default function TickerTable({ setSelectedTicker, data, selectedTicker, setIdle, timer}) {
     const Sorted = {
         NO: 0,
         ASC: 1,
@@ -111,7 +111,7 @@ export default function TickerTable({ setSelectedTicker, data }) {
                     {/* Table Header */}
                     <div className='w-full border-collapse h-[90%]'>
                         <TableHeader sort={sort} header={headers} sorters={sorters} />
-                        <TableBody searchedRecords={searchedRecords} header={headers} setSelectedTicker={setSelectedTicker} records={records} setRecords={setRecords} setSearchedRecords={setSearchedRecords} />
+                        <TableBody timer={timer} setIdle={setIdle} searchedRecords={searchedRecords} header={headers} setSelectedTicker={setSelectedTicker} selectedTicker={selectedTicker} records={records} setRecords={setRecords} setSearchedRecords={setSearchedRecords}/>
                     </div>
 
                 </div>

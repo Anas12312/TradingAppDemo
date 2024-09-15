@@ -1,15 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import TableRow from './TableRow'
 
 function extractTime(dateTimeString) {
     const timePattern = /\d{1,2}:\d{2}$/;
-    const match = dateTimeString.match(timePattern);
+    const match = dateTimeString?.match(timePattern);
     return match ? match[0] : '';
 }
 
 export default function TableBody({ ticker }) {
 
     const [selected, setSelected] = useState('stoke')
+
     function prepareDate(dateTime) {
         const standard = new Date(dateTime)
         return standard.getMonth() + "/" + standard.getDay() + " " + standard.getHours() + ":" + standard.getMinutes()
@@ -28,6 +29,7 @@ export default function TableBody({ ticker }) {
         const news = JSON.parse(ticker.Previous_news)
         return news.map(n => n.M)
     }
+
     return (
         <div className='w-full h-full bg-white'>
 
