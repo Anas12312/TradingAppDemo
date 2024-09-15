@@ -9,10 +9,10 @@ export default function TickerTable({ setSelectedTicker, data }) {
         ASC: 1,
         DEC: -1
     }
-    const [records, setRecords] = useState(data.scan.records)
+    const [records, setRecords] = useState(data.inactive.records)
     const [sorted, setSorted] = useState(false)
-    const [searchedRecords, setSearchedRecords] = useState(data.scan.records)
-    const [headers, setHeaders] = useState(data.scan.headers)
+    const [searchedRecords, setSearchedRecords] = useState(data.inactive.records)
+    const [headers, setHeaders] = useState(data.inactive.headers)
     const [sorters, setSorters] = useState([])
     const [reload, setReload] = useState(false)
     const [search, setSearch] = useState('')
@@ -83,20 +83,20 @@ export default function TickerTable({ setSelectedTicker, data }) {
 
     useEffect(() => {
         const sorters = {}
-        data.scan.headers.forEach((h) => {
+        data.inactive.headers.forEach((h) => {
             sorters[h.name] = Sorted.NO
         })
         setSorters(sorters)
-        setRecords(data.scan.records)
-        setHeaders(data.scan.headers)
-        setSearchedRecords(data.scan.records)
+        setRecords(data.inactive.records)
+        setHeaders(data.inactive.headers)
+        setSearchedRecords(data.inactive.records)
 
     }, [])
 
     useEffect(() => {
-        setRecords(data.scan.records)
-        setHeaders(data.scan.headers)
-        setSearchedRecords(data.scan.records)
+        setRecords(data.inactive.records)
+        setHeaders(data.inactive.headers)
+        setSearchedRecords(data.inactive.records)
         setnewRecords(true)
     }, [data])
 
