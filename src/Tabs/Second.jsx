@@ -21,8 +21,8 @@ function Second({ data, idle, setIdle, timer, selectedTicker, setSelectedTicker 
   const [tick, setTick] = useState(false)
 
   useEffect(() => {
-    if(!selectedTicker.ticker) return
-    if(!selectedTicker.company_name) {
+    if(!selectedTicker?.ticker) return
+    if(!selectedTicker?.company_name) {
       setSelectedTicker(prev => {
         return data.scan.records.find(x => x.ticker === prev.ticker)
       })
@@ -80,8 +80,8 @@ function Second({ data, idle, setIdle, timer, selectedTicker, setSelectedTicker 
     <div>
       <GridLayout className="layout" layout={layout} cols={12} rowHeight={30} width={2400} draggableHandle='.drag-handle' >
         <div onClick={(e) => e.stopPropagation()} key="a" className="grid-item shadow"><TickerTable timer={timer} data={data} setSelectedTicker={setSelectedTicker} selectedTicker={selectedTicker} setIdle={setIdle} /></div>
-        <div onClick={(e) => e.stopPropagation()} key="b" className="grid-item shadow"><Header text={"Price Chart " + (selectedTicker.ticker ? selectedTicker.ticker : "")} /><PriceChart ticker={selectedTicker} /></div>
-        <div onClick={(e) => e.stopPropagation()} key="c" className="grid-item shadow"><Header2 text={"Details " + (selectedTicker.ticker ? selectedTicker.ticker : "")} /><Details selectedTicker={selectedTicker} /></div>
+        <div onClick={(e) => e.stopPropagation()} key="b" className="grid-item shadow"><Header text={"Price Chart " + (selectedTicker?.ticker ? selectedTicker.ticker : "")} /><PriceChart ticker={selectedTicker} /></div>
+        <div onClick={(e) => e.stopPropagation()} key="c" className="grid-item shadow"><Header2 text={"Details " + (selectedTicker?.ticker ? selectedTicker.ticker : "")} /><Details selectedTicker={selectedTicker} /></div>
       </GridLayout>
     </div>
   )
