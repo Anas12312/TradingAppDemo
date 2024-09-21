@@ -88,9 +88,7 @@ export default function TableRow({ setContextRow, setClicked, setPoints, record,
             <td className='w-[10%] h-full flex justify-center items-center text-center truncate border-r border-l border-blue-700'>
                 {record.ticker}
             </td>
-            <td className={'w-[5%] h-full flex justify-center items-center text-center truncate border-r border-blue-700 ' + (record.aiml_status && " bg-green-500")}>
-                
-
+            <td className={'w-[5%] h-full flex justify-center items-center text-center truncate border-r border-blue-700 ' + (record.aiml_status && ' bg-green-500')}>
             </td>
             <td className='w-[10%] h-full flex justify-center items-center text-center truncate border-r border-blue-700'>
                 {record.price < 1 ? record.price?.toFixed(4) : record.price.toFixed(2)}
