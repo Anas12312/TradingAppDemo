@@ -14,8 +14,12 @@ export default function TableBody({ ticker }) {
         console.log(ticker)
     }, [ticker])
     function prepareDate(dateTime) {
-        const standard = new Date(dateTime)
-        return standard.getMonth() + "/" + standard.getDay() + " " + standard.getHours() + ":" + standard.getMinutes()
+        const date = new Date(dateTime)
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const day = date.getDate().toString().padStart(2, '0');
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        return `${month}/${day} ${hours}:${minutes}`;
     }
     function getNewsCount() {
         try {
@@ -65,12 +69,12 @@ export default function TableBody({ ticker }) {
 
                     <div
                         onClick={() => setSelected('news')}
-                        className={'text-center w-full bg-[#8873da] text-white hover:bg-[#ad98ff] transition-all select-none cursor-pointer ' + (selected === 's' && ' underline font-semibold')}>
+                        className={'text-center w-full bg-[#8873da] text-white hover:bg-[#ad98ff] transition-all select-none cursor-pointer ' + (selected === 'news' && ' underline font-semibold')}>
                         News ({getNewsCount()})
                     </div>
                     <div
                         onClick={() => setSelected('ai')}
-                        className={'text-center w-full bg-[#8873da] text-white hover:bg-[#ad98ff] transition-all select-none cursor-pointer ' + (selected === 's' && ' underline font-semibold')}>
+                        className={'text-center w-full bg-[#8873da] text-white hover:bg-[#ad98ff] transition-all select-none cursor-pointer ' + (selected === 'ai' && ' underline font-semibold')}>
                         AI ML
                     </div>
                 </div>
@@ -249,7 +253,7 @@ export default function TableBody({ ticker }) {
                                             <tr>
                                                 <td className='border border-black px-2 text-base'>{prepareDate(ticker.news_time)}</td>
                                                 <td className='border border-black px-2 text-base'>{ticker.news_title}</td>
-                                                <td className='border border-black px-2 text-base'>{ticker.sentiment_score}</td>
+                                                <td className='border border-black px-2 text-base'>{parseFloat(ticker.sentiment_score).toFixed(3)}</td>
                                                 <td className='border border-black px-2 text-base'>{ticker.sentiment_label}</td>
                                             </tr>
                                         </tbody>
@@ -284,6 +288,36 @@ export default function TableBody({ ticker }) {
                                 </div>
                             ) : (
                                 <div>No News</div>
+                            )}
+                        </>
+                    )
+                }
+                {
+                    selected === 'ai' && (
+                        <>
+                            {ticker.aiml_time ? (
+                                <div className='p-5 pt-2 w-full h-[90%] flex flex-col'>
+                                    <div className='mb-2'>Recent</div>
+                                    <table>
+                                        <thead>
+                                            <th className='border border-black px-2 text-base text-start w-[12%]'>Time</th>
+                                            <th className='border border-black px-2 text-base text-start'>Score</th>
+                                            <th className='border border-black px-2 text-base text-start'>Label</th>
+                                            <th className='border border-black px-2 text-base text-start'>Summary</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td className='border border-black px-2 text-base'>{prepareDate(ticker.aiml_time)}</td>
+                                                <td className='border border-black px-2 text-base'>{ticker.aiml_score}</td>
+                                                <td className='border border-black px-2 text-base'>{ticker.aiml_label}</td>
+                                                <td className='border border-black px-2 text-base'>{ticker.aiml_summary}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            ) : (
+                                <div>No AI/ML</div>
                             )}
                         </>
                     )

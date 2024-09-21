@@ -10,10 +10,10 @@ export default function TableRow({ setContextRow, setClicked, setPoints, record,
     useEffect(() => {
         // setCheck(record.check)
         // console.log(record[header[0].name])
-        setH(record.Halt_Diff)
-        setM(record.MOMO_diff)
-        setT(record.Turbo_diff)
-        setG(record.GAP_diff)
+        setH(getTimeDifferenceInMinutes(record.halt_resume_time))
+        setM(getTimeDifferenceInMinutes(record.momo_time))
+        setT(getTimeDifferenceInMinutes(record.turbo_time))
+        setG(getTimeDifferenceInMinutes(record.gap_go_time))
     }, [record])
 
     const toggleCheck = async () => {
