@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import TableHeader from './TableHeader'
-import TableBody from './TableBody'
+// import TableHeader from './TableHeader'
+// import TableBody from './TableBody'
 import { FaPlus, FaCog, FaArrowsAlt, FaTimes } from 'react-icons/fa';
 import config from '../../../config.json'
+
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, RadioGroup, Radio } from "@nextui-org/react";
+
+
+
 export default function TickerTable({ setSelectedTicker, data, selectedTicker, setIdle, timer }) {
     const Sorted = {
         NO: 0,
@@ -139,14 +144,90 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                     <FaArrowsAlt className="cursor-move hover:text-gray-400" />
                 </div>
             </div>
+
             <div className='bg-white flex justify-center items-start w-full h-full'>
                 <div className='flex-col justify-center items-center w-full h-full'>
 
                     {/* Table Header */}
-                    <div className='w-full border-collapse h-[90%]'>
+                    {/* <div className='w-full border-collapse h-[90%]'>
                         <TableHeader sort={sort} header={headers} sorters={sorters} />
                         <TableBody timer={timer} setIdle={setIdle} searchedRecords={searchedRecords} header={headers} setSelectedTicker={setSelectedTicker} selectedTicker={selectedTicker} records={records} setRecords={setRecords} setSearchedRecords={setSearchedRecords} />
-                    </div>
+                    </div> */}
+
+
+                    <Table
+                        isHeaderSticky
+                        color={'primary'}
+                        selectionMode="single"
+                        className='h-full'
+                        defaultSelectedKeys={["2"]}
+                        aria-label="Example static collection table"
+                        radius='none'
+                    >
+                        <TableHeader>
+                            <TableColumn>Ticker</TableColumn>
+                            <TableColumn>AI/ML</TableColumn>
+                            <TableColumn>Price</TableColumn>
+                            <TableColumn>Float</TableColumn>
+                            <TableColumn>Vol</TableColumn>
+                            <TableColumn>Rel Vol</TableColumn>
+                            <TableColumn>&Delta; Close</TableColumn>
+                            <TableColumn>&Delta; Open</TableColumn>
+                            <TableColumn>Today Range %</TableColumn>
+                            <TableColumn>News</TableColumn>
+
+                            <TableColumn>
+                                <div className=' flex items-center'>
+                                    Scanner Types (in Minutes)
+                                </div>
+                                <div className='w-full  border-t flex'>
+                                    <div className='relative w-full h-full flex justify-center items-center text-center border-r '>
+                                        H
+                                    </div>
+                                    <div className='relative w-full h-full flex justify-center items-center text-center border-r  '>
+                                        M
+                                    </div>
+                                    <div className='relative w-full h-full flex justify-center items-center text-center border-r  '>
+                                        T
+                                    </div>
+                                    <div className='relative w-full h-full flex justify-center items-center text-center   '>
+                                        G
+                                    </div>
+                                </div>
+                            </TableColumn>
+                        </TableHeader>
+                        <TableBody>
+                            <TableRow key="1">
+                                <TableCell>Tony Reichert</TableCell>
+                                <TableCell>CEO</TableCell>
+                                <TableCell>Active</TableCell>
+                                <TableCell>Active</TableCell>
+                                <TableCell>Tony Reichert</TableCell>
+                                <TableCell>CEO</TableCell>
+                                <TableCell>Active</TableCell>
+                                <TableCell>Active</TableCell>
+                                <TableCell>Tony Reichert</TableCell>
+                                <TableCell>CEO</TableCell>
+                                <TableCell>
+                                    <div className='w-full flex'>
+                                        <div className='relative w-full h-full flex justify-center items-center text-center  '>
+                                            H
+                                        </div>
+                                        <div className='relative w-full h-full flex justify-center items-center text-center  '>
+                                            M
+                                        </div>
+                                        <div className='relative w-full h-full flex justify-center items-center text-center  '>
+                                            T
+                                        </div>
+                                        <div className='relative w-full h-full flex justify-center items-center text-center  '>
+                                            G
+                                        </div>
+                                    </div>
+                                </TableCell>
+                            </TableRow>
+                        </TableBody>
+                    </Table>
+
 
                 </div>
             </div>

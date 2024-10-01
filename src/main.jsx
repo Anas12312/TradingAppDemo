@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 import LogIn from './Components/LogIn.jsx'
+import { NextUIProvider } from '@nextui-org/react'
 
 
 const Main = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(true)
 
   return (
     <>
@@ -23,5 +24,8 @@ export default Main;
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <Main />,
+  <NextUIProvider>
+    <Main />
+  </NextUIProvider>
+  ,
 )

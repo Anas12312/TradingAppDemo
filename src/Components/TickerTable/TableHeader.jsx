@@ -8,132 +8,134 @@ export default function TableHeader({ sort, header, sorters }) {
         // console.log(header)
     }, [header])
     return (
-        <div className='border-l border-r border-black select-none w-full bg-blue-700 font-semibold text-white h-[20%] flex items-center justify-start text-[1rem] shadow font-Sansation-Bold'>
-            <div className='relative w-[10%] h-full flex justify-center items-center text-center border-r border-t border-blue-200 text-base'
-                onClick={() => {
-                    sort("ticker", "String")
-                }}>
-                Ticker
-                <img src={(sorters.ticker === 0) ? SORT : (sorters.ticker === 1 ? SORT_UP : SORT_DOWN)}
-                    className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
-                />
-            </div>
-            <div className='relative w-[5%] h-full flex justify-center items-center text-center border-r border-t border-blue-200 text-base'>
-                AI/ML
-            </div>
-            <div className='relative w-[10%] h-full flex justify-center items-center text-center border-r border-t border-blue-200 text-base'
-                onClick={() => {
-                    sort("price", "Number")
-                }}>
-                Price
-                <img src={(sorters.price === 0) ? SORT : (sorters.price === 1 ? SORT_UP : SORT_DOWN)}
-                    className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
-                />
-            </div>
-            <div className='relative w-[10%] h-full flex justify-center items-center text-center border-r border-t border-blue-200 text-base'
-                onClick={() => {
-                    sort("float", "Number")
-                }}>
-                Float
-                <img src={(sorters.float === 0) ? SORT : (sorters.float === 1 ? SORT_UP : SORT_DOWN)}
-                    className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
-                />
-            </div>
-            <div className='relative w-[10%] h-full flex justify-center items-center text-center border-r border-t border-blue-200 text-base'
-                onClick={() => {
-                    sort("volume_today", "Number")
-                }}>
-                Vol
-                <img src={(sorters.volume_today === 0) ? SORT : (sorters.volume_today === 1 ? SORT_UP : SORT_DOWN)}
-                    className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
-                />
-            </div>
-            <div className='relative w-[10%] h-full flex justify-center items-center text-center border-r border-t border-blue-200 text-base'
-                onClick={() => {
-                    sort("relative_volume", "Number")
-                }}>
-                Rel Vol
-                <img src={(sorters.relative_volume === 0) ? SORT : (sorters.relative_volume === 1 ? SORT_UP : SORT_DOWN)}
-                    className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
-                />
-            </div>
-            <div className='relative w-[10%] h-full flex justify-center items-center text-center border-r border-t border-blue-200 text-base'
-                onClick={() => {
-                    sort("change_from_the_Close", "Number")
-                }}>
-                &Delta; Close
-                <img src={(sorters.change_from_the_Close === 0) ? SORT : (sorters.change_from_the_Close === 1 ? SORT_UP : SORT_DOWN)}
-                    className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
-                />
-            </div>
-            <div className='relative w-[10%] h-full flex justify-center items-center text-center border-r border-t border-blue-200 text-base'
-                onClick={() => {
-                    sort("change_from_the_Open", "Number")
-                }}>
-                &Delta; Open
-                <img src={(sorters.change_from_the_Open === 0) ? SORT : (sorters.change_from_the_Open === 1 ? SORT_UP : SORT_DOWN)}
-                    className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
-                />
-            </div>
-            <div className='relative w-[10%] h-full flex justify-center items-center text-center border-r border-t border-blue-200 text-base'
-                onClick={() => {
-                    sort("today_range", "Number")
-                }}>
-                Today Range %
-                <img src={(sorters.today_range === 0) ? SORT : (sorters.today_range === 1 ? SORT_UP : SORT_DOWN)}
-                    className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
-                />
-            </div>
+        <div className='px-2 py-2 w-full h-[20%]'>
 
-            <div className='relative w-[5%] h-full flex justify-center items-center text-center border-r border-t border-blue-200 text-base'>
-                News
-            </div>
-
-            <div className='relative w-[20%] h-full flex flex-col items-center border-t border-blue-200 '>
-                <div className='h-full flex items-center'>
-                    Scanner Types (in Minutes)
+            <div className='rounded-lg select-none w-full bg-[#448ce4] font-semibold text-[#ffffff] h-full flex items-center justify-start text-[1rem] font-Sansation-Bold'>
+                <div className='relative w-[10%] h-full flex justify-center items-center text-center border-r border-blue-200 text-base'
+                    onClick={() => {
+                        sort("ticker", "String")
+                    }}>
+                    Ticker
+                    <img src={(sorters.ticker === 0) ? SORT : (sorters.ticker === 1 ? SORT_UP : SORT_DOWN)}
+                        className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
+                    />
                 </div>
-                <div className='w-full h-full border-blue-200 flex'>
-                    <div className='relative w-full h-full flex justify-center items-center text-center border-r border-t border-blue-200 text-base'
-                        onClick={() => {
-                            sort("halt_resume_time", "Date")
-                        }}>
-                        H
-                        <img src={(sorters.halt_resume_time === 0) ? SORT : (sorters.halt_resume_time === 1 ? SORT_UP : SORT_DOWN)}
-                            className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
-                        />
+                <div className='relative w-[5%] h-full flex justify-center items-center text-center border-r border-blue-200 text-base'>
+                    AI/ML
+                </div>
+                <div className='relative w-[10%] h-full flex justify-center items-center text-center border-r border-blue-200 text-base'
+                    onClick={() => {
+                        sort("price", "Number")
+                    }}>
+                    Price
+                    <img src={(sorters.price === 0) ? SORT : (sorters.price === 1 ? SORT_UP : SORT_DOWN)}
+                        className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
+                    />
+                </div>
+                <div className='relative w-[10%] h-full flex justify-center items-center text-center border-r border-blue-200 text-base'
+                    onClick={() => {
+                        sort("float", "Number")
+                    }}>
+                    Float
+                    <img src={(sorters.float === 0) ? SORT : (sorters.float === 1 ? SORT_UP : SORT_DOWN)}
+                        className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
+                    />
+                </div>
+                <div className='relative w-[10%] h-full flex justify-center items-center text-center border-r border-blue-200 text-base'
+                    onClick={() => {
+                        sort("volume_today", "Number")
+                    }}>
+                    Vol
+                    <img src={(sorters.volume_today === 0) ? SORT : (sorters.volume_today === 1 ? SORT_UP : SORT_DOWN)}
+                        className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
+                    />
+                </div>
+                <div className='relative w-[10%] h-full flex justify-center items-center text-center border-r border-blue-200 text-base'
+                    onClick={() => {
+                        sort("relative_volume", "Number")
+                    }}>
+                    Rel Vol
+                    <img src={(sorters.relative_volume === 0) ? SORT : (sorters.relative_volume === 1 ? SORT_UP : SORT_DOWN)}
+                        className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
+                    />
+                </div>
+                <div className='relative w-[10%] h-full flex justify-center items-center text-center border-r border-blue-200 text-base'
+                    onClick={() => {
+                        sort("change_from_the_Close", "Number")
+                    }}>
+                    &Delta; Close
+                    <img src={(sorters.change_from_the_Close === 0) ? SORT : (sorters.change_from_the_Close === 1 ? SORT_UP : SORT_DOWN)}
+                        className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
+                    />
+                </div>
+                <div className='relative w-[10%] h-full flex justify-center items-center text-center border-r border-blue-200 text-base'
+                    onClick={() => {
+                        sort("change_from_the_Open", "Number")
+                    }}>
+                    &Delta; Open
+                    <img src={(sorters.change_from_the_Open === 0) ? SORT : (sorters.change_from_the_Open === 1 ? SORT_UP : SORT_DOWN)}
+                        className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
+                    />
+                </div>
+                <div className='relative w-[10%] h-full flex justify-center items-center text-center border-r border-blue-200 text-base'
+                    onClick={() => {
+                        sort("today_range", "Number")
+                    }}>
+                    Today Range %
+                    <img src={(sorters.today_range === 0) ? SORT : (sorters.today_range === 1 ? SORT_UP : SORT_DOWN)}
+                        className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
+                    />
+                </div>
+
+                <div className='relative w-[5%] h-full flex justify-center items-center text-center border-r border-blue-200 text-base'>
+                    News
+                </div>
+
+                <div className='relative w-[20%] h-full flex flex-col items-center border-blue-200 '>
+                    <div className='h-full flex items-center'>
+                        Scanner Types (in Minutes)
                     </div>
-                    <div className='relative w-full h-full flex justify-center items-center text-center border-r border-t border-blue-200 text-base'
-                        onClick={() => {
-                            sort("momo_time", "Date")
-                        }}>
-                        M
-                        <img src={(sorters.momo_time === 0) ? SORT : (sorters.momo_time === 1 ? SORT_UP : SORT_DOWN)}
-                            className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
-                        />
-                    </div>
-                    <div className='relative w-full h-full flex justify-center items-center text-center border-r border-t border-blue-200 text-base'
-                        onClick={() => {
-                            sort("turbo_time", "Date")
-                        }}>
-                        T
-                        <img src={(sorters.turbo_time === 0) ? SORT : (sorters.turbo_time === 1 ? SORT_UP : SORT_DOWN)}
-                            className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
-                        />
-                    </div>
-                    <div className='relative w-full h-full flex justify-center items-center text-center  text-base border-t border-blue-200 '
-                        onClick={() => {
-                            sort("gap_go_time", "Date")
-                        }}>
-                        G
-                        <img src={(sorters.gap_go_time === 0) ? SORT : (sorters.gap_go_time === 1 ? SORT_UP : SORT_DOWN)}
-                            className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
-                        />
+                    <div className='w-full h-full border-blue-200 border-t flex'>
+                        <div className='relative w-full h-full flex justify-center items-center text-center border-r border-blue-200 text-base'
+                            onClick={() => {
+                                sort("halt_resume_time", "Date")
+                            }}>
+                            H
+                            <img src={(sorters.halt_resume_time === 0) ? SORT : (sorters.halt_resume_time === 1 ? SORT_UP : SORT_DOWN)}
+                                className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
+                            />
+                        </div>
+                        <div className='relative w-full h-full flex justify-center items-center text-center border-r border-blue-200 text-base'
+                            onClick={() => {
+                                sort("momo_time", "Date")
+                            }}>
+                            M
+                            <img src={(sorters.momo_time === 0) ? SORT : (sorters.momo_time === 1 ? SORT_UP : SORT_DOWN)}
+                                className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
+                            />
+                        </div>
+                        <div className='relative w-full h-full flex justify-center items-center text-center border-r border-blue-200 text-base'
+                            onClick={() => {
+                                sort("turbo_time", "Date")
+                            }}>
+                            T
+                            <img src={(sorters.turbo_time === 0) ? SORT : (sorters.turbo_time === 1 ? SORT_UP : SORT_DOWN)}
+                                className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
+                            />
+                        </div>
+                        <div className='relative w-full h-full flex justify-center items-center text-center  text-base border-blue-200 '
+                            onClick={() => {
+                                sort("gap_go_time", "Date")
+                            }}>
+                            G
+                            <img src={(sorters.gap_go_time === 0) ? SORT : (sorters.gap_go_time === 1 ? SORT_UP : SORT_DOWN)}
+                                className='absolute w-[1rem] h-[1rem] right-[5%] bottom-[12%]'
+                            />
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            {/* {
+                {/* {
                 header.filter((h) => {
                     return (
                         h.name === 'sector' ||
@@ -148,7 +150,7 @@ export default function TableHeader({ sort, header, sorters }) {
                     if (h.name == "Ticker") return
                     if (h.name == "Price") return
                     return (
-                        <div className='relative w-[10%] h-full flex justify-center items-center text-center border-r border-t border-blue-200 text-sm'
+                        <div className='relative w-[10%] h-full flex justify-center items-center text-center border-r border-blue-200 text-sm'
                             onClick={() => {
                                 sort(h.name, h.type)
                             }}>
@@ -160,6 +162,8 @@ export default function TableHeader({ sort, header, sorters }) {
                     )
                 })
             } */}
+            </div>
+
         </div>
     )
 }
