@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import TableRow from './TableRow'
 import config from '../../../config.json'
-export default function TableBody({ searchedRecords, records, header, setSelectedTicker, setRecords, setSearchedRecords }) {
+import InTradeTableRow from './InTradeTableRow';
+import InTradeTableRow2 from './InTradeTableRow2';
+export default function InTradeTableBody2({ searchedRecords, records, header, setSelectedTicker, setRecords, setSearchedRecords }) {
     const [clicked, setClicked] = useState(false);
     const [points, setPoints] = useState({
         x: 0,
@@ -15,8 +16,8 @@ export default function TableBody({ searchedRecords, records, header, setSelecte
             window.removeEventListener("click", handleClick);
         };
     }, []);
-    async function activeTicker(ticker) {front/src/Components/InActive/TableBody.jsx
-        await fetch(config.API_URL + '/tickers/active/' + ticker, {
+    async function detradeTicker(ticker) {
+        await fetch(config.API_URL + '/tickers/detrade/' + ticker, {
             method: "POST"
         })
         const newRecords = records.filter(r => r.ticker !== ticker)
@@ -25,23 +26,24 @@ export default function TableBody({ searchedRecords, records, header, setSelecte
         setSearchedRecords(newSearchedRecords)
     }
     return (
-        <div className='w-full h-[80%] relative'>
+        <div className='w-full h-[70%] relative'>
 
             <div className=' h-full [&>*:nth-child(even)]:bg-white [&>*:nth-child(odd)]:bg-blue-100
                             border-b border-blue-700 overflow-y-scroll scrollbar-none'>
 
                 {searchedRecords?.map((record, i) => {
+                    if(i % 2 == 0) return
                     return (
-                        <TableRow setContextRow={setContextRow} setClicked={setClicked} setPoints={setPoints} key={i} record={record} i={i} header={header} setSelectedTicker={setSelectedTicker} setRecords={setRecords} setSearchedRecords={setSearchedRecords} records={records} searchedRecords={searchedRecords} />
+                        <InTradeTableRow2 setContextRow={setContextRow} setClicked={setClicked} setPoints={setPoints} key={i} record={record} i={i} header={header} setSelectedTicker={setSelectedTicker} setRecords={setRecords} setSearchedRecords={setSearchedRecords} records={records} searchedRecords={searchedRecords} />
                     ) 
                 })}
             </div>
             {clicked && (
-                <div style={{top: points.y-210, left: points.x-210}} className='absolute bg border border-black bg-white w-40 py-1'>
+                <div style={{top: points.y-210, left: points.x-1000}} className='absolute bg border border-black bg-white w-40 py-1'>
                     <ul className='flex flex-col'>
                         <li className='hover:bg-slate-200 w-full px-2 cursor-pointer' onClick={() => {
-                            activeTicker(contextRow.ticker)
-                        }}>Activate</li>
+                            detradeTicker(contextRow.ticker)
+                        }}>Detrade</li>
                         <li className='hover:bg-slate-200 w-full px-2 cursor-pointer' onClick={() => {
                             setSelectedTicker(contextRow)
                         }}>View Details</li>
