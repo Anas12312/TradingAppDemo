@@ -34,7 +34,7 @@ export default function TableBody({ ticker }) {
     function getPrevNews() {
         console.log(ticker.Previous_news)
         const news = ticker.Previous_news
-        return news.map(n => n)
+        return news?.map(n => n)
     }
 
     return (

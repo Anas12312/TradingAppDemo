@@ -4,6 +4,7 @@ import Second from './Tabs/Second'
 import config from '../config.json'
 import Third from "./Tabs/Third"
 import InActive from "./Tabs/InActive"
+import InTrade from "./Tabs/InTrade"
 
 const TABS = [
   'Scan',
@@ -45,7 +46,7 @@ function App() {
     // })
     // setSorters(sorters)
 
-    await delay(5000)
+    await delay(30_000)
     await fetchRecords()
   }
   useEffect(() => {
@@ -83,7 +84,7 @@ function App() {
                 {x == "Active Signals" && <Tab name={x} number={data?.signal.records.length} />}
                 {x == "Signals Logs" && <Tab name={x} number={data?.signalLogs.records.length} />}
                 {x == "In Active" && <Tab name={x} number={data?.inactive.records.length} />}
-                {x == "In Trade" && <Tab name={x} />}
+                {x == "In Trade" && <Tab name={x} number={data?.intrade.records.length} />}
                 {x == "Alarms" && <Tab color="text-red-500" name={x} />}
 
             </button>
@@ -104,6 +105,9 @@ function App() {
 
       {
         tab === TABS[3] && data && <InActive data={data} />
+      }
+      {
+        tab === TABS[4] && data && <InTrade setSelectedTicker={setSelectedTickerSignalLog} selectedTicker={selectedTickerSignalLog} data={data} idle={idle} setIdle={setIdle} timer={timer} />
       }
     </div>
   )
