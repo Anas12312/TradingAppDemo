@@ -5,6 +5,7 @@ import config from '../config.json'
 import Third from "./Tabs/Third"
 import InActive from "./Tabs/InActive"
 import InTrade from "./Tabs/InTrade"
+import { Tabs, Tab as NextTab } from "@nextui-org/react"
 
 const TABS = [
   'Scan',
@@ -75,21 +76,46 @@ function App() {
       }}
     >
       <div className="flex justify-center items-center w-full my-4 ">
-        {
+        <Tabs
+          size="lg"
+          aria-label="Options"
+          className=""
+          onSelectionChange={(key) => { console.log(key); setTab(TABS[TABS.indexOf(key)]) }}
+        >
+          {
+            TABS.map((x, i) => (
+              <NextTab
+                className="py-8"
+                key={x}
+                title={
+                  <div className="flex flex-col font-semibold">
+                    <div className="">{x}</div>
+                    <div className={"text-green-600"}>({x == "Scan" && data?.scan.records.length}
+                      {x == "Active Signals" && data?.scan.records.length}
+                      {x == "Signals Logs" && data?.signalLogs.records.length}
+                      {x == "In Active" && data?.inactive.records.length}
+                      {x == "In Trade" && data?.intrade.records.length}
+                      {x == "Alarms" && 0})</div>
+                  </div>
+                } />
+            ))
+          }
+        </Tabs>
+        {/* {
           TABS.map(x => (
             <button
               onClick={(e) => { e.stopPropagation(); setTab(TABS[TABS.indexOf(x)]) }}
               className={"px-4 py-3 border-r-0 border-l-0 border-2 hover:bg-blue-500 hover:text-white border-blue-700 font-semibold text-xl last:border-r-2 first:border-l-2 first:rounded-l-full last:rounded-r-full transition-all " + (tab === x ? 'bg-blue-700 hover:bg-blue-700 text-white' : '')}>
-                {x == "Scan" && <Tab name={x} number={data?.scan.records.length} />}
-                {x == "Active Signals" && <Tab name={x} number={data?.signal.records.length} />}
-                {x == "Signals Logs" && <Tab name={x} number={data?.signalLogs.records.length} />}
-                {x == "In Active" && <Tab name={x} number={data?.inactive.records.length} />}
-                {x == "In Trade" && <Tab name={x} number={data?.intrade.records.length} />}
-                {x == "Alarms" && <Tab color="text-red-500" name={x} />}
+              {x == "Scan" && <Tab name={x} number={data?.scan.records.length} />}
+              {x == "Active Signals" && <Tab name={x} number={data?.signal.records.length} />}
+              {x == "Signals Logs" && <Tab name={x} number={data?.signalLogs.records.length} />}
+              {x == "In Active" && <Tab name={x} number={data?.inactive.records.length} />}
+              {x == "In Trade" && <Tab name={x} number={data?.intrade.records.length} />}
+              {x == "Alarms" && <Tab color="text-red-500" name={x} />}
 
             </button>
           ))
-        }
+        } */}
       </div>
       {
         tab === TABS[0] && data && <Main setSelectedTicker={setSelectedTickerScan} selectedTicker={selectedTickerScan} data={data} idle={idle} setIdle={setIdle} timer={timer} />
@@ -100,7 +126,7 @@ function App() {
       }
 
       {
-        tab === TABS[2] && data && <Third setSelectedTicker={setSelectedTickerSignalLog} selectedTicker={selectedTickerSignalLog} data={data} idle={idle} setIdle={setIdle} timer={timer}  />
+        tab === TABS[2] && data && <Third setSelectedTicker={setSelectedTickerSignalLog} selectedTicker={selectedTickerSignalLog} data={data} idle={idle} setIdle={setIdle} timer={timer} />
       }
 
       {
