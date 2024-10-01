@@ -46,7 +46,7 @@ export default function TableBody({ searchedRecords, records, header, setSelecte
         setSearchedRecords(newSearchedRecords)
     }
     return (
-        <div className='w-full h-[80%] relative'>
+        <div className='w-full h-[80%] relative px-2'>
 
             <div className=' h-full 
                             border-b border-blue-700 overflow-y-scroll scrollbar-none'>
