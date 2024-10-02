@@ -71,11 +71,138 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
             return
         }
 
+        if (field === 'halt_resume_time') {
+
+            if (tempSorter[field] === Sorted.ASC) {
+                setSearchedRecords(prev => [...prev
+                    .filter(x => getTimeDifferenceInMinutes(x.halt_resume_time) !== -1)
+                    .sort((a, b) => {
+                        const dateA = new Date(a[field]);
+                        const dateB = new Date(b[field]);
+
+                        return dateA - dateB;  // Ascending order
+                    }),
+                ...prev.filter(x => getTimeDifferenceInMinutes(x.halt_resume_time) === -1)
+                ]);
+            } else if (tempSorter[field] === Sorted.DEC) {
+                setSearchedRecords(prev => [...prev
+                    .filter(x => getTimeDifferenceInMinutes(x.halt_resume_time) !== -1)
+                    .sort((a, b) => {
+                        const dateA = new Date(a[field]);
+                        const dateB = new Date(b[field]);
+
+                        return dateB - dateA;  // Descending order
+                    }),
+                ...prev.filter(x => getTimeDifferenceInMinutes(x.halt_resume_time) === -1)
+                ]);
+
+
+            }
+
+            return
+        }
+
+        if (field === 'momo_time') {
+
+            if (tempSorter[field] === Sorted.ASC) {
+                setSearchedRecords(prev => [...prev
+                    .filter(x => getTimeDifferenceInMinutes(x.momo_time) !== -1)
+                    .sort((a, b) => {
+                        const dateA = new Date(a[field]);
+                        const dateB = new Date(b[field]);
+
+                        return dateA - dateB;  // Ascending order
+                    }),
+                ...prev.filter(x => getTimeDifferenceInMinutes(x.momo_time) === -1)
+                ]);
+            } else if (tempSorter[field] === Sorted.DEC) {
+                setSearchedRecords(prev => [...prev
+                    .filter(x => getTimeDifferenceInMinutes(x.momo_time) !== -1)
+                    .sort((a, b) => {
+                        const dateA = new Date(a[field]);
+                        const dateB = new Date(b[field]);
+
+                        return dateB - dateA;  // Descending order
+                    }),
+                ...prev.filter(x => getTimeDifferenceInMinutes(x.momo_time) === -1)
+                ]);
+
+
+            }
+
+            return
+        }
+
+
+        if (field === 'turbo_time') {
+
+            if (tempSorter[field] === Sorted.ASC) {
+                setSearchedRecords(prev => [...prev
+                    .filter(x => getTimeDifferenceInMinutes(x.turbo_time) !== -1)
+                    .sort((a, b) => {
+                        const dateA = new Date(a[field]);
+                        const dateB = new Date(b[field]);
+
+                        return dateA - dateB;  // Ascending order
+                    }),
+                ...prev.filter(x => getTimeDifferenceInMinutes(x.turbo_time) === -1)
+                ]);
+            } else if (tempSorter[field] === Sorted.DEC) {
+                setSearchedRecords(prev => [...prev
+                    .filter(x => getTimeDifferenceInMinutes(x.turbo_time) !== -1)
+                    .sort((a, b) => {
+                        const dateA = new Date(a[field]);
+                        const dateB = new Date(b[field]);
+
+                        return dateB - dateA;  // Descending order
+                    }),
+                ...prev.filter(x => getTimeDifferenceInMinutes(x.turbo_time) === -1)
+                ]);
+
+
+            }
+
+            return
+        }
+
+
+        if (field === 'gap_go_time') {
+
+            if (tempSorter[field] === Sorted.ASC) {
+                setSearchedRecords(prev => [...prev
+                    .filter(x => getTimeDifferenceInMinutes(x.gap_go_time) !== -1)
+                    .sort((a, b) => {
+                        const dateA = new Date(a[field]);
+                        const dateB = new Date(b[field]);
+
+                        return dateA - dateB;  // Ascending order
+                    }),
+                ...prev.filter(x => getTimeDifferenceInMinutes(x.gap_go_time) === -1)
+                ]);
+            } else if (tempSorter[field] === Sorted.DEC) {
+                setSearchedRecords(prev => [...prev
+                    .filter(x => getTimeDifferenceInMinutes(x.gap_go_time) !== -1)
+                    .sort((a, b) => {
+                        const dateA = new Date(a[field]);
+                        const dateB = new Date(b[field]);
+
+                        return dateB - dateA;  // Descending order
+                    }),
+                ...prev.filter(x => getTimeDifferenceInMinutes(x.gap_go_time) === -1)
+                ]);
+
+
+            }
+
+            return
+        }
+
+
         if (type == "Number") {
             console.log('Num', field, tempSorter[field]);
             if (tempSorter[field] === Sorted.ASC) {
                 console.log('Sort');
-                setSearchedRecords(prev=>prev.sort((a, b) => +a[field] - +b[field]))
+                setSearchedRecords(prev => prev.sort((a, b) => +a[field] - +b[field]))
             }
             else if (tempSorter[field] === Sorted.DEC) setSearchedRecords(records.sort((a, b) => +b[field] - +a[field]))
 
@@ -148,9 +275,14 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
         data.signal.headers.forEach((h) => {
             sorters[h.name] = Sorted.NO
         })
-        setSorters({ ...sorters, volume_today: Sorted.NO })
-
-
+        setSorters({
+            ...sorters,
+            volume_today: Sorted.NO,
+            gap_go_time: Sorted.NO,
+            halt_resume_time: Sorted.NO,
+            momo_time: Sorted.NO,
+            turbo_time: Sorted.NO,
+        })
 
         const handleClick = () => setClicked(false);
         window.addEventListener("click", handleClick);
@@ -293,37 +425,37 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                     <div className='relative w-full h-full flex justify-center items-center text-center border-r '>
                                         <div className='flex text-base'
                                             onClick={() => {
-                                                sort("Halt_Diff", "Number")
+                                                sort("halt_resume_time", "Date")
                                             }}>
                                             <span className='pr-3'>H</span>
-                                            <FaChevronUp className={(sorters.Halt_Diff === 0) ? ' hidden' : (sorters.Halt_Diff === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
+                                            <FaChevronUp className={(sorters.halt_resume_time === 0) ? ' hidden' : (sorters.halt_resume_time === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
                                         </div>
                                     </div>
                                     <div className='relative w-full h-full flex justify-center items-center text-center border-r  '>
                                         <div className='flex text-base'
                                             onClick={() => {
-                                                sort("MOMO_diff", "Number")
+                                                sort("momo_time", "Date")
                                             }}>
                                             <span className='pr-3'>M</span>
-                                            <FaChevronUp className={(sorters.MOMO_diff === 0) ? ' hidden' : (sorters.MOMO_diff === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
+                                            <FaChevronUp className={(sorters.momo_time === 0) ? ' hidden' : (sorters.momo_time === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
                                         </div>
                                     </div>
                                     <div className='relative w-full h-full flex justify-center items-center text-center border-r  '>
                                         <div className='flex text-base'
                                             onClick={() => {
-                                                sort("Turbo_diff", "Number")
+                                                sort("turbo_time", "Date")
                                             }}>
                                             <span className='pr-3'>T</span>
-                                            <FaChevronUp className={(sorters.Turbo_diff === 0) ? ' hidden' : (sorters.Turbo_diff === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
+                                            <FaChevronUp className={(sorters.turbo_time === 0) ? ' hidden' : (sorters.turbo_time === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
                                         </div>
                                     </div>
                                     <div className='relative w-full h-full flex justify-center items-center text-center   '>
                                         <div className='flex text-base'
                                             onClick={() => {
-                                                sort("GAP_diff", "Number")
+                                                sort("gap_go_time", "Date")
                                             }}>
                                             <span className='pr-3'>G</span>
-                                            <FaChevronUp className={(sorters.GAP_diff === 0) ? ' hidden' : (sorters.GAP_diff === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
+                                            <FaChevronUp className={(sorters.gap_go_time === 0) ? ' hidden' : (sorters.gap_go_time === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
                                         </div>
                                     </div>
                                 </div>

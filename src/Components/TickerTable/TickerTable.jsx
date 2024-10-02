@@ -76,14 +76,132 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
             return
         }
 
-
-
         if (field === 'halt_resume_time') {
 
-            
+            if (tempSorter[field] === Sorted.ASC) {
+                setSearchedRecords(prev => [...prev
+                    .filter(x => getTimeDifferenceInMinutes(x.halt_resume_time) !== -1)
+                    .sort((a, b) => {
+                        const dateA = new Date(a[field]);
+                        const dateB = new Date(b[field]);
+
+                        return dateA - dateB;  // Ascending order
+                    }),
+                ...prev.filter(x => getTimeDifferenceInMinutes(x.halt_resume_time) === -1)
+                ]);
+            } else if (tempSorter[field] === Sorted.DEC) {
+                setSearchedRecords(prev => [...prev
+                    .filter(x => getTimeDifferenceInMinutes(x.halt_resume_time) !== -1)
+                    .sort((a, b) => {
+                        const dateA = new Date(a[field]);
+                        const dateB = new Date(b[field]);
+
+                        return dateB - dateA;  // Descending order
+                    }),
+                ...prev.filter(x => getTimeDifferenceInMinutes(x.halt_resume_time) === -1)
+                ]);
+
+
+            }
 
             return
         }
+
+        if (field === 'momo_time') {
+
+            if (tempSorter[field] === Sorted.ASC) {
+                setSearchedRecords(prev => [...prev
+                    .filter(x => getTimeDifferenceInMinutes(x.momo_time) !== -1)
+                    .sort((a, b) => {
+                        const dateA = new Date(a[field]);
+                        const dateB = new Date(b[field]);
+
+                        return dateA - dateB;  // Ascending order
+                    }),
+                ...prev.filter(x => getTimeDifferenceInMinutes(x.momo_time) === -1)
+                ]);
+            } else if (tempSorter[field] === Sorted.DEC) {
+                setSearchedRecords(prev => [...prev
+                    .filter(x => getTimeDifferenceInMinutes(x.momo_time) !== -1)
+                    .sort((a, b) => {
+                        const dateA = new Date(a[field]);
+                        const dateB = new Date(b[field]);
+
+                        return dateB - dateA;  // Descending order
+                    }),
+                ...prev.filter(x => getTimeDifferenceInMinutes(x.momo_time) === -1)
+                ]);
+
+
+            }
+
+            return
+        }
+
+
+        if (field === 'turbo_time') {
+
+            if (tempSorter[field] === Sorted.ASC) {
+                setSearchedRecords(prev => [...prev
+                    .filter(x => getTimeDifferenceInMinutes(x.turbo_time) !== -1)
+                    .sort((a, b) => {
+                        const dateA = new Date(a[field]);
+                        const dateB = new Date(b[field]);
+
+                        return dateA - dateB;  // Ascending order
+                    }),
+                ...prev.filter(x => getTimeDifferenceInMinutes(x.turbo_time) === -1)
+                ]);
+            } else if (tempSorter[field] === Sorted.DEC) {
+                setSearchedRecords(prev => [...prev
+                    .filter(x => getTimeDifferenceInMinutes(x.turbo_time) !== -1)
+                    .sort((a, b) => {
+                        const dateA = new Date(a[field]);
+                        const dateB = new Date(b[field]);
+
+                        return dateB - dateA;  // Descending order
+                    }),
+                ...prev.filter(x => getTimeDifferenceInMinutes(x.turbo_time) === -1)
+                ]);
+
+
+            }
+
+            return
+        }
+
+
+        if (field === 'gap_go_time') {
+
+            if (tempSorter[field] === Sorted.ASC) {
+                setSearchedRecords(prev => [...prev
+                    .filter(x => getTimeDifferenceInMinutes(x.gap_go_time) !== -1)
+                    .sort((a, b) => {
+                        const dateA = new Date(a[field]);
+                        const dateB = new Date(b[field]);
+
+                        return dateA - dateB;  // Ascending order
+                    }),
+                ...prev.filter(x => getTimeDifferenceInMinutes(x.gap_go_time) === -1)
+                ]);
+            } else if (tempSorter[field] === Sorted.DEC) {
+                setSearchedRecords(prev => [...prev
+                    .filter(x => getTimeDifferenceInMinutes(x.gap_go_time) !== -1)
+                    .sort((a, b) => {
+                        const dateA = new Date(a[field]);
+                        const dateB = new Date(b[field]);
+
+                        return dateB - dateA;  // Descending order
+                    }),
+                ...prev.filter(x => getTimeDifferenceInMinutes(x.gap_go_time) === -1)
+                ]);
+
+
+            }
+
+            return
+        }
+
 
         if (type == "Number") {
             console.log('Num', field, tempSorter[field]);
