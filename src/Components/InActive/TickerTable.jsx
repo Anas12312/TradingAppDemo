@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 // import TableBody from './TableBody'
 import { FaPlus, FaCog, FaArrowsAlt, FaTimes } from 'react-icons/fa';
 import config from '../../../config.json'
+import { FaChevronUp } from "react-icons/fa";
+
 
 import { Table, TableHeader, TableColumn, TableRow, TableBody, TableCell, RadioGroup, Radio } from "@nextui-org/react";
 
@@ -37,14 +39,49 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
 
         setSorters(tempSorter)
 
-        if (type == "Number") {
-            if (tempSorter[field] === Sorted.ASC) setRecords(records.sort((a, b) => +a[field] - +b[field]))
-            else if (tempSorter[field] === Sorted.DEC) setRecords(records.sort((a, b) => +b[field] - +a[field]))
+        if (field === 'aiml') {
+            if (tempSorter[field] === Sorted.DEC) setSearchedRecords(prev => prev.sort((x, y) => {
+                return (x === y) ? 0 : x ? -1 : 1;
+            }))
 
-            setRecords(records)
+            if (tempSorter[field] === Sorted.ASC) setSearchedRecords(prev => prev.sort((x, y) => {
+                return (x === y) ? 0 : x ? 1 : -1;
+            }))
+
+            return
+        }
+
+        if (field === 'sentiment_label') {
+            if (tempSorter[field] === Sorted.ASC) {
+                setSearchedRecords(prev => [
+                    ...prev.filter(x => (x.sentiment_label === "Bullish" || x.sentiment_label === "Somewhat-Bullish")),
+                    ...prev.filter(x => (x.sentiment_label === "Bearish" || x.sentiment_label === "Somewhat-Bearish")),
+                    ...prev.filter(x => !x.sentiment_label)
+                ])
+            }
+
+            if (tempSorter[field] === Sorted.DEC) {
+                setSearchedRecords(prev => [
+                    ...prev.filter(x => (x.sentiment_label === "Bearish" || x.sentiment_label === "Somewhat-Bearish")),
+                    ...prev.filter(x => (x.sentiment_label === "Bullish" || x.sentiment_label === "Somewhat-Bullish")),
+                    ...prev.filter(x => !x.sentiment_label)
+                ])
+            }
+            return
+        }
+
+        if (type == "Number") {
+            console.log('Num', field, tempSorter[field]);
+            if (tempSorter[field] === Sorted.ASC) {
+                console.log('Sort');
+                setSearchedRecords(prev => prev.sort((a, b) => +a[field] - +b[field]))
+            }
+            else if (tempSorter[field] === Sorted.DEC) setSearchedRecords(records.sort((a, b) => +b[field] - +a[field]))
+
+            setSearchedRecords(records)
         } else if (type == "String") {
             if (tempSorter[field] === Sorted.ASC) {
-                setRecords(records.sort((a, b) => {
+                setSearchedRecords(prev => prev.sort((a, b) => {
                     if (a[field] < b[field]) {
                         return -1;
                     }
@@ -54,7 +91,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                     return 0;
                 }))
             } else if (tempSorter[field] === Sorted.DEC) {
-                setRecords(records.sort((a, b) => {
+                setSearchedRecords(prev => prev.sort((a, b) => {
                     if (a[field] < b[field]) {
                         return 1;
                     }
@@ -67,14 +104,14 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
         } else if (type == "Date") {
             console.log(field);
             if (tempSorter[field] === Sorted.ASC) {
-                setRecords(records.sort((a, b) => {
+                setSearchedRecords(prev => prev.sort((a, b) => {
                     const dateA = new Date(a[field]);
                     const dateB = new Date(b[field]);
 
                     return dateA - dateB;  // Ascending order
                 }));
             } else if (tempSorter[field] === Sorted.DEC) {
-                setRecords(records.sort((a, b) => {
+                setSearchedRecords(prev => prev.sort((a, b) => {
                     const dateA = new Date(a[field]);
                     const dateB = new Date(b[field]);
 
@@ -84,6 +121,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
         }
 
     }
+
 
     useEffect(() => {
         const sorters = {}
@@ -233,33 +271,137 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                 e.preventDefault();
                             }
                         }}>
-                            <TableColumn>Ticker</TableColumn>
-                            <TableColumn>AI/ML</TableColumn>
-                            <TableColumn>Price</TableColumn>
-                            <TableColumn>Float</TableColumn>
-                            <TableColumn>Vol</TableColumn>
-                            <TableColumn>Rel Vol</TableColumn>
-                            <TableColumn>&Delta; Close</TableColumn>
-                            <TableColumn>&Delta; Open</TableColumn>
-                            <TableColumn>Today Range %</TableColumn>
-                            <TableColumn>News</TableColumn>
+                            <TableColumn>
+                                <div className='flex text-base'
+                                    onClick={() => {
+                                        sort("ticker", "String")
+                                    }}>
+                                    <span className='pr-3'>Ticker</span>
+                                    <FaChevronUp className={(sorters.ticker === 0) ? ' hidden' : (sorters.ticker === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
+                                </div>
+                            </TableColumn>
+                            <TableColumn>
+                                <div className='flex text-base'
+                                    onClick={() => {
+                                        sort("aiml", "Color")
+                                    }}>
+                                    <span className='pr-3'>AI/ML</span>
+                                    <FaChevronUp className={(sorters.aiml_status === 0) ? ' hidden' : (sorters.aiml_status === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
+                                </div>
+                            </TableColumn>
+                            <TableColumn>
+                                <div className='flex text-base'
+                                    onClick={() => {
+                                        sort("price", "Number")
+                                    }}>
+                                    <span className='pr-3'>Price</span>
+                                    <FaChevronUp className={(sorters.price === 0) ? ' hidden' : (sorters.price === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
+                                </div>
+                            </TableColumn>
+                            <TableColumn>
+                                <div className='flex text-base'
+                                    onClick={() => {
+                                        sort("float", "Number")
+                                    }}>
+                                    <span className='pr-3'>Float</span>
+                                    <FaChevronUp className={(sorters.float === 0) ? ' hidden' : (sorters.float === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
+                                </div>
+                            </TableColumn>
+                            <TableColumn>
+                                <div className='flex text-base'
+                                    onClick={() => {
+                                        sort("volume_today", "Number")
+                                    }}>
+                                    <span className='pr-3'>Vol</span>
+                                    <FaChevronUp className={(sorters.volume_today === 0) ? ' hidden' : (sorters.volume_today === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
+                                </div>
+                            </TableColumn>
+                            <TableColumn>
+                                <div className='flex text-base'
+                                    onClick={() => {
+                                        sort("relative_volume", "Number")
+                                    }}>
+                                    <span className='pr-3'>Rel Vol</span>
+                                    <FaChevronUp className={(sorters.relative_volume === 0) ? ' hidden' : (sorters.relative_volume === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
+                                </div>
+                            </TableColumn>
+                            <TableColumn>
+                                <div className='flex text-base'
+                                    onClick={() => {
+                                        sort("change_from_the_Close", "Number")
+                                    }}>
+                                    <span className='pr-3'>&Delta; Close</span>
+                                    <FaChevronUp className={(sorters.change_from_the_Close === 0) ? ' hidden' : (sorters.change_from_the_Close === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
+                                </div>
+                            </TableColumn>
+                            <TableColumn>
+                                <div className='flex text-base'
+                                    onClick={() => {
+                                        sort("change_from_the_Open", "Number")
+                                    }}>
+                                    <span className='pr-3'>&Delta; Open</span>
+                                    <FaChevronUp className={(sorters.change_from_the_Open === 0) ? ' hidden' : (sorters.change_from_the_Open === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
+                                </div>
+                            </TableColumn>
+                            <TableColumn>
+                                <div className='flex text-base'
+                                    onClick={() => {
+                                        sort("today_range", "Number")
+                                    }}>
+                                    <span className='pr-3'>Today Range %</span>
+                                    <FaChevronUp className={(sorters.today_range === 0) ? ' hidden' : (sorters.today_range === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
+                                </div>
+                            </TableColumn>
+                            <TableColumn>
+                                <div className='flex text-base'
+                                    onClick={() => {
+                                        sort("sentiment_label", "Color")
+                                    }}>
+                                    <span className='pr-3'>News</span>
+                                    <FaChevronUp className={(sorters.sentiment_label === 0) ? ' hidden' : (sorters.sentiment_label === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
+                                </div>
+                            </TableColumn>
 
                             <TableColumn>
-                                <div className=' flex items-center justify-center'>
+                                <div className=' flex items-center justify-center text-base'>
                                     Scanner Types (in Minutes)
                                 </div>
                                 <div className='w-full  border-t flex'>
                                     <div className='relative w-full h-full flex justify-center items-center text-center border-r '>
-                                        H
+                                        <div className='flex text-base'
+                                            onClick={() => {
+                                                sort("halt_resume_time", "Number")
+                                            }}>
+                                            <span className='pr-3'>H</span>
+                                            <FaChevronUp className={(sorters.halt_resume_time === 0) ? ' hidden' : (sorters.halt_resume_time === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
+                                        </div>
                                     </div>
                                     <div className='relative w-full h-full flex justify-center items-center text-center border-r  '>
-                                        M
+                                        <div className='flex text-base'
+                                            onClick={() => {
+                                                sort("momo_time", "Number")
+                                            }}>
+                                            <span className='pr-3'>M</span>
+                                            <FaChevronUp className={(sorters.momo_time === 0) ? ' hidden' : (sorters.momo_time === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
+                                        </div>
                                     </div>
                                     <div className='relative w-full h-full flex justify-center items-center text-center border-r  '>
-                                        T
+                                        <div className='flex text-base'
+                                            onClick={() => {
+                                                sort("turbo_time", "Number")
+                                            }}>
+                                            <span className='pr-3'>T</span>
+                                            <FaChevronUp className={(sorters.turbo_time === 0) ? ' hidden' : (sorters.turbo_time === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
+                                        </div>
                                     </div>
                                     <div className='relative w-full h-full flex justify-center items-center text-center   '>
-                                        G
+                                        <div className='flex text-base'
+                                            onClick={() => {
+                                                sort("gap_go_time", "Number")
+                                            }}>
+                                            <span className='pr-3'>G</span>
+                                            <FaChevronUp className={(sorters.gap_go_time === 0) ? ' hidden' : (sorters.gap_go_time === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
+                                        </div>
                                     </div>
                                 </div>
                             </TableColumn>
@@ -343,7 +485,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                             <TableCell>{formatNumber(record.volume_today)}</TableCell>
                                             <TableCell>{record.relative_volume.toFixed(2)}</TableCell>
                                             <TableCell>{parseFloat(record.change_from_the_Close) ? parseFloat(record.change_from_the_Close).toFixed(2) : record.change_from_the_Close}</TableCell>
-                                            <TableCell>{parseFloat(record.change_from_the_Open) ? parseFloat(record.change_from_the_Open).toFixed(2) : record.change_from_the_Open}</TableCell>
+                                            <TableCell>{(parseFloat(record.change_from_the_Open) ? parseFloat(record.change_from_the_Open).toFixed(2) : "'" + parseFloat(record.change_from_the_Open.replace("'", '')).toFixed(2))}</TableCell>
                                             <TableCell>{Math.round(record.today_range)}</TableCell>
                                             <TableCell>
                                                 <div className={'text-center rounded-lg' + ((record.sentiment_label === "Bullish" || record.sentiment_label === "Somewhat-Bullish") ? ' bg-green-500' : '') + ((record.sentiment_label === "Bearish" || record.sentiment_label === "Somewhat-Bearish") ? ' bg-red-400' : '')}>
