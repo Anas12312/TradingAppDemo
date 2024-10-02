@@ -62,10 +62,12 @@ function Main({ data, idle, setIdle, timer, selectedTicker, setSelectedTicker })
     window.addEventListener('keydown', (e) => {
       console.log(e.key);
       if (e.key === 'ArrowUp') {
-        setSelectedIndex(prev => prev - 1)
+        document.getElementById('Table-Scan').focus()
+        // setSelectedIndex(prev => prev - 1)
         setIdle(false)
       } else if (e.key === 'ArrowDown') {
-        setSelectedIndex(prev => prev + 1)
+        document.getElementById('Table-Scan').focus()
+        // setSelectedIndex(prev => prev + 1)
         setIdle(false)
       }
     })
