@@ -75,7 +75,7 @@ function App() {
         }, 10000))
       }}
     >
-      <div className="flex justify-center items-center w-full my-4 ">
+      <div className="flex justify-center items-center w-full my-4 font-main">
         <Tabs
           size="lg"
           aria-label="Options"
@@ -93,8 +93,8 @@ function App() {
                     <div className={"text-green-600"}>({x == "Scan" && data?.scan.records.length}
                       {x == "Active Signals" && data?.signal.records.length}
                       {x == "Signals Logs" && data?.signalLogs.records.length}
-                      {x == "In Active" && data?.inactive?.records.length}
-                      {x == "In Trade" && data?.intrade?.records.length}
+                      {x == "In Active" && data?.inactive.records.length}
+                      {x == "In Trade" && data?.intrade.records.length}
                       {x == "Alarms" && 0})</div>
                   </div>
                 } />
@@ -130,7 +130,7 @@ function App() {
       }
 
       {
-        tab === TABS[3] && data && <InActive setSelectedTicker={setSelectedTickerScan} selectedTicker={selectedTickerScan} data={data} idle={idle} setIdle={setIdle} timer={timer} />
+        tab === TABS[3] && data && <InActive setSelectedTicker={setSelectedTickerSignalLog} selectedTicker={selectedTickerSignalLog} data={data} />
       }
       {
         tab === TABS[4] && data && <InTrade setSelectedTicker={setSelectedTickerSignalLog} selectedTicker={selectedTickerSignalLog} data={data} idle={idle} setIdle={setIdle} timer={timer} />
