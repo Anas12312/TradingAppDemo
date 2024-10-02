@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import TableRow from './TableRow'
-import { Tabs, Tab } from "@nextui-org/react"
+import { Tabs, Tab, Table, TableBody as UITablebody, TableRow as UITableRow, TableHeader, TableColumn, TableCell } from "@nextui-org/react"
 
 function extractTime(dateTimeString) {
     const timePattern = /\d{1,2}:\d{2}$/;
@@ -39,9 +39,9 @@ export default function TableBody({ ticker }) {
     }
 
     return (
-        <div className='w-full h-full bg-white'>
+        <div className='w-full h-full bg-white px-2'>
 
-            <div className='h-full overflow-y-scroll scrollbar-none'>
+            <div className='h-full overflow-y-hidden scrollbar-none'>
                 {/* {Object.keys(ticker).map((key, i) => {
                     return (
                         <TableRow key={i} property={key} value={ticker[key]} />
@@ -57,19 +57,19 @@ export default function TableBody({ ticker }) {
                         className="my-2 font-semibold"
                         onSelectionChange={(key) => { console.log(key); setSelected(key) }}
                     >
-                        <Tab 
+                        <Tab
                             title="Stoke Info"
                             key="stoke"
                         />
-                        <Tab 
+                        <Tab
                             title="Key Levels"
                             key="key"
                         />
-                        <Tab 
+                        <Tab
                             title="Scanner Info"
                             key="scanner"
                         />
-                        <Tab 
+                        <Tab
                             title={
                                 <div>
                                     News ({getNewsCount()})
@@ -77,7 +77,7 @@ export default function TableBody({ ticker }) {
                             }
                             key="news"
                         />
-                        <Tab 
+                        <Tab
                             title="AI ML"
                             key="ai"
                         />
@@ -87,86 +87,125 @@ export default function TableBody({ ticker }) {
                 {
                     selected === 'stoke' && (
                         <div className='h-[90%] flex flex-col'>
-                            <TableRow property={'Company Name'} value={ticker.company_name} />
-                            <TableRow property={'Indusry Group'} value={ticker.industry_group} />
-                            <TableRow property={'Indusry'} value={ticker.industry} />
-                            <TableRow property={'Sub Industry'} value={ticker.sub_industry} />
-                            <TableRow property={'Exchange'} value={ticker.exchange} />
-                            <TableRow property={'Sector'} value={ticker.sector} />
-                            <TableRow property={'Sub Sector'} value={ticker.sub_sector} />
+                            <Table hideHeader
+                                className='h-[90%]'
+                            >
+                                <TableHeader>
+                                    <TableColumn></TableColumn>
+                                    <TableColumn></TableColumn>
+                                </TableHeader>
+                                <UITablebody >
+
+                                    <UITableRow>
+                                        <TableCell className='font-semibold'>Company Name</TableCell>
+                                        <TableCell className='font-semibold'>{ticker.company_name}</TableCell>
+                                    </UITableRow>
+
+                                    <UITableRow>
+                                        <TableCell className='font-semibold'>Indusry Group</TableCell>
+                                        <TableCell className='font-semibold'>{ticker.industry_group}</TableCell>
+                                    </UITableRow>
+
+                                    <UITableRow>
+                                        <TableCell className='font-semibold'>Indusry</TableCell>
+                                        <TableCell className='font-semibold'>{ticker.industry}</TableCell>
+                                    </UITableRow>
+
+                                    <UITableRow>
+                                        <TableCell className='font-semibold'>Sub Industry</TableCell>
+                                        <TableCell className='font-semibold'>{ticker.sub_industry}</TableCell>
+                                    </UITableRow>
+
+                                    <UITableRow>
+                                        <TableCell className='font-semibold'>Exchange</TableCell>
+                                        <TableCell className='font-semibold'>{ticker.exchange}</TableCell>
+                                    </UITableRow>
+
+                                    <UITableRow>
+                                        <TableCell className='font-semibold'>Sector</TableCell>
+                                        <TableCell className='font-semibold'>{ticker.sector}</TableCell>
+                                    </UITableRow>
+
+                                    <UITableRow>
+                                        <TableCell className='font-semibold'>Sub Sector</TableCell>
+                                        <TableCell className='font-semibold'>{ticker.sub_sector}</TableCell>
+                                    </UITableRow>
+
+                                </UITablebody>
+                            </Table>
                         </div>
                     )
                 }
 
                 {
                     selected === 'key' && (
-                        <div className='h-[90%] flex'>
+                        <div className='h-[90%] flex space-x-2'>
 
                             <div className='h-full w-full flex flex-col'>
-                                <div className='font-semibold text-center h-full py-3 bg-gray-100 flex border-r-2 border-white justify-center items-center '>
+                                <div className='h-5 text-base font-semibold text-center py-3  flex border-x-2 border-t-2 rounded-t-lg justify-center items-center '>
                                     1 Min levels
                                 </div>
-                                <div className="w-full h-full flex relative border border-t-0 ">
+                                <div className="w-full h-9 flex relative border-2 ">
                                     <div className='w-[35%] text-base font-semibold border-r-2 h-full flex justify-start items-center text-center truncate pl-2'>
                                         Bullish
                                     </div>
-                                    <div className='w-full h-full text-base flex justify-start border-r items-center text-start truncate pl-5 '>
+                                    <div className='w-full h-full text-base flex justify-start  items-center text-start truncate pl-5 '>
                                         {ticker.LuxBuyConfirmation_high}
                                     </div>
                                 </div>
 
-                                <div className="w-full h-full flex relative border border-t-0 ">
+                                <div className="w-full h-9 flex relative border-2 border-t-0 ">
                                     <div className='w-[35%] text-base font-semibold border-r-2 h-full flex justify-start items-center text-center truncate pl-2'>
                                         Bearish
                                     </div>
-                                    <div className='w-full h-full text-base flex justify-start border-r items-center text-start truncate pl-5 '>
+                                    <div className='w-full h-full text-base flex justify-start  items-center text-start truncate pl-5 '>
                                         {ticker.LuxSellConfirmation_high}
                                     </div>
                                 </div>
 
-                                <div className="w-full h-full flex relative border border-t-0 ">
+                                <div className="w-full h-9 flex relative border-2 border-t-0 ">
                                     <div className='w-[35%] text-base font-semibold border-r-2 h-full flex justify-start items-center text-center truncate pl-2'>
                                         Bullish Exit
                                     </div>
-                                    <div className='w-full h-full text-base flex justify-start border-r items-center text-start truncate pl-5 '>
+                                    <div className='w-full h-full text-base flex justify-start  items-center text-start truncate pl-5 '>
                                         {ticker.LuxBuyExitConfirmation_high}
                                     </div>
                                 </div>
 
-                                <div className="w-full h-full flex relative border border-t-0 ">
+                                <div className="w-full h-9 flex relative border-2 border-t-0 ">
                                     <div className='w-[35%] text-base font-semibold border-r-2 h-full flex justify-start items-center text-center truncate pl-2'>
                                         Bearish Exit
                                     </div>
-                                    <div className='w-full h-full text-base flex justify-start border-r items-center text-start truncate pl-5 '>
+                                    <div className='w-full h-full text-base flex justify-start  items-center text-start truncate pl-5 '>
                                         {ticker.LuxSellExitConfirmation_high}
                                     </div>
                                 </div>
 
-                                <div className="w-full h-full flex relative border border-t-0 ">
+                                <div className="w-full h-9 flex relative border-2 border-t-0 ">
                                     <div className='w-[35%] text-base font-semibold border-r-2 h-full flex justify-start items-center text-center truncate pl-2'>
                                         SF Bullish
                                     </div>
-                                    <div className='w-full h-full text-base flex justify-start border-r items-center text-start truncate pl-5 '>
+                                    <div className='w-full h-full text-base flex justify-start  items-center text-start truncate pl-5 '>
                                         {ticker.bullish_general_Signal_high}
                                     </div>
                                 </div>
 
-                                <div className="w-full h-full flex relative border border-t-0 ">
+                                <div className="w-full h-9 flex relative border-2 border-t-0 rounded-b-lg ">
                                     <div className='w-[35%] text-base font-semibold border-r-2 h-full flex justify-start items-center text-center truncate pl-2'>
                                         SF Bearish
                                     </div>
-                                    <div className='w-full h-full text-base flex justify-start border-r items-center text-start truncate pl-5 '>
+                                    <div className='w-full h-full text-base flex justify-start  items-center text-start truncate pl-5 '>
                                         {ticker.bearish_general_Signal_high}
                                     </div>
                                 </div>
                             </div>
 
                             <div className='h-full w-full flex flex-col'>
-                                <div className='font-semibold bg-gray-100 text-center h-full flex justify-center items-center '>
+                                <div className='h-5 text-base font-semibold text-center py-3  flex border-x-2 border-t-2 rounded-t-lg justify-center items-center '>
                                     Daily levels
                                 </div>
 
-                                <div className="w-full h-full flex relative border border-t-0 border-l-0 ">
+                                <div className="w-full h-12 flex relative border-2 ">
                                     <div className='w-[35%] text-md font-semibold border-r-2 h-full flex justify-start items-center text-center truncate pl-2'>
                                         Bullish
                                     </div>
@@ -175,7 +214,7 @@ export default function TableBody({ ticker }) {
                                     </div>
                                 </div>
 
-                                <div className="w-full h-full flex relative border border-t-0 border-l-0 ">
+                                <div className="w-full h-12 flex relative border-2 border-t-0 ">
                                     <div className='w-[35%] text-md font-semibold border-r-2 h-full flex justify-start items-center text-center truncate pl-2'>
                                         Bearish
                                     </div>
@@ -184,7 +223,7 @@ export default function TableBody({ ticker }) {
                                     </div>
                                 </div>
 
-                                <div className="w-full h-full flex relative border border-t-0 border-l-0 ">
+                                <div className="w-full h-12 flex relative border-2 border-t-0 ">
                                     <div className='w-[35%] text-md font-semibold border-r-2 h-full flex justify-start items-center text-center truncate pl-2'>
                                         Bullish Exit
                                     </div>
@@ -193,7 +232,7 @@ export default function TableBody({ ticker }) {
                                     </div>
                                 </div>
 
-                                <div className="w-full h-full flex relative border border-t-0 border-l-0 ">
+                                <div className="w-full h-12 flex relative border-2 border-t-0 rounded-b-lg">
                                     <div className='w-[35%] text-md font-semibold border-r-2 h-full flex justify-start items-center text-center truncate pl-2'>
                                         Bearish Exit
                                     </div>
@@ -209,27 +248,30 @@ export default function TableBody({ ticker }) {
 
                 {
                     selected === 'scanner' && (
-                        <div className='w-full h-[90%] flex'>
-                            <div className='w-full flex flex-col h-full'>
-                                <div className='w-full  bg-slate-400 flex justify-center items-center text-white '>
+                        <div className='w-full h-[90%] flex space-x-2 px-2'>
+                            <div className='w-full flex flex-col h-10 '>
+                                <div className='w-full bg-slate-100  flex justify-center items-center border-2 rounded-t-lg '>
                                     HALT Resume
                                 </div>
+
                                 <TableRow property={'Count'} value={ticker.halt_resume_count} />
                                 <TableRow property={'Time'} value={extractTime(ticker.halt_resume_time)} />
-                                <div className='w-full  bg-slate-400 flex justify-center items-center text-white '>
+
+
+                                <div className='w-full bg-slate-100  flex justify-center items-center border-2 rounded-t-lg mt-5 '>
                                     MOMO
                                 </div>
                                 <TableRow property={'Count'} value={ticker.momo_count} />
                                 <TableRow property={'Time'} value={extractTime(ticker.momo_time)} />
                             </div>
 
-                            <div className='w-full flex flex-col h-full'>
-                                <div className='w-full  bg-slate-400 flex justify-center items-center text-white '>
+                            <div className='w-full flex flex-col h-10'>
+                                <div className='w-full bg-slate-100  flex justify-center items-center border-2 rounded-t-lg '>
                                     Gap Go
                                 </div>
                                 <TableRow property={'Count'} value={ticker.gap_go_count} />
                                 <TableRow property={'Time'} value={extractTime(ticker.gap_go_time)} />
-                                <div className='w-full  bg-slate-400 flex justify-center items-center text-white '>
+                                <div className='w-full bg-slate-100  flex justify-center items-center border-2 rounded-t-lg mt-4 '>
                                     Turbo
                                 </div>
                                 <TableRow property={'Count'} value={ticker.turbo_count} />
@@ -248,18 +290,18 @@ export default function TableBody({ ticker }) {
                                 <div className='p-5 pt-2 w-full h-[90%] flex flex-col'>
                                     <div className='mb-2'>Recent</div>
                                     <table>
-                                        <thead>
-                                            <th className='border border-black px-2 text-base text-start w-[12%]'>Time</th>
-                                            <th className='border border-black px-2 text-base text-start'>Title</th>
-                                            <th className='border border-black px-2 text-base text-start'>Score</th>
-                                            <th className='border border-black px-2 text-base text-start'>Label</th>
+                                        <thead className='bg-slate-100'>
+                                            <th className='border border-slate-300 px-2 text-base text-start w-[12%]'>Time</th>
+                                            <th className='border border-slate-300 px-2 text-base text-start'>Title</th>
+                                            <th className='border border-slate-300 px-2 text-base text-start'>Score</th>
+                                            <th className='border border-slate-300 px-2 text-base text-start'>Label</th>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td className='border border-black px-2 text-base'>{prepareDate(ticker.news_time)}</td>
-                                                <td className='border border-black px-2 text-base'>{ticker.news_title}</td>
-                                                <td className='border border-black px-2 text-base'>{parseFloat(ticker.sentiment_score).toFixed(3)}</td>
-                                                <td className='border border-black px-2 text-base'>{ticker.sentiment_label}</td>
+                                                <td className='border border-slate-300 px-2 text-base'>{prepareDate(ticker.news_time)}</td>
+                                                <td className='border border-slate-300 px-2 text-base'>{ticker.news_title}</td>
+                                                <td className='border border-slate-300 px-2 text-base'>{parseFloat(ticker.sentiment_score).toFixed(3)}</td>
+                                                <td className='border border-slate-300 px-2 text-base'>{ticker.sentiment_label}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -269,18 +311,18 @@ export default function TableBody({ ticker }) {
                                                 <div className='mt-5 mb-2'>Previous News</div>
                                                 <table>
                                                     <thead>
-                                                        <th className='border border-black px-2 text-base text-start w-[12%]'>Time</th>
-                                                        <th className='border border-black px-2 text-base text-start'>Label</th>
-                                                        <th className='border border-black px-2 text-base text-start'>Score</th>
+                                                        <th className='border border-slate-300 px-2 text-base text-start w-[12%]'>Time</th>
+                                                        <th className='border border-slate-300 px-2 text-base text-start'>Label</th>
+                                                        <th className='border border-slate-300 px-2 text-base text-start'>Score</th>
                                                     </thead>
                                                     <tbody>
                                                         {
                                                             getPrevNews().map((n) => {
                                                                 return (
                                                                     <tr>
-                                                                        <td className='border border-black px-2 text-base'>{prepareDate(n.time_published)}</td>
-                                                                        <td className='border border-black px-2 text-base'>{n.ticker_sentiment_label}</td>
-                                                                        <td className='border border-black px-2 text-base'>{parseFloat(n.ticker_sentiment_score).toFixed(3)}</td>
+                                                                        <td className='border border-slate-300 px-2 text-base'>{prepareDate(n.time_published)}</td>
+                                                                        <td className='border border-slate-300 px-2 text-base'>{n.ticker_sentiment_label}</td>
+                                                                        <td className='border border-slate-300 px-2 text-base'>{parseFloat(n.ticker_sentiment_score).toFixed(3)}</td>
                                                                     </tr>
                                                                 )
                                                             })
@@ -303,26 +345,26 @@ export default function TableBody({ ticker }) {
                             {ticker.aiml_time ? (
                                 <div className='p-5 pt-2 w-full h-[90%] flex flex-col'>
                                     <div className='mb-2'>Recent</div>
-                                    <table>
-                                        <thead>
-                                            <th className='border border-black px-2 text-base text-start w-[12%]'>Time</th>
-                                            <th className='border border-black px-2 text-base text-start'>Score</th>
-                                            <th className='border border-black px-2 text-base text-start'>Label</th>
-                                            <th className='border border-black px-2 text-base text-start'>Summary</th>
+                                    <table >
+                                        <thead className='bg-slate-100'>
+                                            <th className='border border-slate-300 px-2 text-base text-start w-[12%]'>Time</th>
+                                            <th className='border border-slate-300 px-2 text-base text-start'>Score</th>
+                                            <th className='border border-slate-300 px-2 text-base text-start'>Label</th>
+                                            <th className='border border-slate-300 px-2 text-base text-start'>Summary</th>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td className='border border-black px-2 text-base'>{prepareDate(ticker.aiml_time)}</td>
-                                                <td className='border border-black px-2 text-base'>{ticker.aiml_score}</td>
-                                                <td className='border border-black px-2 text-base'>{ticker.aiml_label}</td>
-                                                <td className='border border-black px-2 text-base'>{ticker.aiml_summary}</td>
+                                                <td className='border border-slate-300 px-2 text-base'>{prepareDate(ticker.aiml_time)}</td>
+                                                <td className='border border-slate-300 px-2 text-base'>{ticker.aiml_score}</td>
+                                                <td className='border border-slate-300 px-2 text-base'>{ticker.aiml_label}</td>
+                                                <td className='border border-slate-300 px-2 text-base'>{ticker.aiml_summary}</td>
                                             </tr>
                                         </tbody>
                                     </table>
 
                                 </div>
                             ) : (
-                                <div>No AI/ML</div>
+                                <div className='text-lg ml-5 font-semibold' >No AI/ML</div>
                             )}
                         </>
                     )
@@ -333,19 +375,19 @@ export default function TableBody({ ticker }) {
                         <>
                             <div className='p-5 pt-2 w-full h-[90%] flex flex-col'>
                                 <div className='mb-2'>Recent</div>
-                                <table>
-                                    <thead>
-                                        <th className='border border-black px-2 text-base text-start w-[12%]'>Time</th>
-                                        <th className='border border-black px-2 text-base text-start'>Title</th>
-                                        <th className='border border-black px-2 text-base text-start'>Score</th>
-                                        <th className='border border-black px-2 text-base text-start'>Label</th>
+                                <table className=''>
+                                    <thead className='bg-slate-100'>
+                                        <th className='border border-slate-300 px-2 text-base text-start w-[12%]'>Time</th>
+                                        <th className='border border-slate-300 px-2 text-base text-start'>Title</th>
+                                        <th className='border border-slate-300 px-2 text-base text-start'>Score</th>
+                                        <th className='border border-slate-300 px-2 text-base text-start'>Label</th>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td className='border border-black px-2 text-base'>{prepareDate(ticker.news_time)}</td>
-                                            <td className='border border-black px-2 text-base'>{ticker.news_title}</td>
-                                            <td className='border border-black px-2 text-base'>{ticker.sentiment_score}</td>
-                                            <td className='border border-black px-2 text-base'>{ticker.sentiment_label}</td>
+                                            <td className='border border-slate-300 px-2 text-base'>{prepareDate(ticker.news_time)}</td>
+                                            <td className='border border-slate-300 px-2 text-base'>{ticker.news_title}</td>
+                                            <td className='border border-slate-300 px-2 text-base'>{ticker.sentiment_score}</td>
+                                            <td className='border border-slate-300 px-2 text-base'>{ticker.sentiment_label}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -361,7 +403,7 @@ export default function TableBody({ ticker }) {
                     Key Levels
                 </div>
 
-                <div className='w-full  bg-slate-400 flex justify-center items-center text-white '>
+                <div className='w-full bg-slate-100  flex justify-center items-center border-2 rounded-t-lg '>
                     1 Min Levels
                 </div>
 
@@ -373,7 +415,7 @@ export default function TableBody({ ticker }) {
                 <TableRow property={'SF Bearish'} value={'0'} />
 
 
-                <div className='w-full  bg-slate-400 flex justify-center items-center text-white '>
+                <div className='w-full bg-slate-100  flex justify-center items-center border-2 rounded-t-lg '>
                     Daily Levels
                 </div>
 
@@ -386,22 +428,22 @@ export default function TableBody({ ticker }) {
                     Scanner Info
                 </div>
 
-                <div className='w-full  bg-slate-400 flex justify-center items-center text-white '>
+                <div className='w-full bg-slate-100  flex justify-center items-center border-2 rounded-t-lg '>
                     HALT Resume
                 </div>
                 <TableRow property={'Count'} value={ticker.halt_resume_count} />
                 <TableRow property={'Time'} value={extractTime(ticker.halt_resume_time)} />
-                <div className='w-full  bg-slate-400 flex justify-center items-center text-white '>
+                <div className='w-full bg-slate-100  flex justify-center items-center border-2 rounded-t-lg '>
                     MOMO
                 </div>
                 <TableRow property={'Count'} value={ticker.momo_count} />
                 <TableRow property={'Time'} value={extractTime(ticker.momo_time)} />
-                <div className='w-full  bg-slate-400 flex justify-center items-center text-white '>
+                <div className='w-full bg-slate-100  flex justify-center items-center border-2 rounded-t-lg '>
                     Gap Go
                 </div>
                 <TableRow property={'Count'} value={ticker.gap_go_count} />
                 <TableRow property={'Time'} value={extractTime(ticker.gap_go_time)} />
-                <div className='w-full  bg-slate-400 flex justify-center items-center text-white '>
+                <div className='w-full bg-slate-100  flex justify-center items-center border-2 rounded-t-lg '>
                     Turbo
                 </div>
                 <TableRow property={'Count'} value={ticker.turbo_count} />
