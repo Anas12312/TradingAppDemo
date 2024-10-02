@@ -18,6 +18,7 @@ export default function TableContent({ searchedRecords, records, header, setSele
         };
     }, []);
     async function dismissTicker(ticker) {
+        await fetch(config.API_URL + '/tickers/refresh')
         await fetch(config.API_URL + '/tickers/dismiss/' + ticker, {
             method: "POST"
         })
@@ -31,6 +32,7 @@ export default function TableContent({ searchedRecords, records, header, setSele
         await fetch(config.API_URL + '/tickers/activate/' + ticker, {
             method: "POST"
         })
+        await fetch(config.API_URL + '/tickers/refresh')
         const newRecords = records.filter(r => r.ticker !== ticker)
         const newSearchedRecords = searchedRecords.filter(r => r.ticker !== ticker)
         console.log(newRecords)
@@ -38,6 +40,7 @@ export default function TableContent({ searchedRecords, records, header, setSele
         setSearchedRecords(newSearchedRecords)
     }
     async function deactivateTicker(ticker) {
+        await fetch(config.API_URL + '/tickers/refresh')
         await fetch(config.API_URL + '/tickers/deactivate/' + ticker, {
             method: "POST"
         })

@@ -7,7 +7,7 @@ export default function Details({ selectedTicker }) {
         console.log(selectedTicker)
     }, [selectedTicker])
     return (
-        <div className='w-full h-[90%]  bg-[#8873da]'>
+        <div className='w-full h-[90%]  bg-[#CCE1F6]'>
             {selectedTicker?.ticker ? (
                 <div className='flex flex-col h-full text-xl'>
                     <div className='w-full border-collapse h-[100%] overflow-y-scroll scrollbar-none'>
@@ -15,7 +15,7 @@ export default function Details({ selectedTicker }) {
                     </div>
                 </div>
             ) : (
-                <div className='flex justify-center items-center w-full h-[90%] text-white text-xl '>Please select a ticker to show its details :)</div>
+                <div className='flex justify-center items-center w-full h-[90%] text-black text-xl '>Please select a ticker to show its details :)</div>
             )}
 
         </div>
