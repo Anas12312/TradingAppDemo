@@ -91,7 +91,7 @@ function App() {
                   <div className="flex flex-col font-semibold">
                     <div className="">{x}</div>
                     <div className={"text-green-600"}>({x == "Scan" && data?.scan.records.length}
-                      {x == "Active Signals" && data?.scan.records.length}
+                      {x == "Active Signals" && data?.signal.records.length}
                       {x == "Signals Logs" && data?.signalLogs.records.length}
                       {x == "In Active" && data?.inactive.records.length}
                       {x == "In Trade" && data?.intrade.records.length}
