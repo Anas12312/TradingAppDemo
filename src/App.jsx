@@ -84,6 +84,7 @@ function App() {
         <Tabs
           size="lg"
           aria-label="Options"
+          color="primary"
           className=""
           onSelectionChange={(key) => { console.log(key); setTab(TABS[TABS.indexOf(key)]) }}
         >
@@ -95,7 +96,7 @@ function App() {
                 title={
                   <div className="flex flex-col font-semibold">
                     <div className="">{x}</div>
-                    <div className={"text-green-600"}>({x == "Scan" && data?.scan.records.length}
+                    <div className={"text-orange-400"}>({x == "Scan" && data?.scan.records.length}
                       {x == "Active Signals" && data?.signal.records.length}
                       {x == "Signals Logs" && data?.signalLogs.records.length}
                       {x == "In Active" && data?.inactive.records.length}
