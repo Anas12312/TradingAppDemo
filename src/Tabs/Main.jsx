@@ -78,14 +78,14 @@ function Main({ data, idle, setIdle, timer, selectedTicker, setSelectedTicker })
   }, [])
 
   const layout = [
-    { i: "a", x: 1, y: 0, w: 8, h: 10 },
-    { i: "b", x: 1, y: 0, w: 4, h: 10 },
-    { i: "c", x: 5, y: 0, w: 4, h: 10 }
+    { i: "a", x: 0, y: 0, w: 9, h: 10 },
+    { i: "b", x: 0, y: 0, w: 4.5, h: 9 },
+    { i: "c", x: 4.5, y: 0, w: 4.5, h: 9 }
   ];
 
   return (
     <div>
-      <GridLayout className="layout" layout={layout} cols={12} rowHeight={30} width={2400} draggableHandle='.drag-handle' >
+      <GridLayout className="layout" layout={layout} cols={12} rowHeight={30} width={2550} draggableHandle='.drag-handle' >
         <div onClick={(e) => e.stopPropagation()} key="a" className="grid-item shadow"><TickerTable timer={timer} data={data} setSelectedTicker={setSelectedTicker} selectedTicker={selectedTicker} setIdle={setIdle} /></div>
         <div onClick={(e) => e.stopPropagation()} key="b" className="grid-item shadow"><Header text={"Price Chart " + (selectedTicker?.ticker ? selectedTicker.ticker : "")} /><PriceChart ticker={selectedTicker} /></div>
         <div onClick={(e) => e.stopPropagation()} key="c" className="grid-item shadow"><Header2 text={"Details " + (selectedTicker?.ticker ? selectedTicker.ticker : "")} /><Details selectedTicker={selectedTicker} /></div>

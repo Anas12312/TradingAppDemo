@@ -19,6 +19,7 @@ export default function TableBody({ searchedRecords, records, header, setSelecte
         await fetch(config.API_URL + '/tickers/intrade/' + ticker, {
             method: "POST"
         })
+        await fetch(config.API_URL + '/tickers/refresh')
     }
     return (
         <div className='w-full h-[80%] relative'>

@@ -19,6 +19,7 @@ export default function InTradeTableBody({ searchedRecords, records, header, set
         await fetch(config.API_URL + '/tickers/detrade/' + ticker, {
             method: "POST"
         })
+        await fetch(config.API_URL + '/tickers/refresh')
         const newRecords = records.filter(r => r.ticker !== ticker)
         const newSearchedRecords = searchedRecords.filter(r => r.ticker !== ticker)
         setRecords(newRecords)

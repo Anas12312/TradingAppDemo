@@ -15,10 +15,11 @@ export default function TableBody({ searchedRecords, records, header, setSelecte
             window.removeEventListener("click", handleClick);
         };
     }, []);
-    async function activeTicker(ticker) {front/src/Components/InActive/TableBody.jsx
+    async function activeTicker(ticker) {
         await fetch(config.API_URL + '/tickers/active/' + ticker, {
             method: "POST"
         })
+        await fetch(config.API_URL + '/tickers/refresh')
         const newRecords = records.filter(r => r.ticker !== ticker)
         const newSearchedRecords = searchedRecords.filter(r => r.ticker !== ticker)
         setRecords(newRecords)
