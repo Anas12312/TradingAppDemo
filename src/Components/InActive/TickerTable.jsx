@@ -343,7 +343,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
 
     return (
         <>
-            <div className="flex justify-between items-center p-2 bg-blue-700 text-white rounded-t  h-[2.5rem]">
+            <div className="flex justify-between items-center p-2 bg-[#1d4ed8] text-white rounded-t  h-[2.5rem]">
                 {/* Left side text */}
                 <div className=' flex w-full space-x-10'>
                     <div className="font-semibold text-lg select-none">
@@ -398,7 +398,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                 e.preventDefault();
                             }
                         }}>
-                            <TableColumn>
+                            <TableColumn className="text-white bg-[#238cf4]">
                                 <div className='flex text-base'
                                     onClick={() => {
                                         sort("ticker", "String")
@@ -407,7 +407,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                     <FaChevronUp className={(sorters.ticker === 0) ? ' hidden' : (sorters.ticker === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
                                 </div>
                             </TableColumn>
-                            <TableColumn>
+                            <TableColumn className="text-white bg-[#238cf4]">
                                 <div className='flex text-base'
                                     onClick={() => {
                                         sort("aiml", "Color")
@@ -416,7 +416,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                     <FaChevronUp className={(sorters.aiml_status === 0) ? ' hidden' : (sorters.aiml_status === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
                                 </div>
                             </TableColumn>
-                            <TableColumn>
+                            <TableColumn className="text-white bg-[#238cf4]">
                                 <div className='flex text-base'
                                     onClick={() => {
                                         sort("price", "Number")
@@ -425,7 +425,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                     <FaChevronUp className={(sorters.price === 0) ? ' hidden' : (sorters.price === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
                                 </div>
                             </TableColumn>
-                            <TableColumn>
+                            <TableColumn className="text-white bg-[#238cf4]">
                                 <div className='flex text-base'
                                     onClick={() => {
                                         sort("float", "Number")
@@ -434,7 +434,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                     <FaChevronUp className={(sorters.float === 0) ? ' hidden' : (sorters.float === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
                                 </div>
                             </TableColumn>
-                            <TableColumn>
+                            <TableColumn className="text-white bg-[#238cf4]">
                                 <div className='flex text-base'
                                     onClick={() => {
                                         sort("volume_today", "Number")
@@ -443,7 +443,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                     <FaChevronUp className={(sorters.volume_today === 0) ? ' hidden' : (sorters.volume_today === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
                                 </div>
                             </TableColumn>
-                            <TableColumn>
+                            <TableColumn className="text-white bg-[#238cf4]">
                                 <div className='flex text-base'
                                     onClick={() => {
                                         sort("relative_volume", "Number")
@@ -452,7 +452,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                     <FaChevronUp className={(sorters.relative_volume === 0) ? ' hidden' : (sorters.relative_volume === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
                                 </div>
                             </TableColumn>
-                            <TableColumn>
+                            <TableColumn className="text-white bg-[#238cf4]">
                                 <div className='flex text-base'
                                     onClick={() => {
                                         sort("change_from_the_Close", "Number")
@@ -461,7 +461,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                     <FaChevronUp className={(sorters.change_from_the_Close === 0) ? ' hidden' : (sorters.change_from_the_Close === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
                                 </div>
                             </TableColumn>
-                            <TableColumn>
+                            <TableColumn className="text-white bg-[#238cf4]">
                                 <div className='flex text-base'
                                     onClick={() => {
                                         sort("change_from_the_Open", "Number")
@@ -470,7 +470,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                     <FaChevronUp className={(sorters.change_from_the_Open === 0) ? ' hidden' : (sorters.change_from_the_Open === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
                                 </div>
                             </TableColumn>
-                            <TableColumn>
+                            <TableColumn className="text-white bg-[#238cf4]">
                                 <div className='flex text-base'
                                     onClick={() => {
                                         sort("today_range", "Number")
@@ -479,7 +479,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                     <FaChevronUp className={(sorters.today_range === 0) ? ' hidden' : (sorters.today_range === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
                                 </div>
                             </TableColumn>
-                            <TableColumn>
+                            <TableColumn className="text-white bg-[#238cf4]">
                                 <div className='flex text-base'
                                     onClick={() => {
                                         sort("sentiment_label", "Color")
@@ -489,7 +489,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                 </div>
                             </TableColumn>
 
-                            <TableColumn>
+                            <TableColumn className="text-white bg-[#238cf4]">
                                 <div className=' flex items-center justify-center text-base'>
                                     Scanner Types (in Minutes)
                                 </div>
