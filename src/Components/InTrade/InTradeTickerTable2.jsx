@@ -216,11 +216,11 @@ export default function InTradeTickerTable2({ setSelectedTicker, data, selectedT
                                 e.preventDefault();
                             }
                         }}>
-                            <TableColumn>Ticker</TableColumn>
-                            <TableColumn>Price</TableColumn>
-                            <TableColumn>Float</TableColumn>
-                            <TableColumn>Vol</TableColumn>
-                            <TableColumn>Rel Vol</TableColumn>
+                            <TableColumn className='text-base'>Ticker</TableColumn>
+                            <TableColumn className='text-base'>Price</TableColumn>
+                            <TableColumn className='text-base'>Float</TableColumn>
+                            <TableColumn className='text-base'>Vol</TableColumn>
+                            <TableColumn className='text-base'>Rel Vol</TableColumn>
                         </TableHeader>
                         <TableBody >
                             <TableRow>

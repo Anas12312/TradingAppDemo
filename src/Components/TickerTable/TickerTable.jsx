@@ -76,11 +76,24 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
             return
         }
 
+
+        const H = getTimeDifferenceInMinutes(record.halt_resume_time)
+        const M = getTimeDifferenceInMinutes(record.momo_time)
+        const T = getTimeDifferenceInMinutes(record.turbo_time)
+        const G = getTimeDifferenceInMinutes(record.gap_go_time)
+
+        if (field === 'halt_resume_time') {
+
+            
+
+            return
+        }
+
         if (type == "Number") {
             console.log('Num', field, tempSorter[field]);
             if (tempSorter[field] === Sorted.ASC) {
                 console.log('Sort');
-                setSearchedRecords(prev=>prev.sort((a, b) => +a[field] - +b[field]))
+                setSearchedRecords(prev => prev.sort((a, b) => +a[field] - +b[field]))
             }
             else if (tempSorter[field] === Sorted.DEC) setSearchedRecords(records.sort((a, b) => +b[field] - +a[field]))
 
@@ -401,7 +414,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                     <div className='relative w-full h-full flex justify-center items-center text-center border-r '>
                                         <div className='flex text-base'
                                             onClick={() => {
-                                                sort("halt_resume_time", "Number")
+                                                sort("halt_resume_time", "Date")
                                             }}>
                                             <span className='pr-3'>H</span>
                                             <FaChevronUp className={(sorters.halt_resume_time === 0) ? ' hidden' : (sorters.halt_resume_time === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
@@ -410,7 +423,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                     <div className='relative w-full h-full flex justify-center items-center text-center border-r  '>
                                         <div className='flex text-base'
                                             onClick={() => {
-                                                sort("momo_time", "Number")
+                                                sort("momo_time", "Date")
                                             }}>
                                             <span className='pr-3'>M</span>
                                             <FaChevronUp className={(sorters.momo_time === 0) ? ' hidden' : (sorters.momo_time === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
@@ -419,7 +432,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                     <div className='relative w-full h-full flex justify-center items-center text-center border-r  '>
                                         <div className='flex text-base'
                                             onClick={() => {
-                                                sort("turbo_time", "Number")
+                                                sort("turbo_time", "Date")
                                             }}>
                                             <span className='pr-3'>T</span>
                                             <FaChevronUp className={(sorters.turbo_time === 0) ? ' hidden' : (sorters.turbo_time === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
@@ -428,7 +441,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                     <div className='relative w-full h-full flex justify-center items-center text-center   '>
                                         <div className='flex text-base'
                                             onClick={() => {
-                                                sort("gap_go_time", "Number")
+                                                sort("gap_go_time", "Date")
                                             }}>
                                             <span className='pr-3'>G</span>
                                             <FaChevronUp className={(sorters.gap_go_time === 0) ? ' hidden' : (sorters.gap_go_time === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
@@ -519,7 +532,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                             <TableCell>{formatNumber(record.volume_today)}</TableCell>
                                             <TableCell>{record.relative_volume.toFixed(2)}</TableCell>
                                             <TableCell>{parseFloat(record.change_from_the_Close) ? parseFloat(record.change_from_the_Close).toFixed(2) : record.change_from_the_Close}</TableCell>
-                                            <TableCell>{(parseFloat(record.change_from_the_Open) ? parseFloat(record.change_from_the_Open).toFixed(2) : "'"+parseFloat(record.change_from_the_Open.replace("'", '')).toFixed(2))}</TableCell>
+                                            <TableCell>{(parseFloat(record.change_from_the_Open) ? parseFloat(record.change_from_the_Open).toFixed(2) : "'" + parseFloat(record.change_from_the_Open.replace("'", '')).toFixed(2))}</TableCell>
                                             <TableCell>{Math.round(record.today_range)}</TableCell>
                                             <TableCell>
                                                 <div className={'text-center rounded-lg' + ((record.sentiment_label === "Bullish" || record.sentiment_label === "Somewhat-Bullish") ? ' bg-green-500' : '') + ((record.sentiment_label === "Bearish" || record.sentiment_label === "Somewhat-Bearish") ? ' bg-red-400' : '')}>
