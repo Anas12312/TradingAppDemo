@@ -76,6 +76,11 @@ function App() {
       }}
     >
       <div className="flex justify-center items-center w-full my-4 font-main">
+        <div className="absolute top-10 left-10 text-2xl p-2">
+          {
+            new Date().toLocaleDateString() + " : " + new Date().toLocaleTimeString()
+          }
+        </div>
         <Tabs
           size="lg"
           aria-label="Options"

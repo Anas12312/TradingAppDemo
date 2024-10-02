@@ -77,10 +77,6 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
         }
 
 
-        const H = getTimeDifferenceInMinutes(record.halt_resume_time)
-        const M = getTimeDifferenceInMinutes(record.momo_time)
-        const T = getTimeDifferenceInMinutes(record.turbo_time)
-        const G = getTimeDifferenceInMinutes(record.gap_go_time)
 
         if (field === 'halt_resume_time') {
 
