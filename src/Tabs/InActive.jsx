@@ -66,11 +66,11 @@ function InActive({ data, idle, setIdle, timer, selectedTicker, setSelectedTicke
     { i: "c", x: 4.5, y: 0, w: 4.5, h: 9 }
   ];
   return (
-    <div>
+    <div className='font-main'>
       <GridLayout className="layout" layout={layout} cols={12} rowHeight={30} width={2550} draggableHandle='.drag-handle' >
         <div key="a" className="grid-item shadow"><TickerTable timer={timer} data={data} setSelectedTicker={setSelectedTicker} selectedTicker={selectedTicker} setIdle={setIdle}/></div>
-        <div key="b" className="grid-item shadow"><Header text={"Price Chart " + (selectedTicker.ticker ? selectedTicker.ticker : "")} /><PriceChart ticker={selectedTicker} /></div>
-        <div key="c" className="grid-item shadow"><Header2 text={"Details " + (selectedTicker.ticker ? selectedTicker.ticker : "")} /><Details selectedTicker={selectedTicker} /></div>
+        <div key="b" className="grid-item shadow"><Header text={"Price Chart " + (selectedTicker?.ticker ? selectedTicker?.ticker : "")} /><PriceChart ticker={selectedTicker} /></div>
+        <div key="c" className="grid-item shadow"><Header2 text={"Details " + (selectedTicker?.ticker ? selectedTicker?.ticker : "")} /><Details selectedTicker={selectedTicker} /></div>
       </GridLayout>
     </div>
   )

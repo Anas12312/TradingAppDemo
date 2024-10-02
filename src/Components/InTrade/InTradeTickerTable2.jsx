@@ -216,14 +216,28 @@ export default function InTradeTickerTable2({ setSelectedTicker, data, selectedT
                                 e.preventDefault();
                             }
                         }}>
-                            <TableColumn className='text-base'>Ticker</TableColumn>
-                            <TableColumn className='text-base'>Price</TableColumn>
-                            <TableColumn className='text-base'>Float</TableColumn>
-                            <TableColumn className='text-base'>Vol</TableColumn>
-                            <TableColumn className='text-base'>Rel Vol</TableColumn>
+                            <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>Ticker</div></TableColumn>
+                            <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>Price</div></TableColumn>
+                            <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>Price Angle</div></TableColumn>
+                            <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>Float</div></TableColumn>
+                            <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>Vol</div></TableColumn>
+                            <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>Rel Vol</div></TableColumn>
+                            <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>EMA10 Bullish</div></TableColumn>
+                            <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>EMA10 raising</div></TableColumn>
+                            <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>VWAP Raising</div></TableColumn>
+                            <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>Smooth HA</div></TableColumn>
+                            <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>Trend Catcher</div></TableColumn>
+                            <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>Trend Tracer</div></TableColumn>
                         </TableHeader>
                         <TableBody >
                             <TableRow>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
@@ -284,10 +298,17 @@ export default function InTradeTickerTable2({ setSelectedTicker, data, selectedT
 
                                         >
                                             <TableCell className='font-semibold focus:outline-none'>{record.ticker}</TableCell>
-                                            <TableCell>{record.price < 1 ? record.price?.toFixed(4) : record.price.toFixed(2)}</TableCell>
-                                            <TableCell>{formatNumber(record.float)}</TableCell>
-                                            <TableCell>{formatNumber(record.volume_today)}</TableCell>
-                                            <TableCell>{record.relative_volume.toFixed(2)}</TableCell>
+                                            <TableCell className=''>{record.price < 1 ? record.price?.toFixed(4) : record.price?.toFixed(2)}</TableCell>
+                                            <TableCell className=''>{record.price_angle?.toFixed(2)}</TableCell>
+                                            <TableCell className=''>{formatNumber(record.float)}</TableCell>
+                                            <TableCell className=''>{formatNumber(record.volume_today)}</TableCell>
+                                            <TableCell className=''>{record.relative_volume?.toFixed(2)}</TableCell>
+                                            <TableCell className=''>{record.ema10_bullish?.toFixed(2)}</TableCell>
+                                            <TableCell className=''>{record.ema10_raising?.toFixed(2)}</TableCell>
+                                            <TableCell className=''>{record.vwap_raising?.toFixed(2)}</TableCell>
+                                            <TableCell className=''>{record.smooth_ha?.toFixed(2)}</TableCell>
+                                            <TableCell className='text-center'>{record.trendcatcher_status.toString().replace("'", "")}</TableCell>
+                                            <TableCell className='text-center'>{record.trendtracer_status.toString().replace("'", "")}</TableCell>
 
                                         </TableRow>
                                     )
