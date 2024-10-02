@@ -77,8 +77,8 @@ function InTrade({ data, idle, setIdle, timer, selectedTicker, setSelectedTicker
 
 
   const layout = [
-    { i: "a", x: 1, y: 0, w: 4, h: 3 },
-    { i: "b", x: 5, y: 0, w: 4, h: 3 },
+    { i: "a", x: 1, y: 0, w: 4, h: 4 },
+    { i: "b", x: 5, y: 0, w: 4, h: 4 },
     { i: "c", x: 1, y: 8, w: 8, h: 16 }
   ];
   return (
@@ -86,7 +86,7 @@ function InTrade({ data, idle, setIdle, timer, selectedTicker, setSelectedTicker
       <GridLayout className="layout" layout={layout} cols={12} rowHeight={30} width={2400} draggableHandle='.drag-handle' >
         <div onClick={(e) => e.stopPropagation()} key="a" className="grid-item shadow"><InTradeTickerTable timer={timer} data={data} setSelectedTicker={setSelectedTicker} selectedTicker={selectedTicker} setIdle={setIdle} /></div>
         <div onClick={(e) => e.stopPropagation()} key="b" className="grid-item shadow"><InTradeTickerTable2 timer={timer} data={data} setSelectedTicker={setSelectedTicker} selectedTicker={selectedTicker} setIdle={setIdle} /></div>
-        <div onClick={(e) => e.stopPropagation()} key="c" className="grid-item shadow"><Header text={"Price Chart " + (selectedTicker.ticker ? selectedTicker.ticker : "")} /><PriceChart ticker={selectedTicker} /></div>
+        <div onClick={(e) => e.stopPropagation()} key="c" className="grid-item shadow"><Header text={"Price Chart " + (selectedTicker?.ticker ? selectedTicker.ticker : "")} /><PriceChart ticker={selectedTicker} /></div>
       </GridLayout>
     </div>
   )
