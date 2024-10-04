@@ -41,7 +41,7 @@ export default function TableBody({ ticker }) {
     return (
         <div className='w-full h-full bg-white px-2'>
 
-            <div className='h-full overflow-y-hidden scrollbar-none'>
+            <div className='h-full overflow-y-scroll'>
                 {/* {Object.keys(ticker).map((key, i) => {
                     return (
                         <TableRow key={i} property={key} value={ticker[key]} />
@@ -370,31 +370,7 @@ export default function TableBody({ ticker }) {
                     )
                 }
 
-                {
-                    selected === 'ai' && (
-                        <>
-                            <div className='p-5 pt-2 w-full h-[90%] flex flex-col'>
-                                <div className='mb-2'>Recent</div>
-                                <table className=''>
-                                    <thead className='bg-slate-100'>
-                                        <th className='border border-slate-300 px-2 text-base text-start w-[12%]'>Time</th>
-                                        <th className='border border-slate-300 px-2 text-base text-start'>Title</th>
-                                        <th className='border border-slate-300 px-2 text-base text-start'>Score</th>
-                                        <th className='border border-slate-300 px-2 text-base text-start'>Label</th>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td className='border border-slate-300 px-2 text-base'>{prepareDate(ticker.news_time)}</td>
-                                            <td className='border border-slate-300 px-2 text-base'>{ticker.news_title}</td>
-                                            <td className='border border-slate-300 px-2 text-base'>{ticker.sentiment_score}</td>
-                                            <td className='border border-slate-300 px-2 text-base'>{ticker.sentiment_label}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </>
-                    )
-                }
+                
 
 
                 {/* 
