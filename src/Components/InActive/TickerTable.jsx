@@ -304,7 +304,6 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
     }, []);
 
     async function activeTicker(ticker) {
-        front / src / Components / InActive / TableBody.jsx
         await fetch(config.API_URL + '/tickers/active/' + ticker, {
             method: "POST"
         })
@@ -642,7 +641,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                         </TableBody>
                     </Table>
                     {clicked && (
-                        <div style={{ top: points.y - 125, left: points.x - 210 }} className='absolute bg border border-black bg-white w-40 py-1'>
+                        <div style={{ top: points.y - 115, left: points.x - 10 }} className='absolute bg border border-black bg-white w-40 py-1'>
                             <ul className='flex flex-col'>
                                 <li className='hover:bg-slate-200 w-full px-2 cursor-pointer' onClick={() => {
                                     activeTicker(contextRow.ticker)
