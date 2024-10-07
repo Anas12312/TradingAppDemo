@@ -593,12 +593,12 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                     const T = getTimeDifferenceInMinutes(record.turbo_time)
                                     const G = getTimeDifferenceInMinutes(record.gap_go_time)
                                     let OA_Value = 0
-                                    if(record.trendcatcher_status) OA_Value++
-                                    if(record.trendtracer_status) OA_Value++
-                                    if(record.smooth_ha) OA_Value++
-                                    if(record.ema10_bullish) OA_Value++
-                                    if(record.ema10_raising) OA_Value++
-                                    if(record.vwap_raising) OA_Value++
+                                    if(record.trendcatcher_status > 0) OA_Value++
+                                    if(record.trendtracer_status > 0) OA_Value++
+                                    if(record.smooth_ha > 0) OA_Value++
+                                    if(record.ema10_bullish > 0) OA_Value++
+                                    if(record.ema10_raising > 0) OA_Value++
+                                    if(record.vwap_raising > 0) OA_Value++
                                     return (
                                         <TableRow
                                             className='focus:outline-none focus:ring-0'
