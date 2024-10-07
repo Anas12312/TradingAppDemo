@@ -289,42 +289,42 @@ export default function InTradeTickerTable2({ setSelectedTicker, data, selectedT
                                             <TableCell className=''>{formatNumber(record.volume_today)}</TableCell>
                                             <TableCell className=''>{record.relative_volume?.toFixed(2)}</TableCell>
                                             <TableCell className='pl-6 text-center'>
-                                                {record.trendcatcher_status ? (
+                                                {record.trendcatcher_status == 1 ? (
                                                     <div className='bg-green-500 w-3 h-3 rounded-full'></div>
                                                 ) : (
                                                     <div className='bg-red-500 w-3 h-3 rounded-full'></div>
                                                 )}
                                             </TableCell>
                                             <TableCell className='pl-6 '>
-                                                {record.trendtracer_status ? (
+                                                {record.trendtracer_status == 1 ? (
                                                     <div className='bg-green-500 w-3 h-3 rounded-full'></div>
                                                 ) : (
                                                     <div className='bg-red-500 w-3 h-3 rounded-full'></div>
                                                 )}
                                             </TableCell>
                                             <TableCell className='pl-6 '>
-                                                {record.smooth_ha ? (
+                                                {record.smooth_ha == 1 ? (
                                                     <div className='bg-green-500 w-3 h-3 rounded-full'></div>
                                                 ) : (
                                                     <div className='bg-red-500 w-3 h-3 rounded-full'></div>
                                                 )}
                                             </TableCell>
                                             <TableCell className='pl-6 '>
-                                                {record.ema10_bullish ? (
+                                                {record.ema10_bullish == 1 ? (
                                                     <div className='bg-green-500 w-3 h-3 rounded-full'></div>
                                                 ) : (
                                                     <div className='bg-red-500 w-3 h-3 rounded-full'></div>
                                                 )}
                                             </TableCell>
                                             <TableCell className='pl-6 '>
-                                                {record.ema10_raising ? (
+                                                {record.ema10_raising == 1 ? (
                                                     <div className='bg-green-500 w-3 h-3 rounded-full'></div>
                                                 ) : (
                                                     <div className='bg-red-500 w-3 h-3 rounded-full'></div>
                                                 )}
                                             </TableCell>
                                             <TableCell className='pl-6 '>
-                                                {record.vwap_raising ? (
+                                                {record.vwap_raising == 1 ? (
                                                     <div className='bg-green-500 w-3 h-3 rounded-full'></div>
                                                 ) : (
                                                     <div className='bg-red-500 w-3 h-3 rounded-full'></div>

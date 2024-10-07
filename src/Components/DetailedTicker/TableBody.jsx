@@ -389,42 +389,42 @@ export default function TableBody({ ticker }) {
                             <UITablebody>
                                 <UITableRow>
                                 <TableCell className='pl-14 text-center'>
-                                                {ticker.trendcatcher_status ? (
+                                                {ticker.trendcatcher_status == 1 ? (
                                                     <div className='bg-green-500 w-3 h-3 rounded-full'></div>
                                                 ) : (
                                                     <div className='bg-red-500 w-3 h-3 rounded-full'></div>
                                                 )}
                                             </TableCell>
                                             <TableCell className='pl-14 '> 
-                                                {ticker.trendtracer_status ? (
+                                                {ticker.trendtracer_status == 1 ? (
                                                     <div className='bg-green-500 w-3 h-3 rounded-full'></div>
                                                 ) : (
                                                     <div className='bg-red-500 w-3 h-3 rounded-full'></div>
                                                 )}
                                             </TableCell>
                                             <TableCell className='pl-14 '>
-                                                {ticker.smooth_ha ? (
+                                                {ticker.smooth_ha == 1 ? (
                                                     <div className='bg-green-500 w-3 h-3 rounded-full'></div>
                                                 ) : (
                                                     <div className='bg-red-500 w-3 h-3 rounded-full'></div>
                                                 )}
                                             </TableCell>
                                             <TableCell className='pl-14 '>
-                                                {ticker.ema10_bullish ? (
+                                                {ticker.ema10_bullish == 1 ? (
                                                     <div className='bg-green-500 w-3 h-3 rounded-full'></div>
                                                 ) : (
                                                     <div className='bg-red-500 w-3 h-3 rounded-full'></div>
                                                 )}
                                             </TableCell>
                                             <TableCell className='pl-14 '>
-                                                {ticker.ema10_raising ? (
+                                                {ticker.ema10_raising == 1 ? (
                                                     <div className='bg-green-500 w-3 h-3 rounded-full'></div>
                                                 ) : (
                                                     <div className='bg-red-500 w-3 h-3 rounded-full'></div>
                                                 )}
                                             </TableCell>
                                             <TableCell className='pl-14 '>
-                                                {ticker.vwap_raising ? (
+                                                {ticker.vwap_raising == 1 ? (
                                                     <div className='bg-green-500 w-3 h-3 rounded-full'></div>
                                                 ) : (
                                                     <div className='bg-red-500 w-3 h-3 rounded-full'></div>

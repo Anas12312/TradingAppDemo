@@ -47,7 +47,7 @@ function App() {
     // })
     // setSorters(sorters)
 
-    await delay(30_000)
+    await delay(3_000)
     await fetchRecords()
   }
   useEffect(() => {
