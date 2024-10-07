@@ -371,6 +371,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
         return diffInMinutes;
     }
 
+
     return (
         <>
             <div className="flex justify-between items-center p-2 bg-[#1d4ed8] text-white rounded-t  h-[2.5rem]">
@@ -445,6 +446,11 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                     }}>
                                     <span className='pr-3'>AI/ML</span>
                                     <FaChevronUp className={(sorters.aiml_status === 0) ? ' hidden' : (sorters.aiml_status === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
+                                </div>
+                            </TableColumn>
+                            <TableColumn className="text-white bg-[#238cf4]">
+                                <div className='flex text-base'>
+                                    <span className='pr-3'>OA</span>
                                 </div>
                             </TableColumn>
                             <TableColumn className="text-white bg-[#238cf4]">
@@ -577,6 +583,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
+                                <TableCell></TableCell>
                             </TableRow>
                             {
                                 searchedRecords?.map((record, i) => {
@@ -585,7 +592,13 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                     const M = getTimeDifferenceInMinutes(record.momo_time)
                                     const T = getTimeDifferenceInMinutes(record.turbo_time)
                                     const G = getTimeDifferenceInMinutes(record.gap_go_time)
-
+                                    let OA_Value = 0
+                                    if(record.trendcatcher_status) OA_Value++
+                                    if(record.trendtracer_status) OA_Value++
+                                    if(record.smooth_ha) OA_Value++
+                                    if(record.ema10_bullish) OA_Value++
+                                    if(record.ema10_raising) OA_Value++
+                                    if(record.vwap_raising) OA_Value++
                                     return (
                                         <TableRow
                                             className='focus:outline-none focus:ring-0'
@@ -641,6 +654,10 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                                 <div className={(record.aiml_status && ' bg-green-500 rounded-full w-4 h-4')}>
                                                 </div>
                                             </TableCell>
+                                            <TableCell>
+                                                <div className={((OA_Value >= 4) && ' bg-green-500 rounded-full w-4 h-4')}>
+                                                </div>
+                                            </TableCell>
                                             <TableCell>{record.price < 1 ? record.price?.toFixed(4) : record.price.toFixed(2)}</TableCell>
                                             <TableCell>{formatNumber(record.float)}</TableCell>
                                             <TableCell>{formatNumber(record.volume_today)}</TableCell>
@@ -676,7 +693,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                         </TableBody>
                     </Table>
                     {clicked && (
-                        <div style={{ top: points.y - 115, left: points.x - 10 }} className='absolute bg border border-black bg-white w-40 py-1'>
+                        <div style={{ top: points.y - 115, left: points.x - 10 }} className='absolute bg border border-black bg-white w-40 py-1 z-50'>
                             <ul className='flex flex-col'>
                                 <li className='hover:bg-slate-200 w-full px-2 cursor-pointer' onClick={() => {
                                     setClicked(false)
