@@ -100,29 +100,6 @@ export default function InTradeTableRow({ setContextRow, setClicked, setPoints, 
                 {record.relative_volume.toFixed(2)}
             </td>
 
-
-            {/* {
-                header.filter((h) => {
-                    return (
-                        h.name === 'sector' ||
-                        h.name === 'momocount' ||
-                        h.name === 'LuxSellExitConfirmation_high' ||
-                        h.name === 'LuxBuyExitConfirmation_high' ||
-                        h.name === 'exchange' ||
-                        h.name === 'gap_go_count' ||
-                        h.name === 'gap_go_time'
-                    )
-                }).map((h) => {
-                    if (h.name == "Ticker") return
-                    if (h.name == "Price") return
-                    return (
-                        <td className='w-[10%] h-full flex justify-center items-center text-center truncate border-r border-blue-700'>
-                            {record[h.name]}
-                        </td>
-                    )
-                })
-            } */}
-
         </tr>
     )
 }

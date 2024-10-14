@@ -81,6 +81,10 @@ export default function TableBody({ ticker }) {
                             title="AI ML"
                             key="ai"
                         />
+                        <Tab
+                            title="In Trade"
+                            key="intrade"
+                        />
                     </Tabs>
                 </div>
 
@@ -370,67 +374,78 @@ export default function TableBody({ ticker }) {
                     )
                 }
 
-                
+                {
+                    selected == "intrade" && (
+                        <Table>
+                            <TableHeader>
+                                <TableColumn className='text-center'>Trend Catcher</TableColumn>
+                                <TableColumn className='text-center'>Trend Tracer</TableColumn>
+                                <TableColumn className='text-center'>Smooth HA</TableColumn>
+                                <TableColumn className='text-center'>EMA 10 Bullish</TableColumn>
+                                <TableColumn className='text-center'>EMA 10 Raising</TableColumn>
+                                <TableColumn className='text-center'>VWAP Raising</TableColumn>
+                                <TableColumn className='text-center'>Price Angle</TableColumn>
+                            </TableHeader>
+                            <UITablebody>
+                                <UITableRow>
+                                <TableCell className='pl-14 text-center'>
+                                                {ticker.trendcatcher_status == 1 ? (
+                                                    <div className='bg-green-500 w-3 h-3 rounded-full'></div>
+                                                ) : (
+                                                    <div className='bg-red-500 w-3 h-3 rounded-full'></div>
+                                                )}
+                                            </TableCell>
+                                            <TableCell className='pl-14 '> 
+                                                {ticker.trendtracer_status == 1 ? (
+                                                    <div className='bg-green-500 w-3 h-3 rounded-full'></div>
+                                                ) : (
+                                                    <div className='bg-red-500 w-3 h-3 rounded-full'></div>
+                                                )}
+                                            </TableCell>
+                                            <TableCell className='pl-14 '>
+                                                {ticker.smooth_ha == 1 ? (
+                                                    <div className='bg-green-500 w-3 h-3 rounded-full'></div>
+                                                ) : (
+                                                    <div className='bg-red-500 w-3 h-3 rounded-full'></div>
+                                                )}
+                                            </TableCell>
+                                            <TableCell className='pl-14 '>
+                                                {ticker.ema10_bullish == 1 ? (
+                                                    <div className='bg-green-500 w-3 h-3 rounded-full'></div>
+                                                ) : (
+                                                    <div className='bg-red-500 w-3 h-3 rounded-full'></div>
+                                                )}
+                                            </TableCell>
+                                            <TableCell className='pl-14 '>
+                                                {ticker.ema10_raising == 1 ? (
+                                                    <div className='bg-green-500 w-3 h-3 rounded-full'></div>
+                                                ) : (
+                                                    <div className='bg-red-500 w-3 h-3 rounded-full'></div>
+                                                )}
+                                            </TableCell>
+                                            <TableCell className='pl-14 '>
+                                                {ticker.vwap_raising == 1 ? (
+                                                    <div className='bg-green-500 w-3 h-3 rounded-full'></div>
+                                                ) : (
+                                                    <div className='bg-red-500 w-3 h-3 rounded-full'></div>
+                                                )}
+                                            </TableCell>
+                                            <TableCell className='pl-14 '>
+                                                {ticker.price_angle == "-3" && (<div className='bg-red-500 w-3 h-3 rounded-full'></div>)}
+                                                {ticker.price_angle == "-2" && (<div className='bg-orange-500 w-3 h-3 rounded-full'></div>)}
+                                                {ticker.price_angle == "-1" && (<div className='bg-yellow-500 w-3 h-3 rounded-full'></div>)}
+                                                {/* {ticker.price_angle == "0" && (<div className='bg-white w-3 h-3 rounded-full'></div>)} */}
+                                                {ticker.price_angle == "1" && (<div className='bg-blue-500 w-3 h-3 rounded-full'></div>)}
+                                                {ticker.price_angle == "2" && (<div className='bg-[#a4f16d] w-3 h-3 rounded-full'></div>)}
+                                                {ticker.price_angle == "3" && (<div className='bg-green-500 w-3 h-3 rounded-full'></div>)}
+                                            </TableCell>
+                                </UITableRow>
+                            </UITablebody>
+                        </Table>
+                    )
+                }
 
 
-                {/* 
-
-                <div className='w-full h-10 bg-slate-500 flex justify-center items-center text-white font-semibold '>
-                    Key Levels
-                </div>
-
-                <div className='w-full bg-slate-100  flex justify-center items-center border-2 rounded-t-lg '>
-                    1 Min Levels
-                </div>
-
-                <TableRow property={'Bullish'} value={ticker.LuxBuyConfirmation_high} />
-                <TableRow property={'Bearish'} value={ticker.LuxSellConfirmation_high} />
-                <TableRow property={'Bullish Exit'} value={ticker.LuxBuyExitConfirmation_high} />
-                <TableRow property={'Bearish Exit'} value={ticker.LuxSellExitConfirmation_high} />
-                <TableRow property={'SF Bullish'} value={'0'} />
-                <TableRow property={'SF Bearish'} value={'0'} />
-
-
-                <div className='w-full bg-slate-100  flex justify-center items-center border-2 rounded-t-lg '>
-                    Daily Levels
-                </div>
-
-                <TableRow property={'Bullish'} value={ticker.LuxBuyConfirmation_high_D} />
-                <TableRow property={'Bearish'} value={ticker.LuxSellConfirmation_high_D} />
-                <TableRow property={'Bullish Exit'} value={ticker.LuxBuyExitConfirmation_high_D} />
-                <TableRow property={'Bearish Exit'} value={ticker.LuxSellExitConfirmation_high_D} />
-
-                <div className='w-full h-10 bg-slate-500 flex justify-center items-center text-white font-semibold '>
-                    Scanner Info
-                </div>
-
-                <div className='w-full bg-slate-100  flex justify-center items-center border-2 rounded-t-lg '>
-                    HALT Resume
-                </div>
-                <TableRow property={'Count'} value={ticker.halt_resume_count} />
-                <TableRow property={'Time'} value={extractTime(ticker.halt_resume_time)} />
-                <div className='w-full bg-slate-100  flex justify-center items-center border-2 rounded-t-lg '>
-                    MOMO
-                </div>
-                <TableRow property={'Count'} value={ticker.momo_count} />
-                <TableRow property={'Time'} value={extractTime(ticker.momo_time)} />
-                <div className='w-full bg-slate-100  flex justify-center items-center border-2 rounded-t-lg '>
-                    Gap Go
-                </div>
-                <TableRow property={'Count'} value={ticker.gap_go_count} />
-                <TableRow property={'Time'} value={extractTime(ticker.gap_go_time)} />
-                <div className='w-full bg-slate-100  flex justify-center items-center border-2 rounded-t-lg '>
-                    Turbo
-                </div>
-                <TableRow property={'Count'} value={ticker.turbo_count} />
-                <TableRow property={'Time'} value={extractTime(ticker.turbo_time)} />
-
-                <div className='w-full h-10 bg-slate-500 flex justify-center items-center text-white font-semibold '>
-                    S
-                </div>
-                <TableRow property={'Sentiment Score'} value={JSON.parse(ticker.s1).sentimentScore} />
-                <TableRow property={'Relevance'} value={JSON.parse(ticker.s1).relevance} />
-                <TableRow property={'Time'} value={JSON.parse(ticker.s1).time} /> */}
 
             </div>
 

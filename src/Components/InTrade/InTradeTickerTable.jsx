@@ -206,42 +206,28 @@ export default function InTradeTickerTable({ setSelectedTicker, data, selectedTi
                         radius='none'
                     >
                         <TableHeader
-                         onKeyDown={(e) => {
-                            const { key } = e;
-                            if (key === 'ArrowUp' || key === 'ArrowDown' || key === 'ArrowLeft' || key === 'ArrowRight') {
-                                e.stopPropagation(); // Prevent the event from bubbling up to the table
-                                // Optionally, you can prevent default behavior to stop scrolling, if any
-                                e.preventDefault();
-                            }
-                        }}>
+                            onKeyDown={(e) => {
+                                const { key } = e;
+                                if (key === 'ArrowUp' || key === 'ArrowDown' || key === 'ArrowLeft' || key === 'ArrowRight') {
+                                    e.stopPropagation(); // Prevent the event from bubbling up to the table
+                                    // Optionally, you can prevent default behavior to stop scrolling, if any
+                                    e.preventDefault();
+                                }
+                            }}>
                             <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>Ticker</div></TableColumn>
                             <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>Price</div></TableColumn>
-                            <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>Price Angle</div></TableColumn>
                             <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>Float</div></TableColumn>
                             <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>Vol</div></TableColumn>
                             <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>Rel Vol</div></TableColumn>
+                            <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>Trend Catcher</div></TableColumn>
+                            <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>Trend Tracer</div></TableColumn>
+                            <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>Smooth HA</div></TableColumn>
                             <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>EMA10 Bullish</div></TableColumn>
                             <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>EMA10 raising</div></TableColumn>
                             <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>VWAP Raising</div></TableColumn>
-                            <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>Smooth HA</div></TableColumn>
-                            <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>Trend Catcher</div></TableColumn>
-                            <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>Trend Tracer</div></TableColumn>
+                            <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>Price Angle</div></TableColumn>
                         </TableHeader>
-                        <TableBody >
-                            <TableRow>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                            </TableRow>
+                        <TableBody>
                             {
                                 searchedRecords?.map((record, i) => {
                                     if (i % 2) return
@@ -293,28 +279,85 @@ export default function InTradeTickerTable({ setSelectedTicker, data, selectedTi
                                                 console.log(e.target);
                                             }}
 
-
                                         >
                                             <TableCell className='font-semibold focus:outline-none'>{record.ticker}</TableCell>
                                             <TableCell className=''>{record.price < 1 ? record.price?.toFixed(4) : record.price?.toFixed(2)}</TableCell>
-                                            <TableCell className=''>{record.price_angle?.toFixed(2)}</TableCell>
                                             <TableCell className=''>{formatNumber(record.float)}</TableCell>
                                             <TableCell className=''>{formatNumber(record.volume_today)}</TableCell>
                                             <TableCell className=''>{record.relative_volume?.toFixed(2)}</TableCell>
-                                            <TableCell className=''>{record.ema10_bullish?.toFixed(2)}</TableCell>
-                                            <TableCell className=''>{record.ema10_raising?.toFixed(2)}</TableCell>
-                                            <TableCell className=''>{record.vwap_raising?.toFixed(2)}</TableCell>
-                                            <TableCell className=''>{record.smooth_ha?.toFixed(2)}</TableCell>
-                                            <TableCell className='text-center'>{record.trendcatcher_status.toString().replace("'", "")}</TableCell>
-                                            <TableCell className='text-center'>{record.trendtracer_status.toString().replace("'", "")}</TableCell>
+                                            <TableCell className='pl-6 text-center'>
+                                                {record.trendcatcher_status == 1 ? (
+                                                    <div className='bg-green-500 w-3 h-3 rounded-full'></div>
+                                                ) : (
+                                                    <div className='bg-red-500 w-3 h-3 rounded-full'></div>
+                                                )}
+                                            </TableCell>
+                                            <TableCell className='pl-6 '> 
+                                                {record.trendtracer_status == 1 ? (
+                                                    <div className='bg-green-500 w-3 h-3 rounded-full'></div>
+                                                ) : (
+                                                    <div className='bg-red-500 w-3 h-3 rounded-full'></div>
+                                                )}
+                                            </TableCell>
+                                            <TableCell className='pl-6 '>
+                                                {record.smooth_ha == 1 ? (
+                                                    <div className='bg-green-500 w-3 h-3 rounded-full'></div>
+                                                ) : (
+                                                    <div className='bg-red-500 w-3 h-3 rounded-full'></div>
+                                                )}
+                                            </TableCell>
+                                            <TableCell className='pl-6 '>
+                                                {record.ema10_bullish == 1 ? (
+                                                    <div className='bg-green-500 w-3 h-3 rounded-full'></div>
+                                                ) : (
+                                                    <div className='bg-red-500 w-3 h-3 rounded-full'></div>
+                                                )}
+                                            </TableCell>
+                                            <TableCell className='pl-6 '>
+                                                {record.ema10_raising == 1 ? (
+                                                    <div className='bg-green-500 w-3 h-3 rounded-full'></div>
+                                                ) : (
+                                                    <div className='bg-red-500 w-3 h-3 rounded-full'></div>
+                                                )}
+                                            </TableCell>
+                                            <TableCell className='pl-6 '>
+                                                {record.vwap_raising == 1 ? (
+                                                    <div className='bg-green-500 w-3 h-3 rounded-full'></div>
+                                                ) : (
+                                                    <div className='bg-red-500 w-3 h-3 rounded-full'></div>
+                                                )}
+                                            </TableCell>
+                                            <TableCell className='pl-6 '>
+                                                {record.price_angle == "-3" && (<div className='bg-red-500 w-3 h-3 rounded-full'></div>)}
+                                                {record.price_angle == "-2" && (<div className='bg-orange-500 w-3 h-3 rounded-full'></div>)}
+                                                {record.price_angle == "-1" && (<div className='bg-yellow-500 w-3 h-3 rounded-full'></div>)}
+                                                {/* {record.price_angle == "0" && (<div className='bg-white w-3 h-3 rounded-full'></div>)} */}
+                                                {record.price_angle == "1" && (<div className='bg-blue-500 w-3 h-3 rounded-full'></div>)}
+                                                {record.price_angle == "2" && (<div className='bg-[#a4f16d] w-3 h-3 rounded-full'></div>)}
+                                                {record.price_angle == "3" && (<div className='bg-green-500 w-3 h-3 rounded-full'></div>)}
+                                            </TableCell>
                                         </TableRow>
                                     )
                                 })
                             }
+                            <TableRow>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                            </TableRow>
                         </TableBody>
                     </Table>
                     {clicked && (
-                        <div style={{ top: points.y - 115, left: points.x - 10 }} className='absolute bg border border-black bg-white w-40 py-1'>
+                        <div style={{ top: points.y - 115, left: points.x - 10 }} className='absolute bg border border-black bg-white w-40 py-1 z-50'>
                             <ul className='flex flex-col'>
                                 <li className='hover:bg-slate-200 w-full px-2 cursor-pointer' onClick={() => {
                                     setClicked(false)
