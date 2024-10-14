@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react'
-// import TableHeader from './TableHeader'
-// import TableBody from './TableBody'
 import config from '../../../config.json'
 import { FaPlus, FaCog, FaArrowsAlt, FaTimes } from 'react-icons/fa';
 import { FaChevronUp } from "react-icons/fa";

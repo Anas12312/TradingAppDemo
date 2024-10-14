@@ -5,7 +5,7 @@ import config from '../config.json'
 import Third from "./Tabs/Third"
 import InActive from "./Tabs/InActive"
 import InTrade from "./Tabs/InTrade"
-import { Tabs, Tab as NextTab } from "@nextui-org/react"
+import { Tabs, Tab as NextTab, Button } from "@nextui-org/react"
 
 const TABS = [
   'Scan',
@@ -61,6 +61,9 @@ function App() {
   const [selectedTickerSignal, setSelectedTickerSignal] = useState({})
   const [selectedTickerSignalLog, setSelectedTickerSignalLog] = useState({})
 
+
+  const [notificationsIndicator, setNotificationsIndicator] = useState(false)
+
   return (
     <div className=""
       onClick={(e) => {
@@ -79,6 +82,36 @@ function App() {
         <div className="absolute top-10 left-10 text-2xl p-2">
           {
             new Date().toLocaleDateString() + " : " + new Date().toLocaleTimeString()
+          }
+        </div>
+        <div className="absolute top-10 right-10">
+          {
+            notificationsIndicator? (
+              <Button
+                color="danger"
+                onPress={() => {
+                  fetch(config.API_URL + '/tickers/unotify-all', {
+                    method: "POST"
+                  })
+                  setNotificationsIndicator(false)
+                }}
+                >
+                Disable notifications for all
+              </Button>
+            ) : (
+              <Button
+              color="primary"
+              onPress={
+                () => {
+                  fetch(config.API_URL + '/tickers/notify-all', {
+                    method: "POST"
+                  })
+                  setNotificationsIndicator(true)
+                  }}
+              >
+                Enable notifications for all
+              </Button>
+            )
           }
         </div>
         <Tabs
@@ -107,7 +140,7 @@ function App() {
             ))
           }
         </Tabs>
-       
+
       </div>
       {
         tab === TABS[0] && data && <Main setSelectedTicker={setSelectedTickerScan} selectedTicker={selectedTickerScan} data={data} idle={idle} setIdle={setIdle} timer={timer} />
@@ -127,15 +160,8 @@ function App() {
       {
         tab === TABS[3] && data && <Third setSelectedTicker={setSelectedTickerSignalLog} selectedTicker={selectedTickerSignalLog} data={data} idle={idle} setIdle={setIdle} timer={timer} />
       }
-    </div>
+    </div >
   )
 }
-const Tab = ({ name, number = 0, color = "text-green-600 " }) => {
-  return (
-    <div className="flex flex-col ">
-      <div>{name}</div>
-      <div className={color + " "}>({number})</div>
-    </div>
-  )
-}
+
 export default App

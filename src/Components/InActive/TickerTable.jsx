@@ -611,7 +611,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                             <TableCell>{formatNumber(record.volume_today)}</TableCell>
                                             <TableCell>{record.relative_volume.toFixed(2)}</TableCell>
                                             <TableCell>{parseFloat(record.change_from_the_Close) ? parseFloat(record.change_from_the_Close).toFixed(2) : record.change_from_the_Close}</TableCell>
-                                            <TableCell>{(parseFloat(record.change_from_the_Open) ? parseFloat(record.change_from_the_Open).toFixed(2) : "'" + parseFloat(record.change_from_the_Open.replace("'", '')).toFixed(2))}</TableCell>
+                                            <TableCell>{(parseFloat(record.change_from_the_Open) ? parseFloat(record.change_from_the_Open).toFixed(2) : "'" + parseFloat(record.change_from_the_Open).toFixed(2))}</TableCell>
                                             <TableCell>{Math.round(record.today_range)}</TableCell>
                                             <TableCell>
                                                 <div className={'text-center rounded-lg' + ((record.sentiment_label === "Bullish" || record.sentiment_label === "Somewhat-Bullish") ? ' bg-green-500' : '') + ((record.sentiment_label === "Bearish" || record.sentiment_label === "Somewhat-Bearish") ? ' bg-red-400' : '')}>

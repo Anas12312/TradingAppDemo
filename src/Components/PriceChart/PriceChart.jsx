@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import HtmlViewer from './HTMLViewer'
 import ChartModal from './Modal'
 import { Tab, Tabs } from '@nextui-org/react'
 
@@ -11,6 +10,14 @@ export default function PriceChart({ ticker }) {
     useEffect(() => {
         console.log(ticker)
     }, [ticker])
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            document.getElementById("price_chart").src += ""
+        }, 30_000)
+
+        return () => clearInterval(intervalId)
+    }, [])
     const [isOpen, setIsOpen] = useState(false)
     return (
         <>
@@ -51,7 +58,7 @@ export default function PriceChart({ ticker }) {
                         </div>
                     </div>
                     {/* <HtmlViewer filePath={selectedChart} /> */}
-                    <iframe src={ticker && ticker[chartIndex]} className='h-full w-full' frameborder="0"></iframe>
+                    <iframe id='price_chart' src={ticker && ticker[chartIndex]} className='h-full w-full' frameborder="0"></iframe>
                     {/* <img className='h-[90%]' src={selectedChart} alt="" /> */}
                 </div>
             ) : (
@@ -63,3 +70,4 @@ export default function PriceChart({ ticker }) {
 
     )
 }
+
