@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react'
-// import TableHeader from './TableHeader'
-// import TableBody from './TableBody'
 import { FaPlus, FaCog, FaArrowsAlt, FaTimes } from 'react-icons/fa';
 import config from '../../../config.json'
 import { FaChevronUp } from "react-icons/fa";
@@ -29,7 +27,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
     }
 
     useEffect(() => {
-        console.log(records);
+        // console.log(records);
     }, [records])
 
     const sort = (field, type) => {
@@ -326,21 +324,21 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
         await fetch(config.API_URL + '/tickers/activate/' + ticker, {
             method: "POST"
         })
-        const newRecords = records.filter(r => r.ticker !== ticker)
-        const newSearchedRecords = searchedRecords.filter(r => r.ticker !== ticker)
-        console.log(newRecords)
-        setRecords(newRecords)
-        setSearchedRecords(newSearchedRecords)
     }
     async function deactivateTicker(ticker) {
         await fetch(config.API_URL + '/tickers/deactivate/' + ticker, {
             method: "POST"
         })
-        const newRecords = records.filter(r => r.ticker !== ticker)
-        const newSearchedRecords = searchedRecords.filter(r => r.ticker !== ticker)
-        console.log(newRecords)
-        setRecords(newRecords)
-        setSearchedRecords(newSearchedRecords)
+    }
+    async function notify(ticker) {
+        await fetch(config.API_URL + '/tickers/notify/' + ticker, {
+            method: "POST"
+        })
+    }
+    async function unotify(ticker) {
+        await fetch(config.API_URL + '/tickers/unotify/' + ticker, {
+            method: "POST"
+        })
     }
 
 
@@ -593,12 +591,12 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                     const T = getTimeDifferenceInMinutes(record.turbo_time)
                                     const G = getTimeDifferenceInMinutes(record.gap_go_time)
                                     let OA_Value = 0
-                                    if(record.trendcatcher_status > 0) OA_Value++
-                                    if(record.trendtracer_status > 0) OA_Value++
-                                    if(record.smooth_ha > 0) OA_Value++
-                                    if(record.ema10_bullish > 0) OA_Value++
-                                    if(record.ema10_raising > 0) OA_Value++
-                                    if(record.vwap_raising > 0) OA_Value++
+                                    if (record.trendcatcher_status > 0) OA_Value++
+                                    if (record.trendtracer_status > 0) OA_Value++
+                                    if (record.smooth_ha > 0) OA_Value++
+                                    if (record.ema10_bullish > 0) OA_Value++
+                                    if (record.ema10_raising > 0) OA_Value++
+                                    if (record.vwap_raising > 0) OA_Value++
                                     return (
                                         <TableRow
                                             className='focus:outline-none focus:ring-0'
@@ -714,6 +712,17 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                     setClicked(false)
                                     deactivateTicker(contextRow)
                                 }}>Deactivate Alerts</li>
+                                <li className='hover:bg-slate-200 w-full px-2 cursor-pointer' onClick={() => {
+                                    setClicked(false)
+                                    if (contextRow.notify === "True") {
+                                        unotify(contextRow.ticker)
+                                    } else {
+                                        notify(contextRow.ticker)
+                                    }
+                                }}>
+                                    {
+                                        contextRow.notify === "True" && <span>&#10003; </span>
+                                    } Notifications</li>
                             </ul>
                         </div>
                     )}

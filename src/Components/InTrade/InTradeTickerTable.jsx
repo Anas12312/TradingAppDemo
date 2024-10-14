@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { FaPlus, FaCog, FaArrowsAlt, FaTimes } from 'react-icons/fa';
 import config from '../../../config.json'
-import InTradeTableHeader from './InTradeTableHeader';
-import InTradeTableBody from './InTradeTableBody';
 
 import { Table, TableHeader, TableColumn, TableRow, TableBody, TableCell, RadioGroup, Radio } from "@nextui-org/react";
 
