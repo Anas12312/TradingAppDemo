@@ -30,7 +30,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
         // console.log(records);
     }, [records])
 
-    const sort = (field, type) => {
+    const sort = (field, type, order) => {
         const tempSorter = { ...sorters }
 
         const keys = Object.keys(sorters).filter(x => x !== field)
@@ -39,17 +39,62 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
         }
 
         if (tempSorter[field] === Sorted.NO) tempSorter[field] = Sorted.ASC
-        else tempSorter[field] = (tempSorter[field] * -1)
+        else {
+            if (!order) tempSorter[field] = (tempSorter[field] * -1)
+        }
 
         setSorters(tempSorter)
 
-        if (field === 'aiml') {
+        if (field === 'oa') {
+            if (tempSorter[field] === Sorted.DEC) setSearchedRecords(prev => {
+                const temp = prev.map((record, i) => {
+                    let OA_Value = i
+                    if (record.trendcatcher_status > 0) OA_Value++
+                    if (record.trendtracer_status > 0) OA_Value++
+                    if (record.smooth_ha > 0) OA_Value++
+                    if (record.ema10_bullish > 0) OA_Value++
+                    if (record.ema10_raising > 0) OA_Value++
+                    if (record.vwap_raising > 0) OA_Value++
+
+                    return {
+                        ...record,
+                        oa: OA_Value
+                    }
+                })
+
+
+                return temp.sort((a, b) => b.oa - a.oa)
+            })
+
+            if (tempSorter[field] === Sorted.ASC) setSearchedRecords(prev => {
+                const temp = prev.map((record, i) => {
+                    let OA_Value = i
+                    if (record.trendcatcher_status > 0) OA_Value++
+                    if (record.trendtracer_status > 0) OA_Value++
+                    if (record.smooth_ha > 0) OA_Value++
+                    if (record.ema10_bullish > 0) OA_Value++
+                    if (record.ema10_raising > 0) OA_Value++
+                    if (record.vwap_raising > 0) OA_Value++
+
+                    return {
+                        ...record,
+                        oa: OA_Value
+                    }
+                })
+
+                return temp.sort((a, b) => a.oa - b.oa)
+            })
+
+            return
+        }
+
+        if (field === 'aiml_status') {
             if (tempSorter[field] === Sorted.DEC) setSearchedRecords(prev => prev.sort((x, y) => {
-                return (x === y) ? 0 : x ? -1 : 1;
+                return (x.aiml_status === y.aiml_status) ? 0 : x.aiml_status ? -1 : 1;
             }))
 
             if (tempSorter[field] === Sorted.ASC) setSearchedRecords(prev => prev.sort((x, y) => {
-                return (x === y) ? 0 : x ? 1 : -1;
+                return (x.aiml_status === y.aiml_status) ? 0 : x.aiml_status ? 1 : -1;
             }))
 
             return
@@ -207,9 +252,9 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                 console.log('Sort');
                 setSearchedRecords(prev => prev.sort((a, b) => +a[field] - +b[field]))
             }
-            else if (tempSorter[field] === Sorted.DEC) setSearchedRecords(records.sort((a, b) => +b[field] - +a[field]))
+            else if (tempSorter[field] === Sorted.DEC) setSearchedRecords(prev => prev.sort((a, b) => +b[field] - +a[field]))
 
-            setSearchedRecords(records)
+            // setSearchedRecords(records)
         } else if (type == "String") {
             if (tempSorter[field] === Sorted.ASC) {
                 setSearchedRecords(prev => prev.sort((a, b) => {
@@ -258,21 +303,32 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
 
     useEffect(() => {
         setRecords(data.scan.records)
-        setHeaders(data.scan.headers)
-        setSearchedRecords(data.scan.records)
-        setnewRecords(true)
-    }, [data])
+        setHeaders([...data.scan.headers, { name: 'oa' }])
+        setSearchedRecords(data.scan.records.filter(x => x.ticker?.toLowerCase().includes(search.toLowerCase().trim())))
+        // setnewRecords(true)
 
-    useEffect(() => {
         const sortedField = Object.keys(sorters).filter((s) => sorters[s])[0]
         const header = headers.filter(h => h.name === sortedField)[0]
-        setnewRecords(false)
-        sortedField && sort(sortedField, header.type)
-    }, [newRecords])
+        // setnewRecords(false)
+        sortedField && sort(sortedField, header.type, true)
+    }, [data])
+
+    // useEffect(() => {
+    //     const sortedField = Object.keys(sorters).filter((s) => sorters[s])[0]
+    //     const header = headers.filter(h => h.name === sortedField)[0]
+    //     setnewRecords(false)
+    //     sortedField && sort(sortedField, header.type, '')
+    // }, [newRecords])
 
     useEffect(() => {
         if (search === "") {
             setSearchedRecords(records)
+
+            const sortedField = Object.keys(sorters).filter((s) => sorters[s])[0]
+            const header = headers.filter(h => h.name === sortedField)[0]
+            // setnewRecords(false)
+            sortedField && sort(sortedField, header.type, true)
+
         } else {
             setSearchedRecords(records.filter(x => x.ticker?.toLowerCase().includes(search.toLowerCase().trim())))
         }
@@ -296,12 +352,13 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
         const handleClick = () => setClicked(false);
         window.addEventListener("click", handleClick);
         const sorters = {}
-        data.scan.headers.forEach((h) => {
+        const newHeaders = [...data.scan.headers, { name: 'oa' }]
+        newHeaders.forEach((h) => {
             sorters[h.name] = Sorted.NO
         })
         setSorters(sorters)
         setRecords(data.scan.records)
-        setHeaders(data.scan.headers)
+        setHeaders(newHeaders)
         setSearchedRecords(data.scan.records)
 
         return () => {
@@ -314,11 +371,14 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
         await fetch(config.API_URL + '/tickers/dismiss/' + ticker, {
             method: "POST"
         })
-        const newRecords = records.filter(r => r.ticker !== ticker)
-        const newSearchedRecords = searchedRecords.filter(r => r.ticker !== ticker)
-        console.log(newRecords)
-        setRecords(newRecords)
-        setSearchedRecords(newSearchedRecords)
+        // const newRecords = records.filter(r => r.ticker !== ticker)
+        // const newSearchedRecords = searchedRecords.filter(r => r.ticker !== ticker)
+        // setRecords(newRecords)
+        // setSearchedRecords(newSearchedRecords)
+
+
+        setRecords(prev => prev.filter(r => r.ticker !== ticker))
+        setSearchedRecords(prev => prev.filter(r => r.ticker !== ticker))
     }
     async function activateTicker(ticker) {
         await fetch(config.API_URL + '/tickers/activate/' + ticker, {
@@ -440,15 +500,19 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                             <TableColumn className="text-white bg-[#238cf4]">
                                 <div className='flex text-base'
                                     onClick={() => {
-                                        sort("aiml", "Color")
+                                        sort("aiml_status", "Color")
                                     }}>
                                     <span className='pr-3'>AI/ML</span>
                                     <FaChevronUp className={(sorters.aiml_status === 0) ? ' hidden' : (sorters.aiml_status === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
                                 </div>
                             </TableColumn>
                             <TableColumn className="text-white bg-[#238cf4]">
-                                <div className='flex text-base'>
+                                <div className='flex text-base'
+                                    onClick={() => {
+                                        sort("oa", "Color")
+                                    }}>
                                     <span className='pr-3'>OA</span>
+                                    <FaChevronUp className={(sorters.oa === 0) ? ' hidden' : (sorters.oa === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
                                 </div>
                             </TableColumn>
                             <TableColumn className="text-white bg-[#238cf4]">

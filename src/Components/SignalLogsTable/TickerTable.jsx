@@ -25,7 +25,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
     async function refresh() {
         setReload(!reload)
     }
-    const sort = (field, type) => {
+    const sort = (field, type, order) => {
         const tempSorter = { ...sorters }
 
         const keys = Object.keys(sorters).filter(x => x !== field)
@@ -34,17 +34,62 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
         }
 
         if (tempSorter[field] === Sorted.NO) tempSorter[field] = Sorted.ASC
-        else tempSorter[field] = (tempSorter[field] * -1)
+        else {
+            if (!order) tempSorter[field] = (tempSorter[field] * -1)
+        }
 
         setSorters(tempSorter)
 
-        if (field === 'aiml') {
+        if (field === 'oa') {
+            if (tempSorter[field] === Sorted.DEC) setSearchedRecords(prev => {
+                const temp = prev.map((record, i) => {
+                    let OA_Value = i
+                    if (record.trendcatcher_status > 0) OA_Value++
+                    if (record.trendtracer_status > 0) OA_Value++
+                    if (record.smooth_ha > 0) OA_Value++
+                    if (record.ema10_bullish > 0) OA_Value++
+                    if (record.ema10_raising > 0) OA_Value++
+                    if (record.vwap_raising > 0) OA_Value++
+
+                    return {
+                        ...record,
+                        oa: OA_Value
+                    }
+                })
+
+
+                return temp.sort((a, b) => b.oa - a.oa)
+            })
+
+            if (tempSorter[field] === Sorted.ASC) setSearchedRecords(prev => {
+                const temp = prev.map((record, i) => {
+                    let OA_Value = i
+                    if (record.trendcatcher_status > 0) OA_Value++
+                    if (record.trendtracer_status > 0) OA_Value++
+                    if (record.smooth_ha > 0) OA_Value++
+                    if (record.ema10_bullish > 0) OA_Value++
+                    if (record.ema10_raising > 0) OA_Value++
+                    if (record.vwap_raising > 0) OA_Value++
+
+                    return {
+                        ...record,
+                        oa: OA_Value
+                    }
+                })
+
+                return temp.sort((a, b) => a.oa - b.oa)
+            })
+
+            return
+        }
+
+        if (field === 'aiml_status') {
             if (tempSorter[field] === Sorted.DEC) setSearchedRecords(prev => prev.sort((x, y) => {
-                return (x === y) ? 0 : x ? -1 : 1;
+                return (x.aiml_status === y.aiml_status) ? 0 : x.aiml_status ? -1 : 1;
             }))
 
             if (tempSorter[field] === Sorted.ASC) setSearchedRecords(prev => prev.sort((x, y) => {
-                return (x === y) ? 0 : x ? 1 : -1;
+                return (x.aiml_status === y.aiml_status) ? 0 : x.aiml_status ? 1 : -1;
             }))
 
             return
@@ -202,9 +247,9 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                 console.log('Sort');
                 setSearchedRecords(prev => prev.sort((a, b) => +a[field] - +b[field]))
             }
-            else if (tempSorter[field] === Sorted.DEC) setSearchedRecords(records.sort((a, b) => +b[field] - +a[field]))
+            else if (tempSorter[field] === Sorted.DEC) setSearchedRecords(prev => prev.sort((a, b) => +b[field] - +a[field]))
 
-            setSearchedRecords(records)
+            // setSearchedRecords(records)
         } else if (type == "String") {
             if (tempSorter[field] === Sorted.ASC) {
                 setSearchedRecords(prev => prev.sort((a, b) => {
@@ -253,7 +298,10 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
         if (search === "") {
             setSearchedRecords(records)
         } else {
-            setSearchedRecords(records.filter(x => x.ticker?.toLowerCase().includes(search.toLowerCase().trim())))
+            setSearchedRecords(prev => prev.filter(x => x.ticker?.toLowerCase().includes(search.toLowerCase().trim())))
+            const sortedField = Object.keys(sorters).filter((s) => sorters[s])[0]
+            const header = headers.filter(h => h.name === sortedField)[0]
+            sortedField && sort(sortedField, header.type, true)
         }
         return () => {
             // console.log(searchedRecords);
@@ -281,6 +329,17 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
             momo_time: Sorted.NO,
             turbo_time: Sorted.NO,
         })
+
+        setRecords(data.signalLogs.records)
+        setHeaders(data.signalLogs.headers)
+        setSearchedRecords(data.signalLogs.records.filter(x => x.ticker?.toLowerCase().includes(search.toLowerCase().trim())))
+        // setnewRecords(true)
+
+        const sortedField = Object.keys(sorters).filter((s) => sorters[s])[0]
+        const header = headers.filter(h => h.name === sortedField)[0]
+        // setnewRecords(false)
+        sortedField && sort(sortedField, header.type, true)
+
 
         const handleClick = () => setClicked(false);
         window.addEventListener("click", handleClick);
