@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ChartModal from './Modal'
 import { Tab, Tabs } from '@nextui-org/react'
-
+import { FaMaximize } from 'react-icons/fa6'
 export default function PriceChart({ ticker }) {
 
     // const [selectedChart, setSelectedChart] = useState(charts[0])
@@ -54,7 +54,7 @@ export default function PriceChart({ ticker }) {
                             className='cursor-pointer hover:bg-white p-1 rounded-lg mt-1'
                             onClick={() => setIsOpen(true)}
                         >
-                            <img className='w-8' src="../../../maximize.png" alt="" />
+                            <FaMaximize />
                         </div>
                     </div>
                     {/* <HtmlViewer filePath={selectedChart} /> */}

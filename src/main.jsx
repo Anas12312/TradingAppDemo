@@ -7,13 +7,13 @@ import { NextUIProvider } from '@nextui-org/react'
 
 
 const Main = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   return (
     <>
       {
         isLoggedIn ?
-          <App /> :
+          <App setIsLoggedIn={setIsLoggedIn} /> :
           <LogIn setIsLoggedIn={setIsLoggedIn} />
       }
     </>

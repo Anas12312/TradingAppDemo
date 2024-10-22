@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { FaPlus, FaCog, FaArrowsAlt, FaTimes } from 'react-icons/fa';
+import { FaPlus, FaCog, FaArrowsAlt, FaTimes, FaRedoAlt } from 'react-icons/fa';
 import config from '../../../config.json'
 import { FaChevronUp } from "react-icons/fa";
 
@@ -8,7 +8,7 @@ import { Table, TableHeader, TableColumn, TableRow, TableBody, TableCell, RadioG
 
 
 
-export default function TickerTable({ setSelectedTicker, data, selectedTicker, setIdle, timer }) {
+export default function TickerTable({ setSelectedTicker, data, selectedTicker, setIdle, timer, fetchData }) {
     const Sorted = {
         NO: 0,
         ASC: 1,
@@ -391,6 +391,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
         })
     }
     async function notify(ticker) {
+        console.log(ticker)
         await fetch(config.API_URL + '/tickers/notify/' + ticker, {
             method: "POST"
         })
@@ -421,8 +422,10 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
         if (inputDate.getTime() === ignoreDateTime.getTime()) {
             return -1;
         }
-
-        const now = new Date();
+        const easternTime = new Date().toLocaleString('en-US', {
+            timeZone: 'America/New_York',
+        });
+        const now = new Date(easternTime);
         const diffInMilliseconds = now - inputDate;
         const diffInMinutes = Math.floor(diffInMilliseconds / 60000);
 
@@ -447,9 +450,20 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                     </div>
                 </div>
                 {/* Right side icons */}
-                <div className="flex space-x-3 drag-handle">
-                    <FaArrowsAlt className="cursor-move hover:text-gray-400" />
+                <div className='flex gap-6'>
+                    <div onClick={() => {
+                        console.log(records, records[0])
+                        if(records && records[0]) {
+                            notify(data.scan.records[0].ticker)
+                        }
+                    }}>
+                        <FaRedoAlt className='cursor-pointer hover:text-gray-400' />
+                    </div>
+                    <div className="flex space-x-3 drag-handle">
+                        <FaArrowsAlt className="cursor-move hover:text-gray-400" />
+                    </div>
                 </div>
+
             </div>
 
             <div className='bg-white flex justify-center items-start w-full h-full'>

@@ -3,9 +3,14 @@ import TableRow from './TableRow'
 import { Tabs, Tab, Table, TableBody as UITablebody, TableRow as UITableRow, TableHeader, TableColumn, TableCell } from "@nextui-org/react"
 
 function extractTime(dateTimeString) {
-    const timePattern = /\d{1,2}:\d{2}$/;
+    const timePattern = /(\d{1,2}):(\d{2})(?::\d{2})?$/;
     const match = dateTimeString?.match(timePattern);
-    return match ? match[0] : '';
+    if (match) {
+        const hours = match[1];  // Captured hours
+        const minutes = match[2];  // Captured minutes
+        return hours+ ":" + minutes  // Return an object with both
+    }
+    else return "00:00"
 }
 
 export default function TableBody({ ticker }) {
@@ -56,9 +61,10 @@ export default function TableBody({ ticker }) {
                         aria-label="Options"
                         className="my-2 font-semibold"
                         onSelectionChange={(key) => { console.log(key); setSelected(key) }}
+                        disableAnimation
                     >
                         <Tab
-                            title="Stoke Info"
+                            title="Stock Info"
                             key="stoke"
                         />
                         <Tab
