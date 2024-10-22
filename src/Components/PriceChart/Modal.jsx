@@ -1,5 +1,6 @@
 import { Tab, Tabs } from '@nextui-org/react';
 import React, { useEffect, useState } from 'react'
+import { FaMinimize } from 'react-icons/fa6';
 import Modal from 'react-modal';
 export default function ChartModal({ isOpen, setIsOpen, ticker }) {
   const closeViewText = () => {
@@ -48,7 +49,7 @@ export default function ChartModal({ isOpen, setIsOpen, ticker }) {
               <div className='cursor-pointer'
                 onClick={() => setIsOpen(false)}
               >
-                <img className='w-8 rounded-lg hover:bg-white p-2' src="../../../close.png" alt="" />
+                <FaMinimize />
               </div>
             </div>
             {/* <HtmlViewer filePath={selectedChart} /> */}

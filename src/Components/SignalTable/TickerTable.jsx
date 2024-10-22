@@ -372,8 +372,10 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
         if (inputDate.getTime() === ignoreDateTime.getTime()) {
             return -1;
         }
-
-        const now = new Date();
+        const easternTime = new Date().toLocaleString('en-US', {
+            timeZone: 'America/New_York',
+        });
+        const now = new Date(easternTime);
         const diffInMilliseconds = now - inputDate;
         const diffInMinutes = Math.floor(diffInMilliseconds / 60000);
 
@@ -465,10 +467,37 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                             <TableColumn className='text-white bg-[#238cf4]'>
                                 <div className='flex text-base'
                                     onClick={() => {
+                                        sort("float", "Number")
+                                    }}>
+                                    <span className='pr-3'>Float</span>
+                                    <FaChevronUp className={(sorters.float === 0) ? ' hidden' : (sorters.float === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
+                                </div>
+                            </TableColumn>
+                            <TableColumn className='text-white bg-[#238cf4]'>
+                                <div className='flex text-base'
+                                    onClick={() => {
                                         sort("volume_today", "Number")
                                     }}>
                                     <span className='pr-3'>Vol</span>
                                     <FaChevronUp className={(sorters.volume_today === 0) ? ' hidden' : (sorters.volume_today === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
+                                </div>
+                            </TableColumn>
+                            <TableColumn className="text-white bg-[#238cf4]">
+                                <div className='flex text-base'
+                                    onClick={() => {
+                                        sort("change_from_the_Close", "Number")
+                                    }}>
+                                    <span className='pr-3'>&Delta; Close</span>
+                                    <FaChevronUp className={(sorters.change_from_the_Close === 0) ? ' hidden' : (sorters.change_from_the_Close === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
+                                </div>
+                            </TableColumn>
+                            <TableColumn className="text-white bg-[#238cf4]">
+                                <div className='flex text-base'
+                                    onClick={() => {
+                                        sort("change_from_the_Open", "Number")
+                                    }}>
+                                    <span className='pr-3'>&Delta; Open</span>
+                                    <FaChevronUp className={(sorters.change_from_the_Open === 0) ? ' hidden' : (sorters.change_from_the_Open === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
                                 </div>
                             </TableColumn>
                             <TableColumn className='text-white bg-[#238cf4]'>
@@ -520,6 +549,9 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                         </TableHeader>
                         <TableBody >
                             <TableRow>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
@@ -587,8 +619,10 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                             <TableCell className='font-semibold focus:outline-none'>{record.ticker}</TableCell>
                                             <TableCell>{record.signal_time}</TableCell>
                                             <TableCell>{record.stop_loss.toFixed(2)}</TableCell>
+                                            <TableCell>{formatNumber(record.float)}</TableCell>
                                             <TableCell>{formatNumber(record.volume_today || 5)}</TableCell>
-
+                                            <TableCell>{parseFloat(record.change_from_the_Close) ? parseFloat(record?.change_from_the_Close).toFixed(2) : record.change_from_the_Close}</TableCell>
+                                            <TableCell>{record.change_from_the_Open && (parseFloat(record?.change_from_the_Open) ? parseFloat(record?.change_from_the_Open).toFixed(2) : "'" + parseFloat(record?.change_from_the_Open?.replace("'", '')).toFixed(2))}</TableCell>
                                             <TableCell>
                                                 <div className='w-full flex'>
                                                     <div className={'rounded-lg relative w-full h-full flex justify-center items-center text-center  ' + ((record.halt_resume_count === 0 && H <= 2 && H > 0) ? ' bg-green-400' : '') + ((record.halt_resume_count !== 0 && record.halt_resume_count % 2 === 0) ? ' bg-red-500' : '') + ((record.halt_resume_count % 2 !== 0) ? ' bg-green-400' : '')}>
@@ -607,7 +641,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                             </TableCell>
 
                                             <TableCell>
-                                                <span className='pl-2'>{record.Signal_type.map(x => x.S).join(',')}</span>
+                                                <span className='pl-2'>{record.Signal_type.join(', ')}</span>
                                             </TableCell>
                                         </TableRow>
                                     )

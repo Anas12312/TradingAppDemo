@@ -392,8 +392,10 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
         if (inputDate.getTime() === ignoreDateTime.getTime()) {
             return -1;
         }
-
-        const now = new Date();
+        const easternTime = new Date().toLocaleString('en-US', {
+            timeZone: 'America/New_York',
+        });
+        const now = new Date(easternTime);
         const diffInMilliseconds = now - inputDate;
         const diffInMinutes = Math.floor(diffInMilliseconds / 60000);
 

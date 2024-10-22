@@ -6,13 +6,14 @@ import Third from "./Tabs/Third"
 import InActive from "./Tabs/InActive"
 import InTrade from "./Tabs/InTrade"
 import { Tabs, Tab as NextTab, Button } from "@nextui-org/react"
+import { FaSignOutAlt } from "react-icons/fa"
 
 const TABS = [
   'Scan',
   'Active Signals',
   'In Trade',
   'Signals Logs',
-  'In Active',
+  'Inactive',
   'Alarms'
 ]
 
@@ -20,7 +21,7 @@ function delay(time) {
   return new Promise(resolve => setTimeout(resolve, time));
 }
 
-function App() {
+function App({ setIsLoggedIn }) {
 
   const [tab, setTab] = useState(TABS[0])
 
@@ -35,19 +36,12 @@ function App() {
   }, [idle])
 
   async function fetchRecords() {
+    updateEasternTime()
     const results = await fetch(config.API_URL + '/tickers')
     const response = await results.json()
     setData(response)
-    // setHeaders(response.scan.headers)
-    // setRecords(response.scan.records)
-    // setSearchedRecords(response.records)
-    // const sorters = {}
-    // response.headers.forEach((h) => {
-    //   sorters[h.name] = Sorted.NO
-    // })
-    // setSorters(sorters)
 
-    await delay(3_000)
+    await delay(1_000)
     await fetchRecords()
   }
   useEffect(() => {
@@ -55,14 +49,34 @@ function App() {
     fetchRecords()
 
   }, [])
-
+  useEffect(() => {
+    let notifyFlag = true
+    if(data?.scan?.records) {
+      data?.scan?.records?.forEach(t => {
+        if(t.notify == "False") {
+          notifyFlag = false
+        }
+      })
+      setNotificationsIndicator(notifyFlag)
+    }
+  }, [data])
 
   const [selectedTickerScan, setSelectedTickerScan] = useState({})
   const [selectedTickerSignal, setSelectedTickerSignal] = useState({})
   const [selectedTickerSignalLog, setSelectedTickerSignalLog] = useState({})
-
+  const [easternTime, setEasternTime] = useState('')
 
   const [notificationsIndicator, setNotificationsIndicator] = useState(false)
+
+  const updateEasternTime = () => {
+    const currentEasternTime = new Date().toLocaleString('en-US', {
+      timeZone: 'America/New_York',
+      dateStyle: 'short',
+      timeStyle: 'medium',
+    });
+    setEasternTime(currentEasternTime);
+  };
+
 
   return (
     <div className=""
@@ -79,40 +93,46 @@ function App() {
       }}
     >
       <div className="flex justify-center items-center w-full my-4 font-main">
+
         <div className="absolute top-10 left-10 text-2xl p-2">
           {
-            new Date().toLocaleDateString() + " : " + new Date().toLocaleTimeString()
+            easternTime
           }
         </div>
-        <div className="absolute top-10 right-10">
-          {
-            notificationsIndicator? (
-              <Button
-                color="danger"
-                onPress={() => {
-                  fetch(config.API_URL + '/tickers/unotify-all', {
-                    method: "POST"
-                  })
-                  setNotificationsIndicator(false)
-                }}
-                >
-                Disable notifications for all
-              </Button>
-            ) : (
-              <Button
-              color="primary"
-              onPress={
-                () => {
-                  fetch(config.API_URL + '/tickers/notify-all', {
-                    method: "POST"
-                  })
-                  setNotificationsIndicator(true)
+        <div className="absolute top-10 right-10 flex gap-2">
+          <div>
+            {
+              notificationsIndicator ? (
+                <Button
+                  color="danger"
+                  onPress={() => {
+                    fetch(config.API_URL + '/tickers/unotify-all', {
+                      method: "POST"
+                    })
                   }}
-              >
-                Enable notifications for all
-              </Button>
-            )
-          }
+                >
+                  Disable notifications for all
+                </Button>
+              ) : (
+                <Button
+                  color="primary"
+                  onPress={
+                    () => {
+                      fetch(config.API_URL + '/tickers/notify-all', {
+                        method: "POST"
+                      })
+                    }}
+                >
+                  Enable notifications for all
+                </Button>
+              )
+            }
+          </div>
+          <div onClick={() => {
+            setIsLoggedIn(false)
+          }} className="bg-red-600 flex justify-center items-center text-white rounded-lg hover:bg-red-800 cursor-pointer px-3 p-2">
+            <FaSignOutAlt />
+          </div>
         </div>
         <Tabs
           size="lg"
@@ -120,6 +140,7 @@ function App() {
           color="primary"
           className=""
           onSelectionChange={(key) => { console.log(key); setTab(TABS[TABS.indexOf(key)]) }}
+          disableAnimation
         >
           {
             TABS.map((x, i) => (
@@ -132,7 +153,7 @@ function App() {
                     <div className={"text-orange-400"}>({x == "Scan" && data?.scan?.records?.length}
                       {x == "Active Signals" && data?.signal?.records?.length}
                       {x == "Signals Logs" && data?.signalLogs?.records?.length}
-                      {x == "In Active" && data?.inactive?.records?.length}
+                      {x == "Inactive" && data?.inactive?.records?.length}
                       {x == "In Trade" && data?.intrade?.records?.length}
                       {x == "Alarms" && 0})</div>
                   </div>
