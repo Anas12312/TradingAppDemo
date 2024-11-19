@@ -391,7 +391,6 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
         })
     }
     async function notify(ticker) {
-        console.log(ticker)
         await fetch(config.API_URL + '/tickers/notify/' + ticker, {
             method: "POST"
         })
@@ -430,6 +429,28 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
         const diffInMinutes = Math.floor(diffInMilliseconds / 60000);
 
         return diffInMinutes;
+    }
+
+    async function entry_notify(ticker) {
+        await fetch(config.API_URL + '/tickers/entry-notify/' + ticker, {
+            method: "POST"
+        })
+    }
+    async function entry_unotify(ticker) {
+        await fetch(config.API_URL + '/tickers/entry-unotify/' + ticker, {
+            method: "POST"
+        })
+    }
+
+    async function exit_notify(ticker) {
+        await fetch(config.API_URL + '/tickers/exit-notify/' + ticker, {
+            method: "POST"
+        })
+    }
+    async function exit_unotify(ticker) {
+        await fetch(config.API_URL + '/tickers/exit-unotify/' + ticker, {
+            method: "POST"
+        })
     }
 
 
@@ -570,7 +591,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                     onClick={() => {
                                         sort("change_from_the_Close", "Number")
                                     }}>
-                                    <span className='pr-3'>&Delta; Close</span>
+                                    <span className='pr-3'>&Delta; Close%</span>
                                     <FaChevronUp className={(sorters.change_from_the_Close === 0) ? ' hidden' : (sorters.change_from_the_Close === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
                                 </div>
                             </TableColumn>
@@ -579,7 +600,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                     onClick={() => {
                                         sort("change_from_the_Open", "Number")
                                     }}>
-                                    <span className='pr-3'>&Delta; Open</span>
+                                    <span className='pr-3'>&Delta; Open%</span>
                                     <FaChevronUp className={(sorters.change_from_the_Open === 0) ? ' hidden' : (sorters.change_from_the_Open === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
                                 </div>
                             </TableColumn>
@@ -801,6 +822,28 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                     {
                                         contextRow.notify === "True" && <span>&#10003; </span>
                                     } Notifications</li>
+                                <li className='hover:bg-slate-200 w-full px-2 cursor-pointer' onClick={() => {
+                                    setClicked(false)
+                                    if ((data.scan.records.find(x => x.ticker === contextRow.ticker).entry_notification === "True")) {
+                                        entry_unotify(contextRow.ticker)
+                                    } else {
+                                        entry_notify(contextRow.ticker)
+                                    }
+                                }}>
+                                    {
+                                        (data.scan.records.find(x => x.ticker === contextRow.ticker).entry_notification === "True") && <span>&#10003; </span>
+                                    } Entry Notif</li>
+                                <li className='hover:bg-slate-200 w-full px-2 cursor-pointer' onClick={() => {
+                                    setClicked(false)
+                                    if (data.scan.records.find(x => x.ticker === contextRow.ticker).exit_notification === "True") {
+                                        exit_unotify(contextRow.ticker)
+                                    } else {
+                                        exit_notify(contextRow.ticker)
+                                    }
+                                }}>
+                                    {
+                                        data.scan.records.find(x => x.ticker === contextRow.ticker).exit_notification === "True" && <span>&#10003; </span>
+                                    } Exit Notif</li>
                             </ul>
                         </div>
                     )}

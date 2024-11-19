@@ -384,8 +384,8 @@ export default function TableBody({ ticker }) {
                     selected == "intrade" && (
                         <Table>
                             <TableHeader>
-                                <TableColumn className='text-center'>Trend Catcher</TableColumn>
-                                <TableColumn className='text-center'>Trend Tracer</TableColumn>
+                                <TableColumn className='text-center'>Trend Direction</TableColumn>
+                                <TableColumn className='text-center'>Trend Bar</TableColumn>
                                 <TableColumn className='text-center'>Smooth HA</TableColumn>
                                 <TableColumn className='text-center'>EMA 10 Bullish</TableColumn>
                                 <TableColumn className='text-center'>EMA 10 Raising</TableColumn>

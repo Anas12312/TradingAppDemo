@@ -518,7 +518,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                     onClick={() => {
                                         sort("change_from_the_Close", "Number")
                                     }}>
-                                    <span className='pr-3'>&Delta; Close</span>
+                                    <span className='pr-3'>&Delta; Close%</span>
                                     <FaChevronUp className={(sorters.change_from_the_Close === 0) ? ' hidden' : (sorters.change_from_the_Close === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
                                 </div>
                             </TableColumn>
@@ -527,7 +527,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                     onClick={() => {
                                         sort("change_from_the_Open", "Number")
                                     }}>
-                                    <span className='pr-3'>&Delta; Open</span>
+                                    <span className='pr-3'>&Delta; Open%</span>
                                     <FaChevronUp className={(sorters.change_from_the_Open === 0) ? ' hidden' : (sorters.change_from_the_Open === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
                                 </div>
                             </TableColumn>

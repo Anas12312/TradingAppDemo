@@ -5,6 +5,7 @@ import config from '../config.json'
 import Third from "./Tabs/Third"
 import InActive from "./Tabs/InActive"
 import InTrade from "./Tabs/InTrade"
+import AlarmLayout from "./Tabs/AlarmLayout"
 import { Tabs, Tab as NextTab, Button } from "@nextui-org/react"
 import { FaSignOutAlt } from "react-icons/fa"
 
@@ -73,7 +74,7 @@ function App({ setIsLoggedIn }) {
       timeZone: 'America/New_York',
       dateStyle: 'short',
       timeStyle: 'medium',
-    });
+    }).replace(',','');
     setEasternTime(currentEasternTime);
   };
 
@@ -155,7 +156,7 @@ function App({ setIsLoggedIn }) {
                       {x == "Signals Logs" && data?.signalLogs?.records?.length}
                       {x == "Inactive" && data?.inactive?.records?.length}
                       {x == "In Trade" && data?.intrade?.records?.length}
-                      {x == "Alarms" && 0})</div>
+                      {x == "Alarms" && data?.alarms?.records?.filter(x => !x.cleared).length})</div>
                   </div>
                 } />
             ))
@@ -180,6 +181,9 @@ function App({ setIsLoggedIn }) {
       }
       {
         tab === TABS[3] && data && <Third setSelectedTicker={setSelectedTickerSignalLog} selectedTicker={selectedTickerSignalLog} data={data} idle={idle} setIdle={setIdle} timer={timer} />
+      }
+      {
+        tab === TABS[5] && data && <AlarmLayout data={data} />
       }
     </div >
   )

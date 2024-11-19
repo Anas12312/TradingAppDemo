@@ -2,15 +2,18 @@ import { Tab, Tabs } from '@nextui-org/react';
 import React, { useEffect, useState } from 'react'
 import { FaMinimize } from 'react-icons/fa6';
 import Modal from 'react-modal';
+import { ChartComponent } from '../TradingViewChart';
 export default function ChartModal({ isOpen, setIsOpen, ticker }) {
   const closeViewText = () => {
     setIsOpen(false);
   }
   // const [selectedChart, setSelectedChart] = useState(charts[0])
   const [chartIndex, setChartIndex] = useState(ticker?.heik_1min)
+  const [customChart, setCustomChart] = useState(true)
+
 
   useEffect(() => {
-      console.log(ticker)
+    console.log(ticker)
   }, [ticker])
   return (
     <div>
@@ -31,20 +34,33 @@ export default function ChartModal({ isOpen, setIsOpen, ticker }) {
                 size="lg"
                 aria-label="Options"
                 className="bg-white rounded-2xl mt-2"
-                onSelectionChange={(key) => { console.log(key); setChartIndex(key) }}
+                onSelectionChange={(key) => {
+                  console.log(key);
+                  if (key === 'custom_chart') setCustomChart(true)
+                  else {
+                    setCustomChart(false)
+                    setChartIndex(key)
+                  }
+                }}
               >
                 <Tab
-                  title="HEIK 1 Min"
+                  title="TV 1 Min"
+                  key={"custom_chart"}
+                />
+                <Tab
+                  title="TV 1 Day"
+                  key="candel_1min"
+                />
+                <Tab
+                  title="TV Advance"
                   key="heik_1min"
                 />
                 <Tab
-                  title="HEIK 1 Day"
+                  title="Custom Chart"
                   key="heik_1day"
                 />
-                <Tab
-                  title="Candel 1 Min"
-                  key="candel_1min"
-                />
+
+
               </Tabs>
               <div className='cursor-pointer'
                 onClick={() => setIsOpen(false)}
@@ -53,7 +69,15 @@ export default function ChartModal({ isOpen, setIsOpen, ticker }) {
               </div>
             </div>
             {/* <HtmlViewer filePath={selectedChart} /> */}
-            <iframe src={ticker && ticker[chartIndex]} className='h-full w-full' frameborder="0"></iframe>
+            {
+              customChart ?
+                <div className='w-full h-full'>
+                  <ChartComponent symbol={ticker.ticker} fullScreen={true} />
+                </div>
+                :
+                <iframe src={ticker && ticker[chartIndex]} className='h-full w-full' frameborder="0"></iframe>
+            }
+
             {/* <img className='h-[90%]' src={selectedChart} alt="" /> */}
           </div>
         ) : (

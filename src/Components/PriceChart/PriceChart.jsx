@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react'
 import ChartModal from './Modal'
 import { Tab, Tabs } from '@nextui-org/react'
 import { FaMaximize } from 'react-icons/fa6'
+import { ChartComponent } from '../TradingViewChart'
 export default function PriceChart({ ticker }) {
 
     // const [selectedChart, setSelectedChart] = useState(charts[0])
     const [chartIndex, setChartIndex] = useState(ticker?.heik_1min)
+
+    const [customChart, setCustomChart] = useState(true)
 
     useEffect(() => {
         console.log(ticker)
@@ -35,20 +38,32 @@ export default function PriceChart({ ticker }) {
                             size="lg"
                             aria-label="Options"
                             className="bg-white rounded-2xl mt-2 font-semibold"
-                            onSelectionChange={(key) => { console.log(key); setChartIndex(key) }}
+                            onSelectionChange={(key) => {
+                                console.log(key);
+                                if (key === 'custom_chart') setCustomChart(true)
+                                else {
+                                    setCustomChart(false)
+                                    setChartIndex(key)
+                                }
+                            }}
                         >
                             <Tab
-                                title="HEIK 1 Min"
+                                title="TV 1 Min"
+                                key={"custom_chart"}
+                            />
+                            <Tab
+                                title="TV 1 Day"
+                                key="candel_1min"
+                            />
+                            <Tab
+                                title="TV Advance"
                                 key="heik_1min"
                             />
                             <Tab
-                                title="HEIK 1 Day"
+                                title="Custom Chart"
                                 key="heik_1day"
                             />
-                            <Tab
-                                title="Candel 1 Min"
-                                key="candel_1min"
-                            />
+
                         </Tabs>
                         <div
                             className='cursor-pointer hover:bg-white p-1 rounded-lg mt-1'
@@ -58,7 +73,14 @@ export default function PriceChart({ ticker }) {
                         </div>
                     </div>
                     {/* <HtmlViewer filePath={selectedChart} /> */}
-                    <iframe id='price_chart' src={ticker && ticker[chartIndex]} className='h-full w-full' frameborder="0"></iframe>
+                    {
+                        customChart ?
+                            <div className='w-full h-full'>
+                                <ChartComponent symbol={ticker.ticker} />
+                            </div>
+                            :
+                            <iframe id='price_chart' src={ticker && ticker[chartIndex]} className='h-full w-full' frameborder="0"></iframe>
+                    }
                     {/* <img className='h-[90%]' src={selectedChart} alt="" /> */}
                 </div>
             ) : (

@@ -77,9 +77,9 @@ function InTrade({ data, idle, setIdle, timer, selectedTicker, setSelectedTicker
 
 
   const layout = [
-    { i: "a", x: 0, y: 0, w: 4.5, h: 4 },
-    { i: "b", x: 4.5, y: 0, w: 4.5, h: 4 },
-    { i: "c", x: 0, y: 8, w: 9, h: 16 }
+    { i: "a", x: 0, y: 0, w: 4.5, h: 6 },
+    { i: "b", x: 4.5, y: 0, w: 4.5, h: 6 },
+    { i: "c", x: 0, y: 8, w: 9, h: 14 }
   ];
   return (
     <div className='font-main'>

@@ -137,6 +137,9 @@ export default function InTradeTickerTable2({ setSelectedTicker, data, selectedT
         };
     }, []);
     async function detradeTicker(ticker) {
+        await entry_unotify(ticker)
+        await exit_unotify(ticker)
+
         await fetch(config.API_URL + '/tickers/detrade/' + ticker, {
             method: "POST"
         })
@@ -172,6 +175,29 @@ export default function InTradeTickerTable2({ setSelectedTicker, data, selectedT
 
         return diffInMinutes;
     }
+
+    async function entry_notify(ticker) {
+        await fetch(config.API_URL + '/tickers/entry-notify/' + ticker, {
+            method: "POST"
+        })
+    }
+    async function entry_unotify(ticker) {
+        await fetch(config.API_URL + '/tickers/entry-unotify/' + ticker, {
+            method: "POST"
+        })
+    }
+
+    async function exit_notify(ticker) {
+        await fetch(config.API_URL + '/tickers/exit-notify/' + ticker, {
+            method: "POST"
+        })
+    }
+    async function exit_unotify(ticker) {
+        await fetch(config.API_URL + '/tickers/exit-unotify/' + ticker, {
+            method: "POST"
+        })
+    }
+
 
     return (
         <>
@@ -216,8 +242,8 @@ export default function InTradeTickerTable2({ setSelectedTicker, data, selectedT
                             <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>Float</div></TableColumn>
                             <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>Vol</div></TableColumn>
                             <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>Rel Vol</div></TableColumn>
-                            <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>Trend Catcher</div></TableColumn>
-                            <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>Trend Tracer</div></TableColumn>
+                            <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>Trend Direction</div></TableColumn>
+                            <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>Trend Bar</div></TableColumn>
                             <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>Smooth HA</div></TableColumn>
                             <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>EMA10 Bullish</div></TableColumn>
                             <TableColumn className='bg-[#1d4ed8] text-white text-xs'><div className='w-6 text-wrap'>EMA10 raising</div></TableColumn>
@@ -368,6 +394,28 @@ export default function InTradeTickerTable2({ setSelectedTicker, data, selectedT
                                     setIdle(false);
                                     setSelectedTicker(contextRow);
                                 }}>View Details</li>
+                                <li className='hover:bg-slate-200 w-full px-2 cursor-pointer' onClick={() => {
+                                    setClicked(false)
+                                    if ((data.scan.records.find(x => x.ticker === contextRow.ticker).entry_notification === "True")) {
+                                        entry_unotify(contextRow.ticker)
+                                    } else {
+                                        entry_notify(contextRow.ticker)
+                                    }
+                                }}>
+                                    {
+                                        (data.scan.records.find(x => x.ticker === contextRow.ticker).entry_notification === "True") && <span>&#10003; </span>
+                                    } Entry Notif</li>
+                                <li className='hover:bg-slate-200 w-full px-2 cursor-pointer' onClick={() => {
+                                    setClicked(false)
+                                    if (data.scan.records.find(x => x.ticker === contextRow.ticker).exit_notification === "True") {
+                                        exit_unotify(contextRow.ticker)
+                                    } else {
+                                        exit_notify(contextRow.ticker)
+                                    }
+                                }}>
+                                    {
+                                        data.scan.records.find(x => x.ticker === contextRow.ticker).exit_notification === "True" && <span>&#10003; </span>
+                                    } Exit Notif</li>
                             </ul>
                         </div>
                     )}

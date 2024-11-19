@@ -74,7 +74,7 @@ function Main({ data, idle, setIdle, timer, selectedTicker, setSelectedTicker })
 
     setInterval(() => {
       setTick(prev => !prev)
-    }, 2000)
+    }, 10000)
   }, [])
 
   const layout = [
@@ -86,7 +86,7 @@ function Main({ data, idle, setIdle, timer, selectedTicker, setSelectedTicker })
   return (
     <div className='font-main'>
       <GridLayout className="layout" layout={layout} cols={12} rowHeight={30} width={2550} draggableHandle='.drag-handle' >
-        <div onClick={(e) => e.stopPropagation()} key="a" className="grid-item shadow"><TickerTable timer={timer} data={data} setSelectedTicker={setSelectedTicker} selectedTicker={selectedTicker} setIdle={setIdle} /></div>
+        <div onClick={(e) => e.stopPropagation()} key="a" className="grid-item shadow Z-20"><TickerTable timer={timer} data={data} setSelectedTicker={setSelectedTicker} selectedTicker={selectedTicker} setIdle={setIdle} /></div>
         <div onClick={(e) => e.stopPropagation()} key="b" className="grid-item shadow"><Header text={"Price Chart " + (selectedTicker?.ticker ? selectedTicker.ticker : "")} /><PriceChart ticker={selectedTicker} /></div>
         <div onClick={(e) => e.stopPropagation()} key="c" className="grid-item shadow"><Header2 text={"Details " + (selectedTicker?.ticker ? selectedTicker.ticker : "")} /><Details selectedTicker={selectedTicker} /></div>
       </GridLayout>

@@ -467,6 +467,15 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                             <TableColumn className='text-white bg-[#238cf4]'>
                                 <div className='flex text-base'
                                     onClick={() => {
+                                        sort("stop_loss", "Number")
+                                    }}>
+                                    <span className='pr-3'>Likelyhood %</span>
+                                    <FaChevronUp className={(sorters.win_likelyhood === 0) ? ' hidden' : (sorters.win_likelyhood === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
+                                </div>
+                            </TableColumn>
+                            <TableColumn className='text-white bg-[#238cf4]'>
+                                <div className='flex text-base'
+                                    onClick={() => {
                                         sort("float", "Number")
                                     }}>
                                     <span className='pr-3'>Float</span>
@@ -487,7 +496,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                     onClick={() => {
                                         sort("change_from_the_Close", "Number")
                                     }}>
-                                    <span className='pr-3'>&Delta; Close</span>
+                                    <span className='pr-3'>&Delta; Close%</span>
                                     <FaChevronUp className={(sorters.change_from_the_Close === 0) ? ' hidden' : (sorters.change_from_the_Close === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
                                 </div>
                             </TableColumn>
@@ -496,7 +505,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                     onClick={() => {
                                         sort("change_from_the_Open", "Number")
                                     }}>
-                                    <span className='pr-3'>&Delta; Open</span>
+                                    <span className='pr-3'>&Delta; Open%</span>
                                     <FaChevronUp className={(sorters.change_from_the_Open === 0) ? ' hidden' : (sorters.change_from_the_Open === 1 ? 'rotate-0 transition-all' : 'rotate-180 transition-all')} />
                                 </div>
                             </TableColumn>
@@ -549,6 +558,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                         </TableHeader>
                         <TableBody >
                             <TableRow>
+                                <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
@@ -619,6 +629,7 @@ export default function TickerTable({ setSelectedTicker, data, selectedTicker, s
                                             <TableCell className='font-semibold focus:outline-none'>{record.ticker}</TableCell>
                                             <TableCell>{record.signal_time}</TableCell>
                                             <TableCell>{record.stop_loss.toFixed(2)}</TableCell>
+                                            <TableCell>{record.win_likelyhood.toFixed(2)}</TableCell>
                                             <TableCell>{formatNumber(record.float)}</TableCell>
                                             <TableCell>{formatNumber(record.volume_today || 5)}</TableCell>
                                             <TableCell>{parseFloat(record.change_from_the_Close) ? parseFloat(record?.change_from_the_Close).toFixed(2) : record.change_from_the_Close}</TableCell>
